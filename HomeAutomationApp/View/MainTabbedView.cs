@@ -11,7 +11,7 @@ namespace HomeAutomationApp
 			Title = "Home Automation";
 
 			Children.Add (new HomeView ());
-			Children.Add (new ScenesView ());
+			Children.Add (new ScenesRootView ());
 			Children.Add (new NotificationView ());
 		}
 	}

@@ -10,9 +10,9 @@ using Xamarin.Forms;
 
 namespace HomeAutomationApp
 {
-	public partial class ScenesView : ContentPage
+	public partial class ScenesRootView : ContentPage
 	{
-		public ScenesView ()
+		public ScenesRootView ()
 		{
 			InitializeComponent ();
 
@@ -21,12 +21,12 @@ namespace HomeAutomationApp
 				"Party", "Evening", "Movie Night", "Sleep"
 			};
 
-			scenesView.ItemSelected += async (sender, e) => {
-				var selected = (string)e.SelectedItem;
-				var scenesWithRooms = new ScenesWithRooms(selected);
-				var next  = new RoomsList(scenesWithRooms);
-				await Navigation.PushAsync(next);
-			};
+//			scenesView.ItemSelected += async (sender, e) => {
+//				var selected = (string)e.SelectedItem;
+//				var scenesWithRooms = new ScenesWithRooms(selected);
+//				var next  = new RoomsList(scenesWithRooms);
+//				await Navigation.PushAsync(next);
+//			};
 
 		}
 	}
