@@ -9,6 +9,9 @@ namespace HomeAutomationApp
 	{
 		public RoomListView ()
 		{
+
+			Title = "Rooms";
+
 			var white = new Label
 			{
 				Text = "ROOMS",

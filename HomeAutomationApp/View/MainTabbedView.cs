@@ -12,6 +12,7 @@ namespace HomeAutomationApp
 
 			Children.Add (new HomeView ());
 			Children.Add (new ScenesRootView ());
+			Children.Add (new RoomListView ());
 			Children.Add (new NotificationView ());
 		}
 	}
