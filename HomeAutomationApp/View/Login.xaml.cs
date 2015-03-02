@@ -18,8 +18,7 @@ namespace HomeAutomationApp
 			InitializeComponent ();
 
 			ClickButton.Clicked += (object sender, EventArgs e) => {
-//				mainNav.PushAsync(new ScenesList());
-				Navigation.PushAsync(new ScenesView());
+				Navigation.PushAsync(new MainTabbedView());
 			};
 		}
 	}

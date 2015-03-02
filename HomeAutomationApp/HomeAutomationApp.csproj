@@ -39,14 +39,23 @@
     <Compile Include="View\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScenesView\DevicesList.xaml.cs" />
-    <Compile Include="ScenesView\DevicesPage.xaml.cs" />
-    <Compile Include="ScenesView\Login.xaml.cs" />
-    <Compile Include="ScenesView\RoomsWithDevices.cs" />
-    <Compile Include="ScenesView\ScenesView.xaml.cs" />
-    <Compile Include="ScenesView\ScenesWithRooms.cs" />
-    <Compile Include="ScenesView\HomeAutomationApp.cs" />
-    <Compile Include="ScenesView\RoomsList.xaml.cs" />
+    <Compile Include="View\DevicesList.xaml.cs">
+      <DependentUpon>DevicesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DevicesPage.xaml.cs">
+      <DependentUpon>DevicesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RoomsList.xaml.cs">
+      <DependentUpon>RoomsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RoomsWithDevices.cs" />
+    <Compile Include="View\ScenesView.xaml.cs">
+      <DependentUpon>ScenesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScenesWithRooms.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -60,12 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ScenesView\HomeAutomationApp.csproj" />
-    <None Include="ScenesView\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
-    <Folder Include="ScenesView\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\HomeView.xaml">
@@ -74,10 +80,10 @@
     <EmbeddedResource Include="View\NotificationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScenesView\DevicesList.xaml" />
-    <EmbeddedResource Include="ScenesView\DevicesPage.xaml" />
-    <EmbeddedResource Include="ScenesView\Login.xaml" />
-    <EmbeddedResource Include="ScenesView\ScenesView.xaml" />
-    <EmbeddedResource Include="ScenesView\RoomsList.xaml" />
+    <EmbeddedResource Include="View\DevicesList.xaml" />
+    <EmbeddedResource Include="View\DevicesPage.xaml" />
+    <EmbeddedResource Include="View\Login.xaml" />
+    <EmbeddedResource Include="View\RoomsList.xaml" />
+    <EmbeddedResource Include="View\ScenesView.xaml" />
   </ItemGroup>
 </Project>

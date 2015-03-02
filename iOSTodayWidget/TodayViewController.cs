@@ -5,6 +5,7 @@ using NotificationCenter;
 using Foundation;
 using Social;
 using UIKit;
+using CoreGraphics;
 
 namespace iOSTodayWidget
 {
@@ -27,6 +28,7 @@ namespace iOSTodayWidget
 			base.ViewDidLoad ();
 
 			// Do any additional setup after loading the view.
+			PreferredContentSize = new CGSize (PreferredContentSize.Width, 100f);
 		}
 
 		[Export ("widgetPerformUpdateWithCompletionHandler:")]
