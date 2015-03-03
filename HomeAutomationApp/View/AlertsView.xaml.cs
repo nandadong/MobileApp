@@ -10,6 +10,13 @@ namespace HomeAutomationApp
 		public AlertsView ()
 		{
 			InitializeComponent ();
+
+			Title = "Alerts";
+
+			AlertsList.ItemsSource = new string [] {
+				"Kitchen lights ON",
+				"Main Door unlocked"
+			};
 		}
 	}
 }

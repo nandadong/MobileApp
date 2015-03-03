@@ -20,8 +20,16 @@ namespace HomeAutomationApp
 				WidthRequest = 100,
 			};
 
-			LayoutStack.Children.Add (b);
+			AlertsBtn.BackgroundColor = Color.FromHex ("D9534F");
+			AlertsBtn.TextColor = Color.White;
+
+			AlertsBtn.Clicked += (object sender, EventArgs e) => {
+				Navigation.PushAsync(new AlertsView());
+			};
+
+			LayoutGrid.Children.Add (b);
 		}
+
 	}
 }
 

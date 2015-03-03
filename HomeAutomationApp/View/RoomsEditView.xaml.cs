@@ -12,13 +12,14 @@ namespace HomeAutomationApp
 	{
 		public RoomsEditView ()
 		{
-			var white = new Label
-			{
-				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
-				//BackgroundColor = Color.White,
-				XAlign = TextAlignment.Center,
-				//Font = Font.SystemFontOfSize (20)
-			};
+			Title = "Kitchen";
+//			var white = new Label
+//			{
+//				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
+//				//BackgroundColor = Color.White,
+//				XAlign = TextAlignment.Center,
+//				//Font = Font.SystemFontOfSize (20)
+//			};
 			var listView = new ListView ();
 			listView.ItemTemplate = new DataTemplate (typeof(TweepleCell));
 			listView.ItemsSource = new[] { "Light #1", "Light #2", "Light #3" };
@@ -34,7 +35,7 @@ namespace HomeAutomationApp
 			Content = new StackLayout {
 				//VerticalOptions = LayoutOptions.FillAndExpand,
 				Padding = new Thickness (20),
-				Children = { white, listView, b }
+				Children = { listView, b }
 			};
 		}
 	}

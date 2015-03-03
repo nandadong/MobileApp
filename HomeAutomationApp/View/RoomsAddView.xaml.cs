@@ -9,13 +9,15 @@ namespace HomeAutomationApp
 	{
 		public RoomsAddView ()
 		{
-			var white = new Label
-			{
-				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
-				//BackgroundColor = Color.White,
-				XAlign = TextAlignment.Center,
-				//Font = Font.SystemFontOfSize (20)
-			};
+
+			Title = "Kitchen";
+//			var white = new Label
+//			{
+//				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
+//				//BackgroundColor = Color.White,
+//				XAlign = TextAlignment.Center,
+//				//Font = Font.SystemFontOfSize (20)
+//			};
 
 			var listView = new ListView ();
 			listView.ItemTemplate = new DataTemplate (typeof(deleteCell));
@@ -29,7 +31,7 @@ namespace HomeAutomationApp
 				//VerticalOptions = LayoutOptions.FillAndExpand,
 				Padding = new Thickness (20),
 				Children = {
-					white, listView
+					listView
 				}
 			};
 		}

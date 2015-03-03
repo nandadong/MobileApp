@@ -1,7 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="HomeAutomationApp.HomeView">
-	<ContentPage.Content>
-		<StackLayout x:Name="LayoutStack" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
- 		</StackLayout>
+	<ContentPage.Content HorizontalOptions="CenterAndExpand">
+		<Grid x:Name="LayoutGrid" Padding="10">
+
+   			<Grid.RowDefinitions>
+      			<RowDefinition Height="*" />
+      			<RowDefinition Height="Auto" />
+    		</Grid.RowDefinitions>
+
+    		<Grid.ColumnDefinitions>
+			    <ColumnDefinition Width="*" />
+    		</Grid.ColumnDefinitions>
+
+    		<Button x:Name="AlertsBtn" Grid.Row ="1" Text="Alerts" HorizontalOptions="End" WidthRequest="70"></Button>
+
+  		</Grid>
 	</ContentPage.Content>
 </ContentPage>

@@ -13,13 +13,13 @@ namespace HomeAutomationApp
 
 			Title = "Rooms";
 
-			var white = new Label
-			{
-				Text = "ROOMS",
-				BackgroundColor = Color.White,
-				XAlign = TextAlignment.Center,
-				//Font = Font.SystemFontOfSize (20)
-			};
+//			var white = new Label
+//			{
+//				Text = "ROOMS",
+//				BackgroundColor = Color.White,
+//				XAlign = TextAlignment.Center,
+//				//Font = Font.SystemFontOfSize (20)
+//			};
 
 			var listView = new ListView();
 			listView.ItemsSource = new string [] {
@@ -33,7 +33,7 @@ namespace HomeAutomationApp
 			Content = new StackLayout {
 				//VerticalOptions = LayoutOptions.FillAndExpand,
 				Padding = new Thickness (20),
-				Children = { white, listView }
+				Children = { listView }
 			};
 
 			listView.ItemSelected += async (sender, e) => {
