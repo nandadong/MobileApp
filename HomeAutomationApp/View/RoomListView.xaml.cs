@@ -5,6 +5,7 @@ using Xamarin.Forms;
 
 namespace HomeAutomationApp
 {
+
 	public partial class RoomListView : ContentPage
 	{
 		public RoomListView ()
@@ -12,38 +13,30 @@ namespace HomeAutomationApp
 
 			Title = "Rooms";
 
-//			var white = new Label
-//			{
-//				Text = "ROOMS",
-//				BackgroundColor = Color.White,
-//				XAlign = TextAlignment.Center,
-//				//Font = Font.SystemFontOfSize (20)
-//			};
-
-			var listView = new ListView
+			var white = new Label
 			{
-				RowHeight = 40
+				Text = "ROOMS",
+				BackgroundColor = Color.White,
+				XAlign = TextAlignment.Center,
+				//Font = Font.SystemFontOfSize (20)
 			};
+
+			var listView = new ListView();
 			listView.ItemsSource = new string [] {
 				"Kitchen",
 				"Hall",
-				"Living Room",
-				"Bathroom #1",
-				"Bedroom #1"
+				"Bedroom",
+				"Bathroom",
+				"Living Room"
 			};
-
-			//listView.ItemTemplate = new DataTemplate(typeof(TextCell));
-			//listView.ItemTemplate.SetBinding(TextCell.TextProperty, "Name");
 
 			Content = new StackLayout {
 				//VerticalOptions = LayoutOptions.FillAndExpand,
-//				Padding = new Thickness (20),
-				Children = { listView }
+				Padding = new Thickness (20),
+				Children = { white, listView }
 			};
 
 			listView.ItemSelected += async (sender, e) => {
-				//RoomName k = listView.ItemsSource,
-				//await Navigation.PushAsync(new Edit(k)); 
 				await Navigation.PushAsync (new RoomsEditView());
 			};
 		}

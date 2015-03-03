@@ -9,30 +9,27 @@ namespace HomeAutomationApp
 	{
 		public RoomsAddView ()
 		{
-			Title = "Kitchen";
-
-			var listView = new ListView
+			var white = new Label
 			{
-				RowHeight = 40
-			};
-			listView.ItemsSource = new string [] {
-				"Kitchen",
-				"Hall",
-				"Living Room",
-				"Bathroom #1",
-				"Bedroom #1"
+				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
+				//BackgroundColor = Color.White,
+				XAlign = TextAlignment.Center,
+				//Font = Font.SystemFontOfSize (20)
 			};
 
-			//var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true }; 
-			/*listView.ItemSelected += async (sender, e) => {
-				await
+			var listView = new ListView ();
+			listView.ItemTemplate = new DataTemplate (typeof(deleteCell));
+			listView.ItemsSource = new[] { "Light #1", "Light #2", "Light #3" };
 
-			};*/
+			var b = new Button { Text = "Done" };
+			b.Clicked += async (sender, e) => {
+				//await Navigation.PushAsync (new RoomListView());
+			};
 			Content = new StackLayout { 
 				//VerticalOptions = LayoutOptions.FillAndExpand,
-//				Padding = new Thickness (20),
+				Padding = new Thickness (20),
 				Children = {
-					listView
+					white, listView
 				}
 			};
 		}
