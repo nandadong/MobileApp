@@ -9,6 +9,8 @@ namespace HomeAutomationApp
 	{
 		public RoomsAddView ()
 		{
+			Title = "Kitchen";
+
 			var listView = new ListView
 			{
 				RowHeight = 40
@@ -20,10 +22,7 @@ namespace HomeAutomationApp
 				"Bathroom #1",
 				"Bedroom #1"
 			};
-			var name = new Label
-			{
-				Text = "Kitchen"
-			};
+
 			//var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true }; 
 			/*listView.ItemSelected += async (sender, e) => {
 				await
@@ -31,9 +30,9 @@ namespace HomeAutomationApp
 			};*/
 			Content = new StackLayout { 
 				//VerticalOptions = LayoutOptions.FillAndExpand,
-				Padding = new Thickness (20),
+//				Padding = new Thickness (20),
 				Children = {
-					name, listView
+					listView
 				}
 			};
 		}

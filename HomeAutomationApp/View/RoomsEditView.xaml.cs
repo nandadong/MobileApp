@@ -9,17 +9,19 @@ namespace HomeAutomationApp
 	{
 		public RoomsEditView ()
 		{
+			Title = "Room Detail";
+
 			var next = new Button { Text = "Edit" };
 			next.Clicked += async (sender, e) => {
 				await Navigation.PushAsync (new RoomsAddView());
 			};
-			var white = new Label
-			{
-				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
-				//BackgroundColor = Color.White,
-				XAlign = TextAlignment.Center,
-				//Font = Font.SystemFontOfSize (20)
-			};
+//			var white = new Label
+//			{
+//				Text = /*k.Name*/"Kitchen", //this will change depending on the room clicked
+//				//BackgroundColor = Color.White,
+//				XAlign = TextAlignment.Center,
+//				//Font = Font.SystemFontOfSize (20)
+//			};
 			var listView = new ListView
 			{
 				RowHeight = 40
@@ -40,8 +42,8 @@ namespace HomeAutomationApp
 			//MainPage = new ContentPage {
 			Content = new StackLayout {
 				//VerticalOptions = LayoutOptions.FillAndExpand,
-				Padding = new Thickness (20),
-				Children = { white, listView, b }
+//				Padding = new Thickness (20),
+				Children = { listView, b }
 			};
 		}
 	}
