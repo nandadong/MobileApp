@@ -13,6 +13,14 @@ namespace HomeAutomationApp
 			InitializeComponent ();
 
 			Title = "Home";
+
+			var b = new Button () {
+				Image = "Mic.png",
+				HeightRequest = 100,
+				WidthRequest = 100,
+			};
+
+			LayoutStack.Children.Add (b);
 		}
 	}
 }

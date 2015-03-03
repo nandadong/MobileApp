@@ -10,7 +10,7 @@ namespace HomeAutomationApp
 		{
 			// The root page of your application
 //			MainPage = new MainTabbedView ();
-			MainPage = new NavigationPage (new Login());
+			MainPage = new NavigationPage(new Login());
 		}
 
 		protected override void OnStart ()
