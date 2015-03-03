@@ -4,15 +4,21 @@
 	<ContentPage.Content>
 	</ContentPage.Content>
 
-	<StackLayout Padding="40"
-				 Spacing="20"
-				 VerticalOptions="CenterAndExpand"
-				>
-		<Label Text="User Login" Font="20"/>
+	<StackLayout VerticalOptions = "LayoutOptions.Center" 
+	Spacing = "20" Padding = "50">
 
-		<Entry Placeholder="Username"/>
-		<Entry Placeholder="Password" IsPassword="true"></Entry>
+		<Entry 
+		Placeholder = "Username" />
 
-		<Button x:Name="ClickButton" Text="Submit"/>
+		<Entry
+		Placeholder = "Password" 
+		IsPassword = "true" />
+
+		<Button
+		x:Name="ClickButton"
+		Text = "Login"
+		TextColor = "White"
+		BackgroundColor = "#77D065" />
+
 	</StackLayout>
 </ContentPage>
