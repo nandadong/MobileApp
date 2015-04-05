@@ -14,7 +14,7 @@ namespace HomeAutomationApp.iOS
 		{
 			global::Xamarin.Forms.Forms.Init ();
 
-			LoadApplication (new App ());
+			LoadApplication (new App ("1", "2", "3", "4", "5"));
 
 			return base.FinishedLaunching (app, options);
 		}

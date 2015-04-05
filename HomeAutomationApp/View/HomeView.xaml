@@ -12,7 +12,7 @@
 			    <ColumnDefinition Width="*" />
     		</Grid.ColumnDefinitions>
 
-    		<Button x:Name="AlertsBtn" Grid.Row ="1" Text="Alerts" HorizontalOptions="End" WidthRequest="70"></Button>
+    		<Button x:Name="AlertsBtn" Grid.Row ="1" Text="Alerts" HorizontalOptions="End" WidthRequest="80"></Button>
 
   		</Grid>
 	</ContentPage.Content>
