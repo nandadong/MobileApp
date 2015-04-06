@@ -18,7 +18,7 @@ namespace HomeAutomationApp
 			
 		public class JsonEvents
 		{
-			public string time { get; set; }
+			public DateTime time { get; set; }
 			public string key { get; set; }
 			public JsonGps value { get; set; }
 		}
@@ -52,7 +52,7 @@ namespace HomeAutomationApp
 			"   }," +
 			"	events : [" +
 			"		{" +
-			"			time : \"simulated second - logical timestamp\"," +
+			"			time : \"1997-07-16T19:20:30+01:00\"," +
 			"			key : \"locationChange\"," +
 				"		value : {" +
 			"				lat : 1.123456," +
@@ -84,7 +84,7 @@ namespace HomeAutomationApp
 
 			// add events to list iterating over each event
 			foreach (JsonEvents item in timeline.events) {
-				timelineList.Add ("Event Time: " + item.time);
+				timelineList.Add ("Event Time: " + item.time.ToString());
 				timelineList.Add ("Event Key: " + item.key);
 				timelineList.Add ("Event Lat: " + item.value.lat.ToString ());
 				timelineList.Add ("Event Lon: " + item.value.lon.ToString ());
