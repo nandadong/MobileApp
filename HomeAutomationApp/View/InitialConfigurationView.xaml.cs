@@ -23,9 +23,16 @@ namespace HomeAutomationApp
 			public JsonGps value { get; set; }
 		}
 
+		public class JsonTimeFrame
+		{
+			public DateTime wall { get; set; }
+			public DateTime sim { get; set; }
+			public double rate { get; set; }
+		}
+
 		public class JsonTimeline
 		{
-			public int timeFactor { get; set; }
+			public JsonTimeFrame timeFrame { get; set; }
 			public List<JsonEvents> events { get; set; }
 		}
 
@@ -38,7 +45,11 @@ namespace HomeAutomationApp
 			// JSON timeline information
 			const string jsonTimelineString =
 			"{" +
-			"	timeFactor : 200," +
+			"	timeFrame : {" +
+			"	    wall: \"1997-07-16T19:20:30+01:00\"," +
+			"	    sim: \"1997-07-16T19:20:30+01:00\"," +
+			"	    rate: 2.0" +
+			"   }," +
 			"	events : [" +
 			"		{" +
 			"			time : \"simulated second - logical timestamp\"," +
@@ -65,9 +76,12 @@ namespace HomeAutomationApp
 			var timelineListView = new ListView();
 			var timelineList = new List<string> {};
 
-			// add timefactor to list
-			timelineList.Add ( "Time Factor: " + timeline.timeFactor.ToString() );
-		
+			// add timeframe to list
+			timelineList.Add ("Timeframe Wall: " + timeline.timeFrame.wall.ToString ());
+			timelineList.Add ("Timeframe Sim: " + timeline.timeFrame.sim.ToString ());
+			timelineList.Add ("Timeframe Rate: " + timeline.timeFrame.rate.ToString ());
+
+
 			// add events to list iterating over each event
 			foreach (JsonEvents item in timeline.events) {
 				timelineList.Add ("Event Time: " + item.time);
