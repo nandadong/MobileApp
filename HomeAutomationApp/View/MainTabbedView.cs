@@ -10,10 +10,19 @@ namespace HomeAutomationApp
 		{
 			Title = "Home Automation";
 
+
+			// TODO: make if in simulated mode
+			if (true)
+			{
+				Children.Add (new InitialConfigurationView ());
+			}
+
+
 			Children.Add (new HomeView ());
 			Children.Add (new ScenesRootView ());
 			Children.Add (new RoomListView ());
 			Children.Add (new NotificationView ());
+
 		}
 	}
 }
