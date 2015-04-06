@@ -25,7 +25,7 @@ namespace HomeAutomationApp
 
 		public class JsonTimeline
 		{
-			public string timeFactor { get; set; }
+			public int timeFactor { get; set; }
 			public List<JsonEvents> events { get; set; }
 		}
 
@@ -38,7 +38,7 @@ namespace HomeAutomationApp
 			// JSON timeline information
 			const string jsonTimelineString =
 			"{" +
-			"	timeFactor : \"200ms = 1s\"," +
+			"	timeFactor : 200," +
 			"	events : [" +
 			"		{" +
 			"			time : \"simulated second - logical timestamp\"," +
@@ -66,7 +66,7 @@ namespace HomeAutomationApp
 			var timelineList = new List<string> {};
 
 			// add timefactor to list
-			timelineList.Add ( "Time Factor: " + timeline.timeFactor );
+			timelineList.Add ( "Time Factor: " + timeline.timeFactor.ToString() );
 		
 			// add events to list iterating over each event
 			foreach (JsonEvents item in timeline.events) {
