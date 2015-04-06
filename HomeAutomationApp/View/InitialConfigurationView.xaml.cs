@@ -8,78 +8,84 @@ namespace HomeAutomationApp
 	public partial class InitialConfigurationView : ContentPage
 	{
 
-		public class JSONCoordinates
+		// classes for timeline blob
+		public class JsonGps
 		{
-			public string x { get; set; }
-			public string y { get; set; }
-			public string z { get; set; }
-
+			public double lat { get; set; }
+			public double lon { get; set; }
+			public double alt { get; set; }
+		}
+			
+		public class JsonEvents
+		{
+			public string time { get; set; }
+			public string key { get; set; }
+			public JsonGps value { get; set; }
 		}
 
-		public class JSONUsers
+		public class JsonTimeline
 		{
-			public string Username { get; set; }
-			public int UserID { get; set; }
-			public string Password { get; set; }
-			public JSONCoordinates coordinates { get; set; }
-		}
-
-		public class JSONConfiguration
-		{
-			public string storageLocation { get; set; }
-			public List<JSONUsers> users { get; set; }
+			public string timeFactor { get; set; }
+			public List<JsonEvents> events { get; set; }
 		}
 
 
+		// Initiate classes and GUI
 		public InitialConfigurationView ()
 		{
 			InitializeComponent ();
 
-			const string json = 
-				"{" +
-				"	\"storageLocation\" : \"123.45.67.890\"," +
-				"	\"users\" : [{ \"Username\":\"John\", \"UserID\":369, \"Password\":\"MyPass\", \"Coordinates\": { \"x\":\"1.123456\", \"y\":\"2.123456\", \"z\":\"3.123456\"}}," +
-				"		         { \"Username\":\"Jacob\",\"UserID\":123, \"Password\":\"HisPass\", \"Coordinates\": { \"x\":\"4.123456\", \"y\":\"5.123456\", \"z\":\"6.123456\"}" +
-				"   }]" +
-				"}";
+			// JSON timeline information
+			const string jsonTimelineString =
+			"{" +
+			"	timeFactor : \"200ms = 1s\"," +
+			"	events : [" +
+			"		{" +
+			"			time : \"simulated second - logical timestamp\"," +
+			"			key : \"locationChange\"," +
+				"		value : {" +
+			"				lat : 1.123456," +
+			"				lon : 2.123456," +
+			"				alt : 3.123456" +
+				"		}" +
+			"		}" +
+			"	]" +
+			"}";
 
-			// Deserialize the JSON placing information in their associated class
-			var myConfig = JsonConvert.DeserializeObject<JSONConfiguration> (json);
+			// deserialize the JSON for the timeline
+			var timeline = JsonConvert.DeserializeObject<JsonTimeline> (jsonTimelineString);
 
-	
 			// warning that this is a tab for simulation use only
-			var myLabel = new Label {
-				Text = "! This tab is for simulation use only !",
+			var timelineListLabel = new Label {
+				Text = "Sim use only: Timeline Information",
 				TextColor = Color.Red
 			};
+					
+			// create list of timeline values
+			var timelineListView = new ListView();
+			var timelineList = new List<string> {};
 
-
-			// create a list to display the configuration information
-			var listView = new ListView ();
-			var myList = new List<string> {
-				"Storage location: " + myConfig.storageLocation
-			};
-
-
-			// append the config values to the list
-			foreach (JSONUsers item in myConfig.users) {
-				myList.Add ("Username: " + item.Username);
-				myList.Add ("User ID: " + item.UserID.ToString ());
-				myList.Add ("User Password: " + item.Password);
-				myList.Add ("User Location: Lat " + item.coordinates.x + ", Lon " + item.coordinates.y + ", Alt " + item.coordinates.z);
-
-
+			// add timefactor to list
+			timelineList.Add ( "Time Factor: " + timeline.timeFactor );
+		
+			// add events to list iterating over each event
+			foreach (JsonEvents item in timeline.events) {
+				timelineList.Add ("Event Time: " + item.time);
+				timelineList.Add ("Event Key: " + item.key);
+				timelineList.Add ("Event Lat: " + item.value.lat.ToString ());
+				timelineList.Add ("Event Lon: " + item.value.lon.ToString ());
+				timelineList.Add ("Event Alt: " + item.value.alt.ToString ());
 			}
 
-			// set the list of config values to that will be displayed
-			listView.ItemsSource = myList;
+			// set the timeline list to timeline view
+			timelineListView.ItemsSource = timelineList;
 
 			// load the components to the layout
 			Content = new StackLayout { 
 				Padding = new Thickness (20),
 				Children = {
-					myLabel,
-					listView
+					timelineListLabel,
+					timelineListView
 				}
 			};
 					
