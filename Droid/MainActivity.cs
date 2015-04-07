@@ -14,6 +14,27 @@ namespace HomeAutomationApp.Droid
 	[Activity (Label = "HomeAutomationApp.Droid", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
+		// JSON timeline information
+		const string jsonTimelineString =
+			"{" +
+			"	timeFrame : {" +
+			"	    wall: \"1997-07-16T19:20:30+01:00\"," +
+			"	    sim: \"1997-07-16T19:20:30+01:00\"," +
+			"	    rate: 2.0" +
+			"   }," +
+			"	events : [" +
+			"		{" +
+			"			time : \"1997-07-16T19:20:30+01:00\"," +
+			"			key : \"locationChange\"," +
+			"		value : {" +
+			"				lat : 1.123456," +
+			"				lon : 2.123456," +
+			"				alt : 3.123456" +
+			"		}" +
+			"		}" +
+			"	]" +
+			"}";
+		
 		protected override void OnCreate (Bundle savedState)
 		{
 			base.OnCreate (savedState);
@@ -24,7 +45,7 @@ namespace HomeAutomationApp.Droid
 				bundle = new Bundle ();
 				bundle.PutString ("MODE", "SIM");
 				bundle.PutString ("CONFIG", "1");
-				bundle.PutString ("TIMELINE", "2");
+				bundle.PutString ("TIMELINE", jsonTimelineString);
 				bundle.PutString ("USER", "3");
 				bundle.PutString ("PASS", "4");
 			}

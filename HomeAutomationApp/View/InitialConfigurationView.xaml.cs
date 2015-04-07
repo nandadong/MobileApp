@@ -2,69 +2,26 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using System.Net;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Text;
+using System.Diagnostics;
 
 namespace HomeAutomationApp
 {
 	public partial class InitialConfigurationView : ContentPage
 	{
-
-		// classes for timeline blob
-		public class JsonGps
-		{
-			public double lat { get; set; }
-			public double lon { get; set; }
-			public double alt { get; set; }
-		}
-			
-		public class JsonEvents
-		{
-			public DateTime time { get; set; }
-			public string key { get; set; }
-			public JsonGps value { get; set; }
-		}
-
-		public class JsonTimeFrame
-		{
-			public DateTime wall { get; set; }
-			public DateTime sim { get; set; }
-			public double rate { get; set; }
-		}
-
-		public class JsonTimeline
-		{
-			public JsonTimeFrame timeFrame { get; set; }
-			public List<JsonEvents> events { get; set; }
-		}
-
-
+		
 		// Initiate classes and GUI
 		public InitialConfigurationView ()
 		{
 			InitializeComponent ();
 
-			// JSON timeline information
-			const string jsonTimelineString =
-			"{" +
-			"	timeFrame : {" +
-			"	    wall: \"1997-07-16T19:20:30+01:00\"," +
-			"	    sim: \"1997-07-16T19:20:30+01:00\"," +
-			"	    rate: 2.0" +
-			"   }," +
-			"	events : [" +
-			"		{" +
-			"			time : \"1997-07-16T19:20:30+01:00\"," +
-			"			key : \"locationChange\"," +
-				"		value : {" +
-			"				lat : 1.123456," +
-			"				lon : 2.123456," +
-			"				alt : 3.123456" +
-				"		}" +
-			"		}" +
-			"	]" +
-			"}";
+			string jsonTimelineString = InitParameters.getInstance ().Timeline;
 
 			// deserialize the JSON for the timeline
-			var timeline = JsonConvert.DeserializeObject<JsonTimeline> (jsonTimelineString);
+			var timeline = JsonConvert.DeserializeObject<UpdateLocationSimModel.JsonTimeline> (jsonTimelineString);
 
 			// warning that this is a tab for simulation use only
 			var timelineListLabel = new Label {
@@ -83,12 +40,20 @@ namespace HomeAutomationApp
 
 
 			// add events to list iterating over each event
-			foreach (JsonEvents item in timeline.events) {
+			foreach (UpdateLocationSimModel.JsonEvents item in timeline.events) {
 				timelineList.Add ("Event Time: " + item.time.ToString());
 				timelineList.Add ("Event Key: " + item.key);
 				timelineList.Add ("Event Lat: " + item.value.lat.ToString ());
 				timelineList.Add ("Event Lon: " + item.value.lon.ToString ());
 				timelineList.Add ("Event Alt: " + item.value.alt.ToString ());
+
+				var blob = new UpdateLocationSimModel.UpdatePositonBlob ();
+				blob.lat = item.value.lat;
+				blob.lon = item.value.lon;
+				blob.alt = item.value.alt;
+				blob.time = item.time;
+
+				SendPositionAsync (JsonConvert.SerializeObject(blob)).Wait ();
 			}
 
 			// set the timeline list to timeline view
@@ -101,10 +66,35 @@ namespace HomeAutomationApp
 					timelineListLabel,
 					timelineListView
 				}
-			};
-					
+			};				
 		}
 			
-	}
-}
+		public async Task<object> SendPositionAsync (string packet) {
 
+			var client = new HttpClient ();
+			client.Timeout = TimeSpan.FromSeconds (10);
+
+//			client.BaseAddress = new Uri("http://5574serverapi.azurewebsites.net/api/");
+
+			try
+			{
+				var response = await client.PostAsync("http://5574serverapi.azurewebsites.net/api/user/updateposition/user1", 
+					new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
+
+				return response.StatusCode;
+
+			}
+			catch(Exception e)
+			{
+				Debug.WriteLine(e.Message);
+				Debug.WriteLine(e.InnerException.Message);
+			}
+
+			return null;
+		}
+	}
+
+
+
+}
+	

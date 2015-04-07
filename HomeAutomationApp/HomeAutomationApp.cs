@@ -12,6 +12,9 @@ namespace HomeAutomationApp
 		{
 			// The root page of your application
 //			MainPage = new MainTabbedView ();
+
+			InitParameters.setInstance (mode, config, timeline, user, password);
+
 			MainPage = new NavigationPage(new Login());
 
 			Debug.WriteLine ("Mode is: " + mode);
