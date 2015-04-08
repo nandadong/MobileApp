@@ -8,9 +8,11 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Util;
+using Gcm.Client;
 
 namespace HomeAutomationApp.Droid
 {
+	
 	[Activity (Label = "HomeAutomationApp.Droid", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
@@ -42,7 +44,18 @@ namespace HomeAutomationApp.Droid
 		
 		protected override void OnCreate (Bundle savedState)
 		{
+			Log.Info("GCM-Client", "HELLO");
+
 			base.OnCreate (savedState);
+
+			GcmClient.CheckDevice(this);
+			GcmClient.CheckManifest(this);
+
+			//Get the stored latest registration id
+			GcmClient.Register(this, MyGCMBroadcastReceiver.SENDER_IDS);
+			var registrationId = GcmClient.GetRegistrationId(this);
+			Log.Info("GCM-Client", "Registered with this ID: " + registrationId);
+			
 
 			Bundle bundle = Intent.Extras;
 

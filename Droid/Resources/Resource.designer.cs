@@ -26,6 +26,7 @@ namespace HomeAutomationApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Gcm.Client.Resource.String.library_name = global::HomeAutomationApp.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Labs.Droid.Resource.Color.calendar_active_month_bg = global::HomeAutomationApp.Droid.Resource.Color.calendar_active_month_bg;
 			global::Xamarin.Forms.Labs.Droid.Resource.Color.calendar_bg = global::HomeAutomationApp.Droid.Resource.Color.calendar_bg;
 			global::Xamarin.Forms.Labs.Droid.Resource.Color.calendar_divider = global::HomeAutomationApp.Droid.Resource.Color.calendar_divider;
