@@ -3,6 +3,8 @@
 using Xamarin.Forms;
 using System.Collections;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace HomeAutomationApp
 {
@@ -14,6 +16,9 @@ namespace HomeAutomationApp
 //			MainPage = new MainTabbedView ();
 
 			InitParameters.setInstance (mode, config, timeline, user, password);
+
+			var configObj = JsonConvert.DeserializeObject<JObject> (config);
+			ConfigModel.Url = configObj.GetValue ("serverLocation").ToString();
 
 			MainPage = new NavigationPage(new Login());
 

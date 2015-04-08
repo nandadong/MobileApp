@@ -74,11 +74,11 @@ namespace HomeAutomationApp
 			var client = new HttpClient ();
 			client.Timeout = TimeSpan.FromSeconds (10);
 
-//			client.BaseAddress = new Uri("http://5574serverapi.azurewebsites.net/api/");
+			client.BaseAddress = new Uri(ConfigModel.Url);
 
 			try
 			{
-				var response = await client.PostAsync("http://5574serverapi.azurewebsites.net/api/user/updateposition/user1", 
+				var response = await client.PostAsync("api/user/updateposition/user1", 
 					new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 
 				return response.StatusCode;

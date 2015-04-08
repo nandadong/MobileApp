@@ -34,6 +34,11 @@ namespace HomeAutomationApp.Droid
 			"		}" +
 			"	]" +
 			"}";
+
+		const string jsonConfigString = 
+			"{" +
+				"serverLocation : \"5574serverapi.azurewebsites.net\" " +
+			"}";
 		
 		protected override void OnCreate (Bundle savedState)
 		{
@@ -44,10 +49,10 @@ namespace HomeAutomationApp.Droid
 			if (bundle == null) {
 				bundle = new Bundle ();
 				bundle.PutString ("MODE", "SIM");
-				bundle.PutString ("CONFIG", "1");
+				bundle.PutString ("CONFIG", jsonConfigString);
 				bundle.PutString ("TIMELINE", jsonTimelineString);
-				bundle.PutString ("USER", "3");
-				bundle.PutString ("PASS", "4");
+				bundle.PutString ("USER", "user1");
+				bundle.PutString ("PASS", "password");
 			}
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
