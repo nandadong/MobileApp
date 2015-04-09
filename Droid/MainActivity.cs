@@ -39,7 +39,7 @@ namespace HomeAutomationApp.Droid
 
 		const string jsonConfigString = 
 			"{" +
-				"serverLocation : \"5574serverapi.azurewebsites.net\" " +
+			"serverLocation : \"http://52.5.199.161:80/\" " +
 			"}";
 		
 		protected override void OnCreate (Bundle savedState)
