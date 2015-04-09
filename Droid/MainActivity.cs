@@ -39,7 +39,7 @@ namespace HomeAutomationApp.Droid
 
 		const string jsonConfigString = 
 			"{" +
-			"serverLocation : \"http://52.5.199.161:80/\" " +
+			"serverLocation : \"http://52.1.192.214/\" " +
 			"}";
 		
 		protected override void OnCreate (Bundle savedState)
@@ -68,10 +68,13 @@ namespace HomeAutomationApp.Droid
 				bundle.PutString ("PASS", "password");
 			}
 
-			global::Xamarin.Forms.Forms.Init (this, bundle);
+			global::Xamarin.Forms.Forms.Init (this, savedState);
 
-			LoadApplication (new App (bundle.Get("MODE").ToString(), bundle.Get("CONFIG").ToString(),
-				bundle.Get("TIMELINE").ToString(),  bundle.Get("USER").ToString(), bundle.Get("PASS").ToString() ));
+			LoadApplication (new App (bundle.Get("MODE").ToString(), 
+				bundle.Get("CONFIG").ToString(),
+				bundle.Get("TIMELINE").ToString(),  
+				bundle.Get("USER").ToString(), 
+				bundle.Get("PASS").ToString() ));
 		}
 	}
 }

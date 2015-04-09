@@ -20,7 +20,7 @@ namespace HomeAutomationApp
 			var configObj = JsonConvert.DeserializeObject<JObject> (config);
 			ConfigModel.Url = configObj.GetValue ("serverLocation").ToString();
 
-			MainPage = new NavigationPage(new Login());
+			MainPage = new NavigationPage(new MainTabbedView());
 
 			Debug.WriteLine ("Mode is: " + mode);
 		}

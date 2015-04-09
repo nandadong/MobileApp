@@ -54,6 +54,8 @@ namespace HomeAutomationApp
 				blob.time = item.time;
 
 				SendPositionAsync (JsonConvert.SerializeObject(blob)).Wait ();
+
+				Debug.WriteLine("HomeAutomationDebug - Position Updated: " + JsonConvert.SerializeObject(blob));
 			}
 
 			// set the timeline list to timeline view
@@ -86,12 +88,13 @@ namespace HomeAutomationApp
 			}
 			catch(Exception e)
 			{
-				Debug.WriteLine(e.Message);
-				Debug.WriteLine(e.InnerException.Message);
+				Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.Message);
+				Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.InnerException.Message);
 			}
 
 			return null;
 		}
+
 	}
 
 
