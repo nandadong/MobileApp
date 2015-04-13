@@ -40,4 +40,10 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HomeAutomationApp\HomeAutomationApp.csproj">
+      <Project>{AC72CBBA-8794-44B3-9B9C-590824A63CA6}</Project>
+      <Name>HomeAutomationApp</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
