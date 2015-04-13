@@ -17,6 +17,7 @@ namespace HomeAutomationApp
 				Children.Add (new InitialConfigurationView ());
 			}
 
+			Children.Add (new AddDeviceView ());
 			Children.Add (new LocationView ());
 			Children.Add (new HomeView ());
 			Children.Add (new ScenesRootView ());
