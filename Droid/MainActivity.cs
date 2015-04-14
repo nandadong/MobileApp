@@ -9,6 +9,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Gcm.Client;
+using Android.Speech;
 
 namespace HomeAutomationApp.Droid
 {
@@ -75,6 +76,32 @@ namespace HomeAutomationApp.Droid
 				bundle.Get("TIMELINE").ToString(),  
 				bundle.Get("USER").ToString(), 
 				bundle.Get("PASS").ToString() ));
+		}
+
+		protected override void OnActivityResult(int requestCode, Result resultVal, Intent data)
+		{
+			if (requestCode == 10)
+			{
+				if (resultVal == Result.Ok)
+				{
+					var matches = data.GetStringArrayListExtra(RecognizerIntent.ExtraResults);
+					if (matches.Count != 0)
+					{
+						//string textInput = textBox.Text + matches[0];
+
+						// limit the output to 500 characters
+						//if (textInput.Length > 500)
+						//	textInput = textInput.Substring(0, 500);
+						//textBox.Text = textInput;
+					}
+					//else
+						//textBox.Text = "No speech was recognised";
+					// change the text back on the button
+					//recButton.Text = "Start Recording";
+				}
+			}
+
+			base.OnActivityResult(requestCode, resultVal, data);
 		}
 	}
 }

@@ -14,10 +14,10 @@ namespace HomeAutomationApp
 			// TODO: make if in simulated mode
 			if (true)
 			{
-				Children.Add (new InitialConfigurationView ());
+				Children.Add (new Login ());
 			}
 
-			Children.Add (new AddDeviceView ());
+			//Children.Add (new AddDeviceView ());
 			Children.Add (new LocationView ());
 			Children.Add (new HomeView ());
 			Children.Add (new ScenesRootView ());
