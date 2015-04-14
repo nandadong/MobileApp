@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using Newtonsoft.Json;
 
 namespace HomeAutomationApp
 {
@@ -33,9 +34,9 @@ namespace HomeAutomationApp
 
 			// create entries for device name and room id
 			var deviceEntry = new Entry();
-			var roomEntry = new Entry ();
+			var spaceEntry = new Entry ();
 			deviceEntry.Placeholder = "New Device Name";
-			roomEntry.Placeholder = "New Room ID";
+			spaceEntry.Placeholder = "New Space ID";
 
 			// create button for pushing device settings
 			var deviceButton = new Button();
@@ -55,7 +56,7 @@ namespace HomeAutomationApp
 				Children = {
 					devicePicker,
 					deviceEntry,
-					roomEntry,
+					spaceEntry,
 					deviceButton,
 					confirmationLabel
 				}
@@ -64,14 +65,14 @@ namespace HomeAutomationApp
 			// handling of button press
 			deviceButton.Clicked += (object sender, EventArgs e) => {
 
-				if ( (deviceEntry.Text) != "" && (roomEntry.Text != "") ){
+				if ( (deviceEntry.Text) != "" && (spaceEntry.Text != "") ){
 					confirmationLabel.TextColor = Color.Green;
-					confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew room ID: " + roomEntry.Text + ".";
+					confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew room ID: " + spaceEntry.Text + ".";
 
 
 					// user input can be referenced using:
 					// deviceEntry.Text
-					// roomEntry.Text
+					// spaceEntry.Text
 
 				
 				} else {
@@ -84,8 +85,8 @@ namespace HomeAutomationApp
 		}
 
 
-		/*
 
+		/*
 		//please make the spaceID and deviceName user inputs
 		const string blob =  
 		"{" +
@@ -121,8 +122,9 @@ namespace HomeAutomationApp
 
 			return null;
 		}
-
 		*/
+	
+
 	}
 }
 
