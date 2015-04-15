@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿//using System;
+
+//using System;
 //using System.Collections.Generic;
 //using Xamarin.Forms;
 //
@@ -127,8 +127,7 @@
 //	}
 //}
 //
-=======
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Newtonsoft.Json;
@@ -257,5 +256,4 @@ namespace HomeAutomationApp
 
 	}
 }
-
->>>>>>> origin/master
+	
