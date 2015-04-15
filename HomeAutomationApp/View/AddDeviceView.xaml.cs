@@ -131,7 +131,7 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Newtonsoft.Json;
-
+//using api
 namespace HomeAutomationApp
 {
 	public partial class AddDeviceView : ContentPage
@@ -222,9 +222,21 @@ namespace HomeAutomationApp
 		"		deviceID : 5 ", +
 		"		DeviceName: \"light\","+
 		"		HouseID: 6,"+
-		"		SpaceID: 7,"+
+		"		room_id: 7,"+
 		"}";
 
+		Interfaces interface1 = new Interfaces ();
+		interface1.registerDevice(Uri address, string name, string type, UInt64 house_id, UInt64 room_id = 0);	
+		//after this we have to pass a value to the server saying that the room is invalidated
+
+
+
+
+
+
+
+
+		//initial idea of registering and posting the devices direclty to the server
 		PostDeviceAsync (JsonConvert.SerializeObject(blob)).Wait ();
 
 		public async Task<object> PostDeviceAsync (string packet) 
