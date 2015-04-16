@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Util;
 using Gcm.Client;
 using Android.Speech;
+using api;
 
 namespace HomeAutomationApp.Droid
 {
@@ -56,8 +57,8 @@ namespace HomeAutomationApp.Droid
 			GcmClient.Register(this, MyGCMBroadcastReceiver.SENDER_IDS);
 			var registrationId = GcmClient.GetRegistrationId(this);
 			Log.Info("GCM-Client", "Registered with this ID: " + registrationId);
-			
 
+			api.Interfaces inter = new api.Interfaces();
 			Bundle bundle = Intent.Extras;
 
 			if (bundle == null) {
@@ -75,7 +76,7 @@ namespace HomeAutomationApp.Droid
 				bundle.Get("CONFIG").ToString(),
 				bundle.Get("TIMELINE").ToString(),  
 				bundle.Get("USER").ToString(), 
-				bundle.Get("PASS").ToString() ));
+				bundle.Get("PASS").ToString()));
 		}
 
 		protected override void OnActivityResult(int requestCode, Result resultVal, Intent data)
@@ -94,8 +95,16 @@ namespace HomeAutomationApp.Droid
 						// limit the output to 500 characters
 						if (textInput.Length > 500)
 							textInput = textInput.Substring(0, 500);
-						if(textInput.ToLower().Equals("make it brighter near me"))
+						if (textInput.ToLower ().Equals ("make it brighter near me")) {
 							textBox.Text = textInput;
+							List<Device> current_devices = inter.getDevices (0);
+							foreach (Device dev in current_devices) {
+								IEnableable<Light> light = dev as IEnableable<Light>;
+								if (light != null) {
+									light.Enabled = !light.Enabled; //toggles light state immediately
+								}
+							}
+						}
 						else
 							textBox.Text = "No Command Recognized";
 					}
