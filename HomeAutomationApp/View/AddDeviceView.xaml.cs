@@ -64,18 +64,24 @@ namespace HomeAutomationApp
 					confirmationLabel
 				}
 			};
-			/*Interfaces deviceInter = new Interfaces(new Uri(ConfigModel.Url));
-			List<Device> current_devices = deviceInter.getDevices(2);       // 2 is the house ID
 
-			foreach (Device dev in current_devices)
+			/*
+			const UInt64 HouseID = 2;       // 2 is the house ID
+			Interfaces deviceInter = new Interfaces(new Uri(ConfigModel.Url)); //this URL is the server URL
+			List<string> current_devices = deviceInter.enumerateDevices(HouseID);
 
+			List<Device> new_devices = new List<Device>();
+			foreach (string dev in current_devices)
 			{
-				if (dev.FullID(RoomID)=0)	
+				//device_name and room_id are user supplied
+				var new_device = deviceInter.registerDevice(device_name, HouseID, room_id, dev);
+				if(new_device != null)
 				{
-					// register device
+					new_devices.Add(new_device);
 				}
 			}
 			*/
+
 			// handling of button press
 			deviceButton.Clicked += (object sender, EventArgs e) => {
 
