@@ -9,7 +9,7 @@ using api;
 namespace HomeAutomationApp
 {
 	public partial class AddDeviceView : ContentPage
-	{
+	{	
 		public AddDeviceView ()
 		{
 			InitializeComponent ();
@@ -64,7 +64,18 @@ namespace HomeAutomationApp
 					confirmationLabel
 				}
 			};
+			/*Interfaces deviceInter = new Interfaces(new Uri(ConfigModel.Url));
+			List<Device> current_devices = deviceInter.getDevices(2);       // 2 is the house ID
 
+			foreach (Device dev in current_devices)
+
+			{
+				if (dev.FullID(RoomID)=0)	
+				{
+					// register device
+				}
+			}
+			*/
 			// handling of button press
 			deviceButton.Clicked += (object sender, EventArgs e) => {
 
