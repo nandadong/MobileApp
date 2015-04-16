@@ -182,17 +182,23 @@ namespace HomeAutomationApp.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080002
-			public const int calendar_grid = 2131230722;
+			// aapt resource value: 0x7f080004
+			public const int calendar_grid = 2131230724;
 			
 			// aapt resource value: 0x7f080000
 			public const int calendar_view = 2131230720;
 			
-			// aapt resource value: 0x7f080003
-			public const int notifyBtn = 2131230723;
-			
 			// aapt resource value: 0x7f080001
-			public const int title = 2131230721;
+			public const int micButton = 2131230721;
+			
+			// aapt resource value: 0x7f080002
+			public const int myTextBox = 2131230722;
+			
+			// aapt resource value: 0x7f080005
+			public const int notifyBtn = 2131230725;
+			
+			// aapt resource value: 0x7f080003
+			public const int title = 2131230723;
 			
 			static Id()
 			{
@@ -214,13 +220,16 @@ namespace HomeAutomationApp.Droid
 			public const int dialog = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int month = 2130903042;
+			public const int HomeLayout = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int NotificationLayout = 2130903043;
+			public const int month = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int week = 2130903044;
+			public const int NotificationLayout = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int week = 2130903045;
 			
 			static Layout()
 			{

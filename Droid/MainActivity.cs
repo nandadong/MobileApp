@@ -12,6 +12,7 @@ using Gcm.Client;
 using Android.Speech;
 
 using api;
+using System.Collections.Generic;
 
 namespace HomeAutomationApp.Droid
 {
@@ -59,7 +60,7 @@ namespace HomeAutomationApp.Droid
 			var registrationId = GcmClient.GetRegistrationId(this);
 			Log.Info("GCM-Client", "Registered with this ID: " + registrationId);
 
-//			api.Interfaces inter = new api.Interfaces();
+//			api.Interfaces inter = new api.Interfaces(new Uri());
 			Bundle bundle = Intent.Extras;
 
 			if (bundle == null) {
@@ -98,13 +99,13 @@ namespace HomeAutomationApp.Droid
 							textInput = textInput.Substring(0, 500);
 						if (textInput.ToLower ().Equals ("make it brighter near me")) {
 							textBox.Text = textInput;
-							List<Device> current_devices = inter.getDevices (0);
-							foreach (Device dev in current_devices) {
-								IEnableable<Light> light = dev as IEnableable<Light>;
-								if (light != null) {
-									light.Enabled = !light.Enabled; //toggles light state immediately
-								}
-							}
+//							List<Device> current_devices = inter.getDevices (0);
+//							foreach (Device dev in current_devices) {
+//								IEnableable<Light> light = dev as IEnableable<Light>;
+//								if (light != null) {
+//									light.Enabled = !light.Enabled; //toggles light state immediately
+//								}
+//							}
 						}
 						else
 							textBox.Text = "No Command Recognized";

@@ -77,7 +77,7 @@ namespace HomeAutomationApp
 		public async Task<object> SendPositionAsync (string packet) {
 
 			var client = new HttpClient ();
-			client.Timeout = TimeSpan.FromSeconds (10);
+			client.Timeout = TimeSpan.FromSeconds (2);
 
 			client.BaseAddress = new Uri(ConfigModel.Url);
 
