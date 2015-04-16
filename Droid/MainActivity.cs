@@ -20,6 +20,7 @@ namespace HomeAutomationApp.Droid
 	[Activity (Label = "HomeAutomationApp.Droid", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
+
 		// JSON timeline information
 		const string jsonTimelineString =
 			"{" +
@@ -45,20 +46,13 @@ namespace HomeAutomationApp.Droid
 			"{" +
 			"serverLocation : \"http://52.1.192.214/\" " +
 			"}";
-		
+
+
+		private string DeviceID = "";
+
 		protected override void OnCreate (Bundle savedState)
 		{
-			Log.Info("GCM-Client", "HELLO");
-
 			base.OnCreate (savedState);
-
-			GcmClient.CheckDevice(this);
-			GcmClient.CheckManifest(this);
-
-			//Get the stored latest registration id
-			GcmClient.Register(this, MyGCMBroadcastReceiver.SENDER_IDS);
-			var registrationId = GcmClient.GetRegistrationId(this);
-			Log.Info("GCM-Client", "Registered with this ID: " + registrationId);
 
 //			api.Interfaces inter = new api.Interfaces(new Uri());
 			Bundle bundle = Intent.Extras;
@@ -79,7 +73,14 @@ namespace HomeAutomationApp.Droid
 				bundle.Get("TIMELINE").ToString(),  
 				bundle.Get("USER").ToString(), 
 				bundle.Get("PASS").ToString()));
+			
+			//Handles setting up GCM Push Notification Service
+			GcmClient.CheckDevice(this);
+			GcmClient.CheckManifest(this);
+			setDeviceID(GcmClient.GetRegistrationId(this));
+
 		}
+
 
 		protected override void OnActivityResult(int requestCode, Result resultVal, Intent data)
 		{
@@ -114,6 +115,17 @@ namespace HomeAutomationApp.Droid
 			}
 			base.OnActivityResult(requestCode, resultVal, data);
 		}
+
+		public string getDeviceID()
+		{
+			return DeviceID;
+		}
+
+		public void setDeviceID(string id)
+		{
+			DeviceID = id;
+		}
+
 	}
 }
 

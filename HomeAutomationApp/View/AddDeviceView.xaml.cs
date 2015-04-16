@@ -85,7 +85,7 @@ namespace HomeAutomationApp
 					// call the device API to add the user's device
 					api.Interfaces deviceInterface = new api.Interfaces(new Uri(ConfigModel.Url));
 
-					deviceInterface.registerDevice(new Uri(ConfigModel.Url), deviceEntry.Text, deviceList[devicePicker.SelectedIndex], 0);
+					//deviceInterface.registerDevice(new Uri(ConfigModel.Url), deviceEntry.Text, deviceList[devicePicker.SelectedIndex], 0);
 						
 					confirmationLabel.TextColor = Color.Green;
 					confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew Device Type: " + deviceList[devicePicker.SelectedIndex] + ".";

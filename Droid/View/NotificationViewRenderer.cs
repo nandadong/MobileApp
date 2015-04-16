@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
+using Gcm.Client;
 
 [assembly:ExportRenderer(typeof(HomeAutomationApp.NotificationView), typeof(HomeAutomationApp.Droid.NotificationViewRenderer))]
 
@@ -20,7 +21,7 @@ namespace HomeAutomationApp.Droid
 			base.OnElementChanged (e);
 
 			// this is a ViewGroup - so should be able to load an AXML file and FindView<>
-			var activity = this.Context as Activity;
+			var activity = this.Context as MainActivity;
 
 			var o = activity.LayoutInflater.Inflate(Resource.Layout.NotificationLayout, this, false);
 			view = o;
@@ -38,11 +39,35 @@ namespace HomeAutomationApp.Droid
 			// Get the notification manager:
 			NotificationManager notificationManager = this.Context.GetSystemService (Context.NotificationService) as NotificationManager;
 
+			var deviceID = view.FindViewById<TextView> (Resource.Id.deviceID);
 			var button = view.FindViewById<Android.Widget.Button> (Resource.Id.notifyBtn);
+			var registerBtn = view.FindViewById<Android.Widget.Button> (Resource.Id.GCMRegister);
+			var unregisterBtn = view.FindViewById<Android.Widget.Button> (Resource.Id.GCMUnregister);
+
+			if (string.IsNullOrEmpty (activity.getDeviceID ())) {
+				deviceID.Text = "Not Registered";
+				unregisterBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+			}
+			else
+				deviceID.Text = activity.getDeviceID();
+			
+
 			button.Click += (object sender, EventArgs btnevent) => {
 				// Publish the notification:
 				const int notificationId = 0;
 				notificationManager.Notify (notificationId, notification);
+			};
+
+
+			registerBtn.Click += (object sender, EventArgs btnevent) => {
+				GcmClient.Register (activity, MyGCMBroadcastReceiver.SENDER_IDS);
+				deviceID.Text = "Registered";
+			};
+
+			unregisterBtn.Click += (object sender, EventArgs btnevent) => {
+				GcmClient.UnRegister(activity);
+				deviceID.Text = "Not Registered";
+				activity.setDeviceID("");
 			};
 
 			AddView(view);

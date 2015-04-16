@@ -31,7 +31,7 @@ namespace HomeAutomationApp.Droid
 			//	var result = wc.UploadString("http://your.server.com/api/register/", "POST", 
 			//		"{ 'registrationId' : '" + registrationId + "' }");
 
-			createNotification("GCM Registered...", "The device has been Registered, Tap to View!");
+			createNotification("GCM Registered...", "The device has been Registered");
 		}
 
 		protected override void OnUnRegistered (Context context, string registrationId)
@@ -42,7 +42,7 @@ namespace HomeAutomationApp.Droid
 			//	var result = wc.UploadString("http://your.server.com/api/unregister/", "POST",
 			//		"{ 'registrationId' : '" + lastRegistrationId + "' }");
 
-			createNotification("GCM Unregistered...", "The device has been unregistered, Tap to View!");
+			createNotification("GCM Unregistered...", "The device has been unregistered");
 		}
 
 		protected override void OnMessage (Context context, Intent intent)
