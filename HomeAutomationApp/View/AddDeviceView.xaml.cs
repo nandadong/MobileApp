@@ -1,12 +1,11 @@
 
-//using System;
-//using System.Collections.Generic;
-//using Xamarin.Forms;
+
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Newtonsoft.Json;
-//using api
+using api;
+
 namespace HomeAutomationApp
 {
 	public partial class AddDeviceView : ContentPage
@@ -16,19 +15,22 @@ namespace HomeAutomationApp
 			InitializeComponent ();
 
 			// Title of tab
-			Title = "Devices";
+			Title = "Add Device";
 
 			// Create a device picker 
 			var devicePicker = new Picker();
 
 			// get the list of devices
 			IList<string> deviceList = new List<string>();
-			deviceList.Add("Kitchen Light");
-			deviceList.Add("Bedroom Light");
-			deviceList.Add("Office Light");
+			deviceList.Add ("AlarmSystem");
+			deviceList.Add ("CeilingFan");
+			deviceList.Add ("GarageDoor");
+			deviceList.Add ("LightSwitch");
+			deviceList.Add ("Thermostat");
+
 
 			// Set picker title
-			devicePicker.Title = "Select Old Device Name";
+			devicePicker.Title = "Choose the Device Type";
 
 			// add the items to the picker
 			foreach (var item in deviceList) {
@@ -36,11 +38,9 @@ namespace HomeAutomationApp
 			}
 		
 
-			// create entries for device name and room id
+			// create entries for device name
 			var deviceEntry = new Entry();
-			var spaceEntry = new Entry ();
 			deviceEntry.Placeholder = "New Device Name";
-			spaceEntry.Placeholder = "New Space ID";
 
 			// create button for pushing device settings
 			var deviceButton = new Button();
@@ -60,7 +60,6 @@ namespace HomeAutomationApp
 				Children = {
 					devicePicker,
 					deviceEntry,
-					spaceEntry,
 					deviceButton,
 					confirmationLabel
 				}
@@ -69,14 +68,16 @@ namespace HomeAutomationApp
 			// handling of button press
 			deviceButton.Clicked += (object sender, EventArgs e) => {
 
-				if ( (deviceEntry.Text) != "" && (spaceEntry.Text != "") ){
+				// TODO: check for picker selection
+				if ( (deviceEntry.Text) != "" ){
+					
+					// call the device API to add the user's device
+					api.Interfaces deviceInterface = new api.Interfaces(new Uri(ConfigModel.Url));
+
+					deviceInterface.registerDevice(new Uri(ConfigModel.Url), deviceEntry.Text, deviceList[devicePicker.SelectedIndex], 0);
+						
 					confirmationLabel.TextColor = Color.Green;
-					confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew room ID: " + spaceEntry.Text + ".";
-
-
-					// user input can be referenced using:
-					// deviceEntry.Text
-					// spaceEntry.Text
+					confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew Device Type: " + deviceList[devicePicker.SelectedIndex] + ".";
 
 				
 				} else {
@@ -87,60 +88,6 @@ namespace HomeAutomationApp
 			};
 				
 		}
-
-
-
-		/*
-		//please make the spaceID and deviceName user inputs
-		const string blob =  
-		"{" +
-		"		deviceID : 5 ", +
-		"		DeviceName: \"light\","+
-		"		HouseID: 6,"+
-		"		room_id: 7,"+
-		"}";
-
-		Interfaces interface1 = new Interfaces ();
-		interface1.registerDevice(Uri address, string name, string type, UInt64 house_id, UInt64 room_id = 0);	
-		//after this we have to pass a value to the server saying that the room is invalidated
-
-
-
-
-
-
-
-
-		//initial idea of registering and posting the devices direclty to the server
-		PostDeviceAsync (JsonConvert.SerializeObject(blob)).Wait ();
-
-		public async Task<object> PostDeviceAsync (string packet) 
-		{
-
-			var client = new HttpClient ();
-			client.Timeout = TimeSpan.FromSeconds (10);
-
-			client.BaseAddress = new Uri(ConfigModel.Url);
-
-			try
-			{
-				var response = await client.PostAsync("api/dev/\\", 
-					new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
-
-				return response.StatusCode;
-
-			}
-			catch(Exception e)
-			{
-				Debug.WriteLine("HomeAutomationDebugError - Update Error: " + e.Message);
-				Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.InnerException.Message);
-			}
-
-			return null;
-		}
-		*/
-	
-
 	}
 }
 	
