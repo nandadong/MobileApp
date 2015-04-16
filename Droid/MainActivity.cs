@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Util;
 using Gcm.Client;
 using Android.Speech;
+
 using api;
 
 namespace HomeAutomationApp.Droid
@@ -58,7 +59,7 @@ namespace HomeAutomationApp.Droid
 			var registrationId = GcmClient.GetRegistrationId(this);
 			Log.Info("GCM-Client", "Registered with this ID: " + registrationId);
 
-			api.Interfaces inter = new api.Interfaces();
+//			api.Interfaces inter = new api.Interfaces();
 			Bundle bundle = Intent.Extras;
 
 			if (bundle == null) {

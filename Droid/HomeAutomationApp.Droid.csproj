@@ -81,6 +81,10 @@
       <Project>{AC72CBBA-8794-44B3-9B9C-590824A63CA6}</Project>
       <Name>HomeAutomationApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Devices.git\api\api.csproj">
+      <Project>{DCE2FD21-5B48-4413-A2A2-B55D1B70C7D4}</Project>
+      <Name>api</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
