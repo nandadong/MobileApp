@@ -31,7 +31,6 @@ namespace HomeAutomationApp
 			};
 
 			var iface = new Interfaces (new Uri (ConfigModel.Url));
-			iface.
 					
 			// create list of timeline values
 			var timelineListView = new ListView();
