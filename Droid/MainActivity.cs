@@ -82,25 +82,25 @@ namespace HomeAutomationApp.Droid
 		{
 			if (requestCode == 10)
 			{
+				var textBox = FindViewById<TextView> (Resource.Id.myTextBox);
 				if (resultVal == Result.Ok)
 				{
 					var matches = data.GetStringArrayListExtra(RecognizerIntent.ExtraResults);
 					if (matches.Count != 0)
 					{
-						//string textInput = textBox.Text + matches[0];
+						textBox.Text = "";
+						string textInput = textBox.Text + matches[0];
 
 						// limit the output to 500 characters
-						//if (textInput.Length > 500)
-						//	textInput = textInput.Substring(0, 500);
-						//textBox.Text = textInput;
+						if (textInput.Length > 500)
+							textInput = textInput.Substring(0, 500);
+						if(textInput.ToLower().Equals("make it brighter near me"))
+							textBox.Text = textInput;
+						else
+							textBox.Text = "No Command Recognized";
 					}
-					//else
-						//textBox.Text = "No speech was recognised";
-					// change the text back on the button
-					//recButton.Text = "Start Recording";
 				}
 			}
-
 			base.OnActivityResult(requestCode, resultVal, data);
 		}
 	}

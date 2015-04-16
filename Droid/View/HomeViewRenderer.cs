@@ -15,7 +15,6 @@ namespace HomeAutomationApp.Droid
 	public class HomeViewRenderer : PageRenderer
 	{
 		Android.Views.View view;
-
 		protected override void OnElementChanged (ElementChangedEventArgs<Page> e)
 		{
 			base.OnElementChanged (e);
@@ -24,11 +23,10 @@ namespace HomeAutomationApp.Droid
 			var activity = this.Context as Activity;
 
 			//This line needs to be fixed. How do we Add A HomeLayout to the resource.designer.cs
-			var o = activity.LayoutInflater.Inflate(Resource.Layout.NotificationLayout, this, false);
+			var o = activity.LayoutInflater.Inflate(Resource.Layout.HomeLayout, this, false);
 			view = o;
 
-
-			var button = view.FindViewById<Android.Widget.Button> (Resource.Id.notifyBtn);
+			var button = view.FindViewById<Android.Widget.ImageButton> (Resource.Id.micButton);
 			button.Click += (object sender, EventArgs btnevent) => {
 				// create the intent and start the activity
 				var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
@@ -53,7 +51,10 @@ namespace HomeAutomationApp.Droid
 			};
 
 			AddView(view);
+
 		}
+
+
 
 		protected override void OnLayout (bool changed, int l, int t, int r, int b)
 		{

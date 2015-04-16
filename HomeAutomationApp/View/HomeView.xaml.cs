@@ -7,7 +7,6 @@ namespace HomeAutomationApp
 {
 	public partial class HomeView : ContentPage
 	{
-
 		public HomeView ()
 		{
 			InitializeComponent ();
