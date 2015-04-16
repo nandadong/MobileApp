@@ -58,12 +58,15 @@ namespace ExternalTestingApp
 		public static void startApplication(string script) {
 			Process proc = new Process();
 			proc.StartInfo.FileName = "adb";
-			proc.StartInfo.Arguments = "shell sh /data/local/tmp/" + script;
+//			proc.StartInfo.Arguments = "shell sh /data/local/tmp/" + script;
+			proc.StartInfo.Arguments = "shell sh /sdcard/" + script;
 			proc.StartInfo.UseShellExecute = false; 
 			proc.StartInfo.RedirectStandardOutput = true;
 			proc.Start();
 
-			proc.WaitForExit ();
+			while (!proc.StandardOutput.EndOfStream) {
+				Console.WriteLine(proc.StandardOutput.ReadLine ());
+			}
 
 			if (proc.ExitCode != 0) {
 				Console.WriteLine ("Failed to upload Script File");
@@ -74,7 +77,8 @@ namespace ExternalTestingApp
 		public static void uploadStartScript(string scriptFile) {
 			Process proc = new Process();
 			proc.StartInfo.FileName = "adb";
-			proc.StartInfo.Arguments = "push " + scriptFile + " /data/local/tmp/";
+//			proc.StartInfo.Arguments = "push " + scriptFile + " /data/local/tmp/";
+			proc.StartInfo.Arguments = "push " + scriptFile + " /sdcard/";
 			proc.StartInfo.UseShellExecute = false; 
 			proc.StartInfo.RedirectStandardOutput = true;
 			proc.Start();
@@ -90,12 +94,14 @@ namespace ExternalTestingApp
 		public static void installApplication(string app) {
 			Process proc = new Process();
 			proc.StartInfo.FileName = "adb";
-			proc.StartInfo.Arguments = "shell pm install /data/local/tmp/" + app;
+			proc.StartInfo.Arguments = "shell pm install /sdcard/" + app;
 			proc.StartInfo.UseShellExecute = false; 
 			proc.StartInfo.RedirectStandardOutput = true;
 			proc.Start();
 
-			proc.WaitForExit ();
+			while (!proc.StandardOutput.EndOfStream) {
+				Console.WriteLine(proc.StandardOutput.ReadLine ());
+			}
 
 			if (proc.ExitCode != 0) {
 				Console.WriteLine ("Failed to install APK File");
@@ -106,7 +112,7 @@ namespace ExternalTestingApp
 		public static void uploadApplication (string apkFile) {
 			Process proc = new Process();
 			proc.StartInfo.FileName = "adb";
-			proc.StartInfo.Arguments = "push " + apkFile + " /data/local/tmp/";
+			proc.StartInfo.Arguments = "push " + apkFile + " /sdcard/";
 			proc.StartInfo.UseShellExecute = false; 
 			proc.StartInfo.RedirectStandardOutput = true;
 			proc.Start();
