@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System.Diagnostics;
+using api;
 
 namespace HomeAutomationApp
 {
@@ -28,6 +29,9 @@ namespace HomeAutomationApp
 				Text = "Sim use only: Timeline Information",
 				TextColor = Color.Red
 			};
+
+			var iface = new Interfaces (new Uri (ConfigModel.Url));
+			iface.
 					
 			// create list of timeline values
 			var timelineListView = new ListView();
