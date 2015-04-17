@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using Gcm.Client;
@@ -46,7 +47,7 @@ namespace HomeAutomationApp.Droid
 
 			if (string.IsNullOrEmpty (activity.getDeviceID ())) {
 				deviceID.Text = "Not Registered";
-				unregisterBtn.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+			unregisterBtn.Background.SetColorFilter(Android.Graphics.Color.Gray, PorterDuff.Mode.Multiply);
 			}
 			else
 				deviceID.Text = activity.getDeviceID();
