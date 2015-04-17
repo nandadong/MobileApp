@@ -8,103 +8,106 @@ using api;
 
 namespace HomeAutomationApp
 {
-	public partial class AddDeviceView : ContentPage
-	{	
-		public AddDeviceView ()
+public partial class AddDeviceView : ContentPage
+{
+	public AddDeviceView()
+	{
+		InitializeComponent();
+
+		// instantiate device model to access values
+		AddDeviceModel myDeviceModel = new AddDeviceModel();
+
+		// tab title
+		Title = myDeviceModel.tabTitle;
+
+		// label for debugging
+		var debugLabel = new Label();
+		debugLabel.Text = myDeviceModel.debugLabel;
+
+		// main label
+		var registerLabel = new Label();
+		registerLabel.Text = myDeviceModel.registerLabel;
+		registerLabel.TextColor = Color.White;
+
+		// device picker for unregistered devices
+		var devicePicker = new Picker();
+		if(myDeviceModel.unregisteredDeviceList == null)
 		{
-			InitializeComponent ();
-
-			// Title of tab
-			Title = "Add Device";
-
-			// Create a device picker 
-			var devicePicker = new Picker();
-
-			// get the list of devices
-			IList<string> deviceList = new List<string>();
-			deviceList.Add ("AlarmSystem");
-			deviceList.Add ("CeilingFan");
-			deviceList.Add ("GarageDoor");
-			deviceList.Add ("LightSwitch");
-			deviceList.Add ("Thermostat");
-
-
-			// Set picker title
-			devicePicker.Title = "Choose the Device Type";
-
-			// add the items to the picker
-			foreach (var item in deviceList) {
-				devicePicker.Items.Add(( item ?? "" ).ToString());
-			}
-		
-
-			// create entries for device name
-			var deviceEntry = new Entry();
-			deviceEntry.Placeholder = "New Device Name";
-
-			// create button for pushing device settings
-			var deviceButton = new Button();
-			deviceButton.Text = "Update Device";
-			deviceButton.TextColor = Color.White;
-			deviceButton.BackgroundColor = Color.FromHex ("77D065");
-
-			// label to display successful push
-			var confirmationLabel = new Label ();
-			confirmationLabel.Text = "";
-			confirmationLabel.TextColor = Color.White;
-
-			// add content to the view
-			Content = new StackLayout {
-				Spacing = 20, Padding = 20,
-				VerticalOptions = LayoutOptions.Center,
-				Children = {
-					devicePicker,
-					deviceEntry,
-					deviceButton,
-					confirmationLabel
-				}
-			};
-
-			/*
-			const UInt64 HouseID = 2;       // 2 is the house ID
-			Interfaces deviceInter = new Interfaces(new Uri(ConfigModel.Url)); //this URL is the server URL
-			List<string> current_devices = deviceInter.enumerateDevices(HouseID);
-
-			List<Device> new_devices = new List<Device>();
-			foreach (string dev in current_devices)
-			{
-				//device_name and room_id are user supplied
-				var new_device = deviceInter.registerDevice(device_name, HouseID, room_id, dev);
-				if(new_device != null)
-				{
-					new_devices.Add(new_device);
-				}
-			}
-			*/
-
-			// handling of button press
-			deviceButton.Clicked += (object sender, EventArgs e) => {
-
-				// TODO: check for picker selection
-				if ( (deviceEntry.Text) != "" ){
-					
-					// call the device API to add the user's device
-					api.Interfaces deviceInterface = new api.Interfaces(new Uri(ConfigModel.Url));
-
-					//deviceInterface.registerDevice(new Uri(ConfigModel.Url), deviceEntry.Text, deviceList[devicePicker.SelectedIndex], 0);
-						
-					confirmationLabel.TextColor = Color.Green;
-					confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew Device Type: " + deviceList[devicePicker.SelectedIndex] + ".";
-
-				
-				} else {
-					confirmationLabel.TextColor = Color.Red;
-					confirmationLabel.Text = "You must enter a value for device name and room ID.";
-				}
-
-			};
-				
+			devicePicker.Title = "No Unregistered Devices Found";
 		}
+		else
+		{
+			devicePicker.Title = "Select an Unregistered Device";
+			foreach(string device in myDeviceModel.unregisteredDeviceList)
+			{
+				devicePicker.Items.Add((device ?? "").ToString());
+			}
+		}
+			
+
+		// text entry for device name
+		var deviceEntry = new Entry();
+		deviceEntry.Placeholder = myDeviceModel.namePlaceholder;
+
+		// button for pushing device settings
+		var deviceButton = new Button();
+		deviceButton.Text = myDeviceModel.buttonText;
+		deviceButton.TextColor = Color.White;
+		deviceButton.BackgroundColor = Color.FromHex("77D065");
+
+
+		// label to display successful push
+		var confirmationLabel = new Label();
+		confirmationLabel.Text = "";
+		confirmationLabel.TextColor = Color.White;
+
+
+		// disable forms if device list is empty
+		if(myDeviceModel.isDeviceListEmpty == true)
+		{
+			registerLabel.Text = "No devices need to be registered.";
+			registerLabel.TextColor = Color.Green;
+			devicePicker.IsEnabled = false;
+			deviceEntry.IsEnabled = false;
+			deviceButton.IsEnabled = false;
+		}
+
+
+		// add content to the view
+		Content = new StackLayout {
+			Spacing = 20, Padding = 20,
+			VerticalOptions = LayoutOptions.Center,
+			Children = {
+				registerLabel,
+				devicePicker,
+				deviceEntry,
+				deviceButton,
+				confirmationLabel
+			}
+		};
+
+		// handling of button press
+		deviceButton.Clicked += (object sender, EventArgs e) =>
+		{
+			
+			if((deviceEntry.Text) != "")
+			{
+				// TODO: repair info field
+				myDeviceModel.registerDevice(deviceEntry.Text, "info field??");						
+				confirmationLabel.TextColor = Color.Green;
+				confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew Device Type: " + /*deviceList[devicePicker.SelectedIndex] +*/ ".";
+			}
+			else
+			{
+				confirmationLabel.TextColor = Color.Red;
+				confirmationLabel.Text = "You must enter a value for device name and room ID.";
+			}
+
+		};
+				
 	}
 }
-	
+}
+
+
+
