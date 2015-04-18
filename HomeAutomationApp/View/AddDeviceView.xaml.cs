@@ -93,7 +93,7 @@ public partial class AddDeviceView : ContentPage
 			if((deviceEntry.Text) != "")
 			{
 				// TODO: repair info field
-				myDeviceModel.registerDevice(deviceEntry.Text, "info field??");						
+				myDeviceModel.registerDevice(deviceEntry.Text, "");						
 				confirmationLabel.TextColor = Color.Green;
 				confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew Device Type: " + /*deviceList[devicePicker.SelectedIndex] +*/ ".";
 			}
