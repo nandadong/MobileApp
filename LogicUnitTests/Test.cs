@@ -1,6 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
 using HomeAutomationApp;
+using System.Collections.Generic;
+using api;
+
 namespace LogicUnitTests
 {
 	[TestFixture ()]
@@ -92,6 +95,19 @@ namespace LogicUnitTests
 				"	]" +
 				"}"));
 			Assert.IsTrue (InitParameters.getInstance().Password.Equals ("password"));
+		}
+
+		[Test()]
+		public void TestGetDevicesAndRegister()
+		{
+			// get the list of devices and check that it is not null
+			AddDeviceModel testDeviceModel = new AddDeviceModel();
+			List<string> deviceList = testDeviceModel.getUnregisteredDevices();
+			Assert.IsTrue(!deviceList.Equals(null));
+
+			// select the first device returns, and register it with a new name
+			api.Device registeredDevice = testDeviceModel.registerDevice("test name", deviceList[0]);
+			Assert.IsTrue(!registeredDevice.Equals(null));
 		}
 	}
 }
