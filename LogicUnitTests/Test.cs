@@ -30,15 +30,14 @@ namespace LogicUnitTests
 			blob.alt = 45.3454;
 			blob.time = new DateTime (2015, 11, 15, 9, 59, 44, 345);
 
-			Assert.True(jGps.lat.Equals(98.543));
-			Assert.True(jGps.lon.Equals(84.346));
-			Assert.True(jGps.alt.Equals(45.3454));
+		    Assert.IsTrue(jGps.lat.Equals(98.543));
+			Assert.IsTrue(jGps.lon.Equals(84.346));
+			Assert.IsTrue(jGps.alt.Equals(45.3454));
 
-			Assert.True(blob.lat.Equals(98.543));
-			Assert.True(blob.lon.Equals(84.346));
-			Assert.True(blob.alt.Equals(45.3454));
-			Assert.True(blob.time.Equals(new DateTime (2015, 11, 15, 9, 59, 44, 345)));
-
+			Assert.IsTrue(blob.lat.Equals(98.543));
+			Assert.IsTrue(blob.lon.Equals(84.346));
+			Assert.IsTrue(blob.alt.Equals(45.3454));
+			Assert.IsTrue(blob.time.Equals(new DateTime (2015, 11, 15, 9, 59, 44, 345)));
 		}
 
 		[Test()]
@@ -93,9 +92,6 @@ namespace LogicUnitTests
 				"	]" +
 				"}"));
 			Assert.IsTrue (InitParameters.getInstance().Password.Equals ("password"));
-
-
 		}
 	}
 }
-
