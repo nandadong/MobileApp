@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="Droid\HomeAutomationApp.Droid.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 5 (KitKat)" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Droid\MainActivity.cs">
+    <Files>
+      <File FileName="Droid\MainActivity.cs" Line="11" Column="7" />
+      <File FileName="Droid\GCMBroadcastReceiver.cs" Line="13" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
