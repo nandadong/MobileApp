@@ -42,7 +42,7 @@ public class AddDeviceModel
 	}
 
 	// calls device API to retrieve list of unregistered devices
-	private List<string> getUnregisteredDevices()
+	public List<string> getUnregisteredDevices()
 	{
 		// call the device API to access functions for devices
 		return DeviceInterface.enumerateDevices(houseId);
