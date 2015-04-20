@@ -13,7 +13,7 @@ public class VoiceCommandController
 	}
 
 	//handles sending a user coordinate json blob to the decision system.
-	public void makeItBrighterNearMe()
+	public string makeItBrighterNearMe()
 	{
 
 		JObject blob = new JObject();
@@ -24,7 +24,8 @@ public class VoiceCommandController
 		blob["alt"] = 45.3454;
 		blob["time"] = timeStamp;
 
-		POST(blob, "api/app/user/brighten");
+		string result = POST(blob, "api/app/user/brighten");
+		return result;
 
 	}
 

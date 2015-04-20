@@ -47,7 +47,7 @@ namespace HomeAutomationApp.Droid
 
 		protected override void OnMessage (Context context, Intent intent)
 		{
-			Log.Info(TAG, "GCM Message Received!");
+			Log.Info(TAG, "GCM Notification Received!");
 
 			var msg = new StringBuilder();
 
@@ -66,7 +66,9 @@ namespace HomeAutomationApp.Droid
 			createNotification("GCM Sample", msg.ToString());
 			Log.Info(TAG, msg.ToString());
 
-			
+			var inval = new InvalidationController();
+			string response = inval.getAllUpdatedDevices();
+			Log.Info(TAG, response);
 		}
 
 		protected override bool OnRecoverableError (Context context, string errorId)

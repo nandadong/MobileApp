@@ -20,27 +20,31 @@ namespace HomeAutomationApp.Droid
 
 		public string getAllUpdatedDevices()
 		{
+			
 			var rxcui = "198440";
-			var request = HttpWebRequest.Create(string.Format(@"http://.../ api/app/device", rxcui));
+			var request = HttpWebRequest.Create(string.Format(@"http://serverapi1.azurewebsites.net/api/app/device", rxcui));
 			request.ContentType = "application/json";
 			request.Method = "GET";
 
 			using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
 			{
-				if (response.StatusCode != HttpStatusCode.OK)
-					Console.Out.WriteLine("Error fetching data. Server returned status code: {0}", response.StatusCode);
-				using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-				{
-					var content = reader.ReadToEnd();
-					if(string.IsNullOrWhiteSpace(content)) {
-						Console.Out.WriteLine("Response contained empty body...");
-					return null;
-					}
-					else {
-						Console.Out.WriteLine("Response Body: \r\n {0}", content);
-						return content;
-					}
-				}
+				if(response.StatusCode != HttpStatusCode.OK)
+					return "not good";
+					//Console.Out.WriteLine("Error fetching data. Server returned status code: {0}", response.StatusCode);
+				else
+					return (((HttpWebResponse)response).StatusDescription);
+//				using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+//				{
+//					var content = reader.ReadToEnd();
+//					if(string.IsNullOrWhiteSpace(content)) {
+//						Console.Out.WriteLine("Response contained empty body...");
+//					return null;
+//					}
+//					else {
+//						Console.Out.WriteLine("Response Body: \r\n {0}", content);
+//						return content;
+//					}
+//				}
 			}
 		}
 	}

@@ -4,6 +4,7 @@ using Android.App;
 using Android.OS;
 using Xamarin.Android.NUnitLite;
 
+
 namespace AndroidTesting
 {
 	[Activity (Label = "AndroidTesting", MainLauncher = true)]
