@@ -31,6 +31,7 @@ public partial class AddDeviceView : ContentPage
 
 		// device picker for unregistered devices
 		var devicePicker = new Picker();
+
 		if(myDeviceModel.unregisteredDeviceList == null)
 		{
 			devicePicker.Title = "No Unregistered Devices Found";
@@ -95,7 +96,9 @@ public partial class AddDeviceView : ContentPage
 				// TODO: repair info field
 				myDeviceModel.registerDevice(deviceEntry.Text, "");						
 				confirmationLabel.TextColor = Color.Green;
-				confirmationLabel.Text = "Success!\nNew device name: " + deviceEntry.Text + "\nNew Device Type: " + /*deviceList[devicePicker.SelectedIndex] +*/ ".";
+				confirmationLabel.Text = "Success!\nYou have assigned the name: " + deviceEntry.Text + "\nTo the device: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex];
+			
+
 			}
 			else
 			{
