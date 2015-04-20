@@ -15,6 +15,13 @@ namespace LogicUnitTests
 			Assert.IsTrue (true);
 		}
 
+		[Test ()]
+		public void TestGCMRegister ()
+		{
+			Assert.IsTrue (true);
+		}
+
+		
 		[Test()]
 		public void TestUpdatePosition ()
 		{
