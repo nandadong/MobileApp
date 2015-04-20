@@ -30,21 +30,8 @@ namespace HomeAutomationApp.Droid
 			{
 				if(response.StatusCode != HttpStatusCode.OK)
 					return "not good";
-					//Console.Out.WriteLine("Error fetching data. Server returned status code: {0}", response.StatusCode);
 				else
 					return (((HttpWebResponse)response).StatusDescription);
-//				using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-//				{
-//					var content = reader.ReadToEnd();
-//					if(string.IsNullOrWhiteSpace(content)) {
-//						Console.Out.WriteLine("Response contained empty body...");
-//					return null;
-//					}
-//					else {
-//						Console.Out.WriteLine("Response Body: \r\n {0}", content);
-//						return content;
-//					}
-//				}
 			}
 		}
 	}
