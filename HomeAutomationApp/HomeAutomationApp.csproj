@@ -162,4 +162,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Devices\api\api.csproj">
+      <Project>{DCE2FD21-5B48-4413-A2A2-B55D1B70C7D4}</Project>
+      <Name>api</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
