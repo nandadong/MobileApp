@@ -23,14 +23,17 @@ public partial class AddDeviceView : ContentPage
 		// label for debugging
 		var debugLabel = new Label();
 		debugLabel.Text = myDeviceModel.debugLabel;
+		debugLabel.ClassId = "debugLabel";
 
 		// main label
 		var registerLabel = new Label();
 		registerLabel.Text = myDeviceModel.registerLabel;
 		registerLabel.TextColor = Color.White;
+		registerLabel.ClassId = "regLabel";
 
 		// device picker for unregistered devices
 		var devicePicker = new Picker();
+		devicePicker.ClassId = "devPicker";
 		if(myDeviceModel.unregisteredDeviceList == null)
 		{
 			devicePicker.Title = "No Unregistered Devices Found";
@@ -48,9 +51,11 @@ public partial class AddDeviceView : ContentPage
 		// text entry for device name
 		var deviceEntry = new Entry();
 		deviceEntry.Placeholder = myDeviceModel.namePlaceholder;
+		deviceEntry.ClassId = "devEntry";
 
 		// button for pushing device settings
 		var deviceButton = new Button();
+		deviceButton.StyleId = "devAddButton";
 		deviceButton.Text = myDeviceModel.buttonText;
 		deviceButton.TextColor = Color.White;
 		deviceButton.BackgroundColor = Color.FromHex("77D065");
@@ -60,6 +65,7 @@ public partial class AddDeviceView : ContentPage
 		var confirmationLabel = new Label();
 		confirmationLabel.Text = "";
 		confirmationLabel.TextColor = Color.White;
+		confirmationLabel.ClassId = "confirmLabel";
 
 
 		// disable forms if device list is empty
@@ -85,6 +91,7 @@ public partial class AddDeviceView : ContentPage
 				confirmationLabel
 			}
 		};
+		Content.ClassId="contentStack"
 
 		// handling of button press
 		deviceButton.Clicked += (object sender, EventArgs e) =>
