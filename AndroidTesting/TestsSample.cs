@@ -24,6 +24,7 @@ namespace AndroidTesting
 			Console.WriteLine ("test1");
 			Assert.True (true);
 		}
+		
 
 		[Test]
 		public void Fail ()
