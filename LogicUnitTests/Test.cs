@@ -139,7 +139,6 @@ namespace LogicUnitTests
 		foreach(Room r in testHouse.getRooms())
 		{
 			Assert.Greater(r.getDevices().Count, 0);
-			;
 		}
 
 	}
