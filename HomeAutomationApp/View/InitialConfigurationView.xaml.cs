@@ -22,7 +22,7 @@ namespace HomeAutomationApp
 			string jsonTimelineString = InitParameters.getInstance ().Timeline;
 
 			// deserialize the JSON for the timeline
-			var timeline = JsonConvert.DeserializeObject<UpdateLocationSimModel.JsonTimeline> (jsonTimelineString);
+			var timeline = JsonConvert.DeserializeObject<SimModel.JsonTimeline> (jsonTimelineString);
 
 			// warning that this is a tab for simulation use only
 			var timelineListLabel = new Label {
@@ -43,17 +43,19 @@ namespace HomeAutomationApp
 
 
 			// add events to list iterating over each event
-			foreach (UpdateLocationSimModel.JsonEvents item in timeline.events) {
-				timelineList.Add ("Event Time: " + item.time.ToString());
-				timelineList.Add ("Event Key: " + item.key);
-				timelineList.Add ("Event Lat: " + item.value.lat.ToString ());
-				timelineList.Add ("Event Lon: " + item.value.lon.ToString ());
-				timelineList.Add ("Event Alt: " + item.value.alt.ToString ());
+			foreach (SimModel.JsonEvents item in timeline.events) {
+			var value = item.value as HomeAutomationApp.SimModel.JsonGps;	
 
-				var blob = new UpdateLocationSimModel.UpdatePositonBlob ();
-				blob.lat = item.value.lat;
-				blob.lon = item.value.lon;
-				blob.alt = item.value.alt;
+				timelineList.Add ("Event Time: " + item.time);
+				timelineList.Add ("Event Key: " + item.key);
+				timelineList.Add ("Event Lat: " + value.lat);
+				timelineList.Add ("Event Lon: " + value.lon);
+				timelineList.Add ("Event Alt: " + value.altitude);
+
+				var blob = new SimModel.UpdatePositonBlob ();
+				blob.lat = value.lat;
+				blob.lon = value.lon;
+				blob.alt = value.altitude;
 				blob.time = item.time;
 
 				SendPositionAsync (JsonConvert.SerializeObject(blob)).Wait ();
@@ -72,31 +74,7 @@ namespace HomeAutomationApp
 					timelineListView
 				}
 			};				
-		}
-			
-		public async Task<object> SendPositionAsync (string packet) {
-
-			var client = new HttpClient ();
-			client.Timeout = TimeSpan.FromSeconds (2);
-
-			client.BaseAddress = new Uri(ConfigModel.Url);
-
-			try
-			{
-				var response = await client.PostAsync("api/user/updateposition/user1", 
-					new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
-
-				return response.StatusCode;
-
-			}
-			catch(Exception e)
-			{
-				Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.Message);
-				Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.InnerException.Message);
-			}
-
-			return null;
-		}
+		}		
 
 	}
 

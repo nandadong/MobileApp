@@ -25,15 +25,15 @@ namespace LogicUnitTests
 		[Test()]
 		public void TestUpdatePosition ()
 		{
-			UpdateLocationSimModel.JsonGps jGps = new UpdateLocationSimModel.JsonGps();
-			UpdateLocationSimModel.UpdatePositonBlob blob = new UpdateLocationSimModel.UpdatePositonBlob();
-			UpdateLocationSimModel.JsonEvents jE = new UpdateLocationSimModel.JsonEvents();
-			UpdateLocationSimModel.JsonTimeFrame jTF = new UpdateLocationSimModel.JsonTimeFrame();
-			UpdateLocationSimModel.JsonTimeline jTL = new UpdateLocationSimModel.JsonTimeline();
+			SimModel.JsonGps jGps = new SimModel.JsonGps();
+			SimModel.UpdatePositonBlob blob = new SimModel.UpdatePositonBlob();
+			SimModel.JsonEvents jE = new SimModel.JsonEvents();
+			SimModel.JsonTimeFrame jTF = new SimModel.JsonTimeFrame();
+			SimModel.JsonTimeline jTL = new SimModel.JsonTimeline();
 
 			jGps.lat = 98.543;
 			jGps.lon = 84.346;
-			jGps.alt = 45.3454;
+			jGps.altitude = 45.3454;
 
 			blob.lat = 98.543;
 			blob.lon = 84.346;
@@ -42,7 +42,7 @@ namespace LogicUnitTests
 
 		    Assert.IsTrue(jGps.lat.Equals(98.543));
 			Assert.IsTrue(jGps.lon.Equals(84.346));
-			Assert.IsTrue(jGps.alt.Equals(45.3454));
+			Assert.IsTrue(jGps.altitude.Equals(45.3454));
 
 			Assert.IsTrue(blob.lat.Equals(98.543));
 			Assert.IsTrue(blob.lon.Equals(84.346));
