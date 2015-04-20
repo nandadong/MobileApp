@@ -58,7 +58,7 @@ namespace HomeAutomationApp
 				blob.alt = value.altitude;
 				blob.time = item.time;
 
-				SendPositionAsync (JsonConvert.SerializeObject(blob)).Wait ();
+//				SendPositionAsync (JsonConvert.SerializeObject(blob)).Wait ();
 
 				Debug.WriteLine("HomeAutomationDebug - Position Updated: " + JsonConvert.SerializeObject(blob));
 			}

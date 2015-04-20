@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.IO;
-using System.Json;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
@@ -16,7 +14,7 @@ public class UpdatePositionController
 	{
 	}
 
-	public async Task<object> SendPositionAsync(string packet, string user)
+	public async Task<HttpStatusCode> SendPositionAsync(string packet, string user)
 	{
 
 		var client = new HttpClient();

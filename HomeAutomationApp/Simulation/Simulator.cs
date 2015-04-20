@@ -44,7 +44,7 @@ public class Simulator
 				listValue += "Event Lon: " + value.lon;
 				listValue += "Event Alt: " + value.altitude;
 
-				items += listValue;
+				items.Add(listValue);
 
 				var blob = new SimModel.UpdatePositonBlob();
 				blob.lat = value.lat;
@@ -53,7 +53,7 @@ public class Simulator
 				blob.time = simEvent.time;
 
 				var retStatus = positionController.SendPositionAsync(blob.ToString(), User);
-				if(retStatus != HttpStatusCode.OK)
+				if(retStatus.Result == HttpStatusCode.OK)
 				{
 					passed++;
 					Debug.WriteLine("Success");
@@ -77,7 +77,7 @@ public class Simulator
 				listValue += "Event Lon: " + value.lon;
 				listValue += "Event Alt: " + value.altitude;
 
-				items += listValue;
+				items.Add(listValue);
 
 				var blob = new SimModel.UpdatePositonBlob();
 				blob.lat = value.lat;
@@ -86,7 +86,7 @@ public class Simulator
 				blob.time = simEvent.time;
 
 				var retStatus = positionController.SendPositionAsync(blob.ToString(), User);
-				if(retStatus != HttpStatusCode.OK)
+				if(retStatus.Result == HttpStatusCode.OK)
 				{
 					passed++;
 					Debug.WriteLine("Success");
