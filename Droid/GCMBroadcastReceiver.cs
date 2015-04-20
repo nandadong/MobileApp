@@ -65,6 +65,8 @@ namespace HomeAutomationApp.Droid
 
 			createNotification("GCM Sample", msg.ToString());
 			Log.Info(TAG, msg.ToString());
+
+			
 		}
 
 		protected override bool OnRecoverableError (Context context, string errorId)

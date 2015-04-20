@@ -48,7 +48,8 @@ namespace HomeAutomationApp.Droid
 			"}";
 
 
-		private string DeviceID = "";
+		private GCMModel gcmClient = null;
+		private VoiceCommandController voiceController = null;
 
 		protected override void OnCreate (Bundle savedState)
 		{
@@ -75,9 +76,8 @@ namespace HomeAutomationApp.Droid
 				bundle.Get("PASS").ToString()));
 			
 			//Handles setting up GCM Push Notification Service
-			GcmClient.CheckDevice(this);
-			GcmClient.CheckManifest(this);
-			setDeviceID(GcmClient.GetRegistrationId(this));
+			gcmClient = new GCMModel(this);
+			voiceController = new VoiceCommandController();
 
 		}
 
@@ -98,15 +98,10 @@ namespace HomeAutomationApp.Droid
 						// limit the output to 500 characters
 						if (textInput.Length > 500)
 							textInput = textInput.Substring(0, 500);
-						if (textInput.ToLower ().Equals ("make it brighter near me")) {
+						if (textInput.ToLower ().Equals ("make it brighter near me")) 
+						{
 							textBox.Text = textInput;
-//							List<Device> current_devices = inter.getDevices (0);
-//							foreach (Device dev in current_devices) {
-//								IEnableable<Light> light = dev as IEnableable<Light>;
-//								if (light != null) {
-//									light.Enabled = !light.Enabled; //toggles light state immediately
-//								}
-//							}
+							voiceController.makeItBrighterNearMe();	
 						}
 						else
 							textBox.Text = "No Command Recognized";
@@ -116,16 +111,15 @@ namespace HomeAutomationApp.Droid
 			base.OnActivityResult(requestCode, resultVal, data);
 		}
 
-		public string getDeviceID()
+		public GCMModel getGCMClient()
 		{
-			return DeviceID;
-		}
+			return gcmClient;
+		}	
 
-		public void setDeviceID(string id)
+		public VoiceCommandController getVoiceController()
 		{
-			DeviceID = id;
+			return voiceController;	
 		}
-
 	}
 }
 

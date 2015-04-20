@@ -45,12 +45,10 @@ namespace HomeAutomationApp.Droid
 			var registerBtn = view.FindViewById<Android.Widget.Button> (Resource.Id.GCMRegister);
 			var unregisterBtn = view.FindViewById<Android.Widget.Button> (Resource.Id.GCMUnregister);
 
-			if (string.IsNullOrEmpty (activity.getDeviceID ())) {
+			if(string.IsNullOrEmpty(activity.getGCMClient().getDeviceID()))
 				deviceID.Text = "Not Registered";
-			unregisterBtn.Background.SetColorFilter(Android.Graphics.Color.Gray, PorterDuff.Mode.Multiply);
-			}
 			else
-				deviceID.Text = activity.getDeviceID();
+				deviceID.Text = "Registered";
 			
 
 			button.Click += (object sender, EventArgs btnevent) => {
@@ -68,7 +66,7 @@ namespace HomeAutomationApp.Droid
 			unregisterBtn.Click += (object sender, EventArgs btnevent) => {
 				GcmClient.UnRegister(activity);
 				deviceID.Text = "Not Registered";
-				activity.setDeviceID("");
+				activity.getGCMClient().setDeviceID("");
 			};
 
 			AddView(view);
