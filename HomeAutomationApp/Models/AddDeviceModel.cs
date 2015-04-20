@@ -6,6 +6,10 @@ namespace HomeAutomationApp
 {
 public class AddDeviceModel
 {
+	// TODO: temporary flag to bypass device API while it's stubbed
+	bool bypassDeviceApi = true;
+
+
 	// TODO: this is a hack - replace houseId with actual value!
 	const UInt64 houseId = 2;
 	Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
@@ -44,14 +48,35 @@ public class AddDeviceModel
 	// calls device API to retrieve list of unregistered devices
 	public List<string> getUnregisteredDevices()
 	{
-		// call the device API to access functions for devices
-		return DeviceInterface.enumerateDevices(houseId);
+		if(bypassDeviceApi)
+		{
+			List<string> bypassedList = new List<string>();
+			bypassedList.Add("LightSwitch #1324");
+			bypassedList.Add("LightSwitch #9876");
+			bypassedList.Add("Thermostat #1234");
+			return bypassedList;
+		}
+		else
+		{
+			// call the device API to access functions for devices
+			return DeviceInterface.enumerateDevices(houseId);
+		}
 	}
 
 	// calls device API to register a device
 	public api.Device registerDevice(string name, string info)
 	{
-		return DeviceInterface.registerDevice(name, houseId, info);
+		if(bypassDeviceApi)
+		{
+			// the device will not actually be added if bypassed
+			api.Device customDevice = null;
+			return customDevice;
+
+		}
+		else
+		{
+			return DeviceInterface.registerDevice(name, houseId, info);
+		}
 	}
 		
 }

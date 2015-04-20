@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.IO;
 using System.Json;
@@ -45,4 +45,3 @@ namespace HomeAutomationApp.Droid
 		}
 	}
 }
-

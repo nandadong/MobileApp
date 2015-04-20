@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Text;
@@ -74,4 +74,3 @@ public class VoiceCommandController
 	}
 }
 }
-
