@@ -4,40 +4,32 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System.Diagnostics;
-
+using System.Collections.Generic;
+using api;
 
 namespace HomeAutomationApp
 {
 public class AddDeviceController
 {
+
+
+
+	// constructor 
 	public AddDeviceController()
 	{
+
 	}
 
-	public static async Task<HttpStatusCode> SendDeviceAsync(string packet, string user)
+	// calls device API to retrieve list of unregistered devices
+	public static string SendDeviceChangeAsync(string name, string info)
 	{
-
-		var client = new HttpClient();
-		client.Timeout = TimeSpan.FromSeconds(2);
-
-		client.BaseAddress = new Uri(ConfigModel.Url);
-
-		try
-		{
-			var response = await client.PostAsync("api/device" + user, 
-				new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
-
-			return response.StatusCode;
-
-		}
-		catch(Exception e)
-		{
-			Debug.WriteLine("HAD - Position Update Error: " + e.Message);
-			Debug.WriteLine("HAD - Position Update Error: " + e.InnerException.Message);
-		}
-
-		return HttpStatusCode.InternalServerError;
+		//The hardcoded value is there to accomodate the shortcomings of the Simulation harness blob
+		const UInt64 houseId = 2;
+		// calls device API to register a device
+		Interfaces DeviceInterface1 = new Interfaces(new Uri(ConfigModel.Url));
+		DeviceInterface1.registerDevice(name, houseId, info);
+		string return_value = "Device registered. As of now the implemented function will not return null";
+		return return_value;
 	}
 }
 }
-

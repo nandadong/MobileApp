@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System.Diagnostics;
-
+using api;
 
 namespace HomeAutomationApp
 {
@@ -14,30 +14,12 @@ public class PhysicalChangeController
 	{
 	}
 
-	public static async Task<HttpStatusCode> SendPhysicalChangeAsync(string packet, string user)
+	public static bool SendPhysicalChangeAsync(string packet, string dev)
 	{
 
-		var client = new HttpClient();
-		client.Timeout = TimeSpan.FromSeconds(2);
+		bool return_value =api.Interfaces.UpdateDevice(dev, packet);
 
-		client.BaseAddress = new Uri(ConfigModel.Url);
-
-		try
-		{
-			var response = await client.PostAsync("api/device" + user, 
-				new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
-
-			return response.StatusCode;
-
-		}
-		catch(Exception e)
-		{
-			Debug.WriteLine("HAD - Position Update Error: " + e.Message);
-			Debug.WriteLine("HAD - Position Update Error: " + e.InnerException.Message);
-		}
-
-		return HttpStatusCode.InternalServerError;
+		return return_value;
 	}
 }
 }
-
