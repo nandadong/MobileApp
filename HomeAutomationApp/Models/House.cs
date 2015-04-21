@@ -6,7 +6,13 @@ public class House
 {
 	private int id;
 	private List<Room> roomList;
-	public House(int houseID)
+	/*public static House(int houseID)
+	{
+		id = houseID;
+		roomList = new List<Room>();
+	}*/
+
+	public static void createHouse(int houseID)
 	{
 		id = houseID;
 		roomList = new List<Room>();
