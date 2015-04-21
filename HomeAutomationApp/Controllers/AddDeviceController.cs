@@ -14,7 +14,7 @@ public class AddDeviceController
 	{
 	}
 
-	public async Task<HttpStatusCode> SendDeviceAsync(string packet, string user)
+	public static async Task<HttpStatusCode> SendDeviceAsync(string packet, string user)
 	{
 
 		var client = new HttpClient();

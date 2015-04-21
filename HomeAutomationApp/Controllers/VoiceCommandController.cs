@@ -35,7 +35,7 @@ namespace HomeAutomationApp
 			return value.ToString("yyyyMMddHHmmssfff");
 		}
 
-		public async Task<HttpStatusCode> SendBrighterAsync(string packet, string user)
+		public static async Task<HttpStatusCode> SendBrighterAsync(string packet, string user)
 		{
 
 			var client = new HttpClient();

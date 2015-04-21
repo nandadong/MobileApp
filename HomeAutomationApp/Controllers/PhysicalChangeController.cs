@@ -14,7 +14,7 @@ public class PhysicalChangeController
 	{
 	}
 
-	public async Task<HttpStatusCode> SendPhysicalChangeAsync(string packet, string user)
+	public static async Task<HttpStatusCode> SendPhysicalChangeAsync(string packet, string user)
 	{
 
 		var client = new HttpClient();

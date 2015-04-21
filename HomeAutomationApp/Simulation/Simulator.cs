@@ -115,7 +115,7 @@ public class Simulator
 					Debug.WriteLine("HAD: " + listValue);
 					Debug.WriteLine("HAD: Updating Device State");			
 
-					var blob = new SimModel.UpdatePositonBlob();
+					var blob = new SimModel.JsonPhysicalChange();
 					blob.deviceid  = value.deviceid;
 					blob.type  = value.type;
 					blob.value = value.value;
