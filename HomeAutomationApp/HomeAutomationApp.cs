@@ -12,7 +12,7 @@ public class App : Application
 {
 	public App()
 	{
-		ConfigModel.Url = "http://serverapi1.azurewebsites.com";
+		ConfigModel.Url = "http://serverapi1.azurewebsites.net";
 
 		MainPage = new NavigationPage(new MainTabbedView());
 	}
@@ -31,7 +31,7 @@ public class App : Application
 		}
 		else
 		{
-			ConfigModel.Url = "http://serverapi1.azurewebsites.com/";
+			ConfigModel.Url = "http://serverapi1.azurewebsites.net/";
 
 			MainPage = new NavigationPage(new MainTabbedView());
 		}

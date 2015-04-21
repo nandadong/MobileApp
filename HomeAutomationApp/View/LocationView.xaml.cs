@@ -8,6 +8,7 @@ using Geolocator.Plugin;
 using System.Diagnostics;
 using Geolocator.Plugin.Abstractions;
 using Toasts.Forms.Plugin.Abstractions;
+using Newtonsoft.Json;
 
 namespace HomeAutomationApp
 {
@@ -59,12 +60,15 @@ public partial class LocationView : ContentPage
 		Alt.Text = position.Altitude.ToString();
 		Head.Text = position.Heading.ToString();
 
-		var packet = new SimModel.JsonGps();
-		packet.altitude = position.Altitude;
+		var packet = new SimModel.UpdatePositonBlob();
+		packet.alt = position.Altitude;
 		packet.lat = position.Latitude;
 		packet.lon = position.Longitude;
+		packet.userID = "user1";
+		packet.time = DateTime.Now;
 
-		var result = new UpdatePositionController().SendPositionAsync(packet.ToString(), "user1").Result;
+		var str = JsonConvert.SerializeObject(packet);
+		var result = new UpdatePositionController().SendPositionAsync(str, "user1").Result;
 
 		var notificator = DependencyService.Get<IToastNotificator>();
 		bool tapped = await notificator.Notify(ToastNotificationType.Info, 

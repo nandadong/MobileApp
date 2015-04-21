@@ -85,8 +85,10 @@ public class Simulator
 				blob.lon = value.lon;
 				blob.alt = value.altitude;
 				blob.time = simEvent.time;
+				blob.userID = User;
 
-				var retStatus = positionController.SendPositionAsync(blob.ToString(), User);
+				var str = JsonConvert.SerializeObject(blob);
+				var retStatus = positionController.SendPositionAsync(str, User);
 				if(retStatus.Result == HttpStatusCode.OK)
 				{
 					passed++;

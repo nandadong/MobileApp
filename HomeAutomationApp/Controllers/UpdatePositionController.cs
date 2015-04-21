@@ -24,7 +24,7 @@ public class UpdatePositionController
 
 		try
 		{
-			var response = await client.PostAsync("api/user/updateposition/" + user, 
+			var response = await client.PostAsync("api/app/user/updateposition/" + user, 
 				               new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 
 			return response.StatusCode;
