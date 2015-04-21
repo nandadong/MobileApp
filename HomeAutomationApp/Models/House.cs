@@ -4,8 +4,8 @@ namespace HomeAutomationApp
 {
 public class House
 {
-	private int id;
-	private List<Room> roomList;
+	private static int id;
+	private static List<Room> roomList;
 	/*public static House(int houseID)
 	{
 		id = houseID;
