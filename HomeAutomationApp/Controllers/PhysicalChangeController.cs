@@ -14,29 +14,12 @@ public class PhysicalChangeController
 	{
 	}
 
-	public async Task<HttpStatusCode> SendPhysicalChangeAsync(string packet, string user)
+	public static string SendPhysicalChangeAsync(string packet, string dev)
 	{
 
-		var client = new HttpClient();
-		client.Timeout = TimeSpan.FromSeconds(2);
 
-		client.BaseAddress = new Uri(ConfigModel.Url);
+		bool return_value = return (api.Interfaces.UpdateDevice(dev, packet));
 
-		try
-		{
-			var response = await client.PostAsync("api/device" + user, 
-				new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
-
-			return response.StatusCode;
-
-		}
-		catch(Exception e)
-		{
-			Debug.WriteLine("HAD - Position Update Error: " + e.Message);
-			Debug.WriteLine("HAD - Position Update Error: " + e.InnerException.Message);
-		}
-
-		return HttpStatusCode.InternalServerError;
 	}
 }
 }

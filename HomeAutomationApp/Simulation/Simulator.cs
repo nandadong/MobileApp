@@ -120,17 +120,17 @@ public class Simulator
 					blob.type  = value.type;
 					blob.value = value.value;
 
+					dev = "Unique dev";
+					bool retStatus = PhysicalChangeController.SendPhysicalChangeAsync(blob.ToString(), dev);
+					if (retStatus == true)
+					{
+						Debug.WriteLine("Physical change successfully updated");
+					}
 
-					var retStatus = PhysicalChangeController.SendPhysicalChangeAsync(blob.ToString(), User);
-					if(retStatus.Result == HttpStatusCode.OK)
+					else 
 					{
-						passed++;
-						Debug.WriteLine("HAD: Success");
-					}
-					else
-					{
-						Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
-					}
+					Debug.WriteLine("dev is not unique");
+						}
 
 
 				}
@@ -198,18 +198,10 @@ public class Simulator
 							//Interfaces DeviceInterface1 = new Interfaces1(new Uri(ConfigModel.Url));
 							//houseID = 2; info = blob.ToString()
 							//DeviceInterface.registerDevice(blob.name, houseId, info);
-							var retStatus = AddDeviceController.SendDeviceAsync(blob.ToString(), User);
-							if(retStatus.Result == HttpStatusCode.OK)
-							{
-								passed++;
-								Debug.WriteLine("HAD: Success");
-							}
-							else
-							{
-								Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
-							}
+							string return_value = AddDeviceController.SendDeviceAsync(value.name.ToString(), blob.ToString());
+							Debug.WriteLine(return_value);
 
-
+				
 						}
 
 		}

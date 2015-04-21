@@ -6,38 +6,33 @@ using System.Text;
 using System.Diagnostics;
 
 
+using System;
+using System.Collections.Generic;
+using api;
+
 namespace HomeAutomationApp
 {
 public class AddDeviceController
 {
+
+	// TODO: this is a hack - replace houseId with actual value!
+	const UInt64 houseId = 2;
+	Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
+	// constructor 
 	public AddDeviceController()
 	{
+		
 	}
 
-	public async Task<HttpStatusCode> SendDeviceAsync(string packet, string user)
+	// calls device API to retrieve list of unregistered devices
+	public static string SendPhysicalChangeAsync(string name, string info)
 	{
+	    //The hardcoded value is there to accomodate the shortcomings of the Simulation harness blob
+	    const UInt64 houseId = 2;
+	    // calls device API to register a device
+		DeviceInterface.registerDevice(name, houseId, info);
+		string return_value = "Device registered. As of now the implemented functionwill not return any value"
 
-		var client = new HttpClient();
-		client.Timeout = TimeSpan.FromSeconds(2);
-
-		client.BaseAddress = new Uri(ConfigModel.Url);
-
-		try
-		{
-			var response = await client.PostAsync("api/device" + user, 
-				new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
-
-			return response.StatusCode;
-
-		}
-		catch(Exception e)
-		{
-			Debug.WriteLine("HAD - Position Update Error: " + e.Message);
-			Debug.WriteLine("HAD - Position Update Error: " + e.InnerException.Message);
-		}
-
-		return HttpStatusCode.InternalServerError;
-	}
+    }
 }
 }
-
