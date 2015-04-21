@@ -132,7 +132,7 @@ namespace LogicUnitTests
 	{
 		int houseID = 0;
 		House.createHouse(houseID);
-		string serverAddr = "http://52.1.192.214/";
+		string serverAddr = "http://serverapi1.azurewebsites.net/";
 		Interfaces inter = new Interfaces(new Uri(serverAddr));
 		for(int i = 0; i < 10; i++) //add some rooms to the house
 		{
@@ -159,10 +159,11 @@ namespace LogicUnitTests
 		var code = InvalidationController.invalidate();
 		Assert.That(!code.Equals(null));
 		Assert.That(!(code.GetType().Name.Equals(null)));
+		Console.WriteLine(code);
 
 		int houseID = 0;
 		House.createHouse(houseID);
-		string serverAddr = "http://52.1.192.214/";
+		string serverAddr = "http://serverapi1.azurewebsites.net/";
 		Interfaces inter = new Interfaces(new Uri(serverAddr));
 		for(int i = 0; i < 10; i++) //add some rooms to the house
 		{
