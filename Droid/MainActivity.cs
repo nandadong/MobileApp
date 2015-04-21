@@ -101,7 +101,8 @@ namespace HomeAutomationApp.Droid
 						if (textInput.ToLower ().Equals ("make it brighter near me")) 
 						{
 							textBox.Text = textInput;
-							voiceController.makeItBrighterNearMe();	
+							string jsonBlob = null;
+							voiceController.makeItBrighterNearMe(jsonBlob);	
 						}
 						else
 							textBox.Text = "No Command Recognized";

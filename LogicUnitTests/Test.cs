@@ -3,6 +3,7 @@ using System;
 using HomeAutomationApp;
 using System.Collections.Generic;
 using api;
+using Newtonsoft.Json.Linq;
 
 namespace LogicUnitTests
 {
@@ -16,9 +17,18 @@ namespace LogicUnitTests
 		}
 
 		[Test ()]
-		public void TestGCMRegister ()
+		public void TestMakeItBrighter()
 		{
-			Assert.IsTrue (true);
+			var voiceController = new VoiceCommandController(); 
+			JObject blob = new JObject();
+			var time = new DateTime();
+			String timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+
+			blob["lat"] = 98.543;
+			blob["long"] = 84.345;
+			blob["alt"] = 45.3454;
+			blob["time"] = timeStamp;
+			Assert.IsTrue(voiceController.makeItBrighterNearMe(blob.ToString()).Equals("OK"));
 		}
 
 		

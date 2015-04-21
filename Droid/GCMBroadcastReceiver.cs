@@ -66,9 +66,10 @@ namespace HomeAutomationApp.Droid
 			createNotification("GCM Sample", msg.ToString());
 			Log.Info(TAG, msg.ToString());
 
-			var inval = new InvalidationController();
-			string response = inval.getAllUpdatedDevices();
+			var inval = new HomeAutomationApp.InvalidationController();
+			string response = inval.getAllUpdatedDevices().ToString();
 			Log.Info(TAG, response);
+
 		}
 
 		protected override bool OnRecoverableError (Context context, string errorId)
