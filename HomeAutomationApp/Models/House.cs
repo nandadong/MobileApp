@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 namespace HomeAutomationApp
 {
-public class House
+public static class House
 {
 	private static int id;
 	private static List<Room> roomList;
