@@ -18,16 +18,16 @@ public static class House
 		roomList = new List<Room>();
 	}
 
-public int getID()
+public static int getID()
 {
 	return id;
 }
-public void addRoom(Room r)
+public static void addRoom(Room r)
 {
 	roomList.Add(r);
 }
 
-public void removeRoom(Room r)
+public static void removeRoom(Room r)
 {
 	foreach(Room k in roomList)
 	{
@@ -37,13 +37,13 @@ public void removeRoom(Room r)
 }
 
 //get all of the rooms currently stored in the device memeory
-public List<Room> getRooms()
+public static List<Room> getRooms()
 {
 	return roomList;
 }
 
 //get a specific room indexed by device id
-public Room getRoom(int roomID)
+public static Room getRoom(int roomID)
 {
 	foreach(Room r in roomList)
 	{
