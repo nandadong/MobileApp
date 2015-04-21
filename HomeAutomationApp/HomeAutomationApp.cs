@@ -10,6 +10,13 @@ namespace HomeAutomationApp
 {
 public class App : Application
 {
+	public App()
+	{
+		ConfigModel.Url = "http://serverapi1.azurewebsites.net";
+
+		MainPage = new NavigationPage(new MainTabbedView());
+	}
+
 	public App(string mode, string config, string timeline, string user, string password)
 	{
 		// The root page of your application
@@ -29,7 +36,7 @@ public class App : Application
 			MainPage = new NavigationPage(new MainTabbedView());
 		}
 
-		Debug.WriteLine("HomeAutomationSim: Starting Simulation");
+		Debug.WriteLine("HAD: Starting Simulation");
 	}
 
 	protected override void OnStart()

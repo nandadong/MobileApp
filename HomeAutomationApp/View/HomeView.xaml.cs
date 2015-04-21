@@ -9,6 +9,8 @@ namespace HomeAutomationApp
 	{
 		public HomeView ()
 		{
+
+			
 			InitializeComponent ();
 		}
 

@@ -64,7 +64,7 @@ public class Simulator
 		foreach(SimModel.JsonEvents simEvent in TimelineBlob.events)
 		{
 			counter++;
-			Debug.WriteLine("Scenario " + counter);
+			Debug.WriteLine("HAD: Scenario " + counter);
 			if(simEvent.key.ToLower() == "locationchange")
 			{
 				
