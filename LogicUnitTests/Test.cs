@@ -141,16 +141,27 @@ namespace LogicUnitTests
 
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
 
-		foreach(Room r in testHouse.getRooms()) //add all the devices in the house to the rooms
+		foreach(Room r in House.getRooms()) //add all the devices in the house to the rooms
 		{
 			House.getRoom(r.getID()).addAllDevices(inter.getDevices((ulong)House.getID()));
 		}
 
-		foreach(Room r in testHouse.getRooms())
+		foreach(Room r in House.getRooms())
 		{
 			Assert.Greater(r.getDevices().Count, 0);
 		}
 
 	}
+
+	[Test()]
+	public void TestInvalidation() //this test simulates what would happen during a room invalidation
+	{
+		var code = InvalidationController.invalidate();
+		Assert.That(!code.Equals(null));
+		//Console.WriteLine(code.ToString());
+
+	}
+
+
 	}
 }

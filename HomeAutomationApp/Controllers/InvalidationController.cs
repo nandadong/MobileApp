@@ -8,13 +8,16 @@ using System.Diagnostics;
 
 namespace HomeAutomationApp
 {
-	public class InvalidationController
+	public static class InvalidationController
 	{
-		public InvalidationController()
+		public static HttpStatusCode invalidate()
 		{
+			Task<HttpStatusCode> code = getAllUpdatedDevices();
+			code.Wait();
+			return code.Result;
 		}
 
-	public async Task<HttpStatusCode> getAllUpdatedDevices()
+	public static async Task<HttpStatusCode> getAllUpdatedDevices()
 	{
 
 		var client = new HttpClient();
