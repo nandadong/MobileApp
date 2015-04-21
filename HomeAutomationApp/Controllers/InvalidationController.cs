@@ -10,11 +10,11 @@ namespace HomeAutomationApp
 {
 	public static class InvalidationController
 	{
-		public static HttpStatusCode invalidate()
+		public static string invalidate()
 		{
 			Task<HttpStatusCode> code = getAllUpdatedDevices();
-			code.Wait();
-			return code.Result;
+			code.Wait(-1);
+		return code.Result.ToString();
 		}
 
 	public static async Task<HttpStatusCode> getAllUpdatedDevices()

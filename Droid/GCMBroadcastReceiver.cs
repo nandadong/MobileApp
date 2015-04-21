@@ -66,8 +66,8 @@ namespace HomeAutomationApp.Droid
 			createNotification("GCM Sample", msg.ToString());
 			Log.Info(TAG, msg.ToString());
 
-			var inval = new HomeAutomationApp.InvalidationController();
-			string response = inval.getAllUpdatedDevices().ToString();
+			//var inval = new HomeAutomationApp.InvalidationController();
+			string response = InvalidationController.getAllUpdatedDevices().ToString();
 			Log.Info(TAG, response);
 
 		}

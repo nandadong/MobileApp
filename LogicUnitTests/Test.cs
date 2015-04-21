@@ -158,8 +158,28 @@ namespace LogicUnitTests
 	{
 		var code = InvalidationController.invalidate();
 		Assert.That(!code.Equals(null));
-		//Console.WriteLine(code.ToString());
+		Assert.That(!(code.GetType().Name.Equals(null)));
 
+		int houseID = 0;
+		House.createHouse(houseID);
+		string serverAddr = "http://52.1.192.214/";
+		Interfaces inter = new Interfaces(new Uri(serverAddr));
+		for(int i = 0; i < 10; i++) //add some rooms to the house
+		{
+			House.addRoom(new Room(i));
+		}
+
+		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
+
+		foreach(Room r in House.getRooms()) //add all the devices in the house to the rooms
+		{
+			House.getRoom(r.getID()).addAllDevices(inter.getDevices((ulong)House.getID()));
+		}
+
+		foreach(Room r in House.getRooms())
+		{
+			Assert.Greater(r.getDevices().Count, 0);
+		}
 	}
 
 
