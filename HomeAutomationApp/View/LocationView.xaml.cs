@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using XLabs.Forms.Mvvm;
 using Geolocator.Plugin;
 using System.Diagnostics;
+using Geolocator.Plugin.Abstractions;
+using Toasts.Forms.Plugin.Abstractions;
 
 namespace HomeAutomationApp
 {
@@ -21,17 +23,13 @@ public partial class LocationView : ContentPage
 		locator.DesiredAccuracy = 50;
 
 		if(!locator.IsListening)
-			locator.StartListening(1, 0);
-
-		locator.PositionChanged += async (sender, e) => 
 		{
-			var position = e.Position;
+			locator.StopListening();
+			locator.StartListening(5, 1);
 
-			Lat.Text = position.Latitude.ToString();
-			Lon.Text = position.Longitude.ToString();
-			Alt.Text = position.Altitude.ToString();
-			Head.Text = position.Heading.ToString();
-		};
+		}
+
+		locator.PositionChanged += onLocation;
 
 		UpdateLocation.Clicked += async (sender, e) =>
 		{
@@ -49,6 +47,28 @@ public partial class LocationView : ContentPage
 
 			}
 		};
+
+	}
+
+	public async void onLocation(object sender, PositionEventArgs e)
+	{
+		var position = e.Position;
+
+		Lat.Text = position.Latitude.ToString();
+		Lon.Text = position.Longitude.ToString();
+		Alt.Text = position.Altitude.ToString();
+		Head.Text = position.Heading.ToString();
+
+		var packet = new SimModel.JsonGps();
+		packet.altitude = position.Altitude;
+		packet.lat = position.Latitude;
+		packet.lon = position.Longitude;
+
+		var result = new UpdatePositionController().SendPositionAsync(packet.ToString(), "user1").Result;
+
+		var notificator = DependencyService.Get<IToastNotificator>();
+		bool tapped = await notificator.Notify(ToastNotificationType.Info, 
+			"Position Update", "Result " + result, TimeSpan.FromSeconds(2));
 
 	}
 }

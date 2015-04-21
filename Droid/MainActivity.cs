@@ -13,6 +13,7 @@ using Android.Speech;
 
 using api;
 using System.Collections.Generic;
+using Toasts.Forms.Plugin.Droid;
 
 namespace HomeAutomationApp.Droid
 {
@@ -69,6 +70,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 
 
 		global::Xamarin.Forms.Forms.Init(this, savedState);
+		ToastNotificatorImplementation.Init();
 
 		if(bundle == null)
 		{
