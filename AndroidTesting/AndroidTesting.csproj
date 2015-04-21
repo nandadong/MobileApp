@@ -44,7 +44,7 @@
     <Reference Include="Mono.Android" />
     <Reference Include="Xamarin.Android.NUnitLite" />
     <Reference Include="GCM.Client">
-      <HintPath>..\..\..\..\..\..\Downloads\GCMClient-1.0\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
+      <HintPath>..\..\Components\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

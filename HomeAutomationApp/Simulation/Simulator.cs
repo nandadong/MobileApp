@@ -67,7 +67,7 @@ public class Simulator
 			Debug.WriteLine("HAD: Scenario " + counter);
 			if(simEvent.key.ToLower() == "locationchange")
 			{
-				
+
 				Debug.WriteLine("HAD: Location Change");
 
 				string listValue = "Event Time: " + simEvent.time;
@@ -99,74 +99,123 @@ public class Simulator
 
 			}
 			else
-			if(simEvent.key.ToLower() == "physicalchange")
-			{
-				
-				Debug.WriteLine("HAD: Physical Change");
+				if(simEvent.key.ToLower() == "physicalchange")
+				{
 
-				string listValue = "Event Time: " + simEvent.time;
-				var value = simEvent.value as SimModel.JsonPhysicalChange;
+					Debug.WriteLine("HAD: Physical Change");
 
-				listValue += " Device ID: " + value.deviceid;
-				listValue += " Device Type: " + value.type;
-				listValue += " Device Value: " + value.value;
+					string listValue = "Event Time: " + simEvent.time;
+					var value = simEvent.value as SimModel.JsonPhysicalChange;
 
-				items.Add(listValue);
-				Debug.WriteLine("HAD: " + listValue);
-				Debug.WriteLine("HAD: Updating Device State");			
+					listValue += " Device ID: " + value.deviceid;
+					listValue += " Device Type: " + value.type;
+					listValue += " Device Value: " + value.value;
 
-				passed++;
-				Debug.WriteLine("HAD: Success");
+					items.Add(listValue);
+					Debug.WriteLine("HAD: " + listValue);
+					Debug.WriteLine("HAD: Updating Device State");			
 
-			}
-			else
-			if(simEvent.key.ToLower() == "voicechange")
-			{
+					var blob = new SimModel.UpdatePositonBlob();
+					blob.deviceid  = value.deviceid;
+					blob.type  = value.type;
+					blob.value = value.value;
 
-				Debug.WriteLine("HAD: Voice Command");
 
-				string listValue = "Event Time: " + simEvent.time;
-				var value = simEvent.value as SimModel.JsonVoiceChange;
+					var retStatus = PhysicalChangeController.SendPhysicalChangeAsync(blob.ToString(), User);
+					if(retStatus.Result == HttpStatusCode.OK)
+					{
+						passed++;
+						Debug.WriteLine("HAD: Success");
+					}
+					else
+					{
+						Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
+					}
 
-				listValue += " Action: " + value.action;
-				listValue += " Event Lat: " + value.lat;
-				listValue += " Event Lon: " + value.lon;
-				listValue += " Event Alt: " + value.altitude;
 
-				items.Add(listValue);
-				Debug.WriteLine("HAD: " + listValue);
-				Debug.WriteLine("HAD: Sending Voice Command");			
+				}
+				else
+					if(simEvent.key.ToLower() == "voicechange")
+					{
 
-				passed++;
-				Debug.WriteLine("HAD: Success");
+						Debug.WriteLine("HAD: Voice Command");
 
-			}
-			else
-			if(simEvent.key.ToLower() == "adddevice")
-			{
+						string listValue = "Event Time: " + simEvent.time;
+						var value = simEvent.value as SimModel.JsonVoiceChange;
 
-				Debug.WriteLine("HAD: Add Device");
+						listValue += " Action: " + value.action;
+						listValue += " Event Lat: " + value.lat;
+						listValue += " Event Lon: " + value.lon;
+						listValue += " Event Alt: " + value.altitude;
 
-				string listValue = "Event Time: " + simEvent.time;
-				var value = simEvent.value as SimModel.JsonAddDevice;
+						items.Add(listValue);
+						Debug.WriteLine("HAD: " + listValue);
+						Debug.WriteLine("HAD: Sending Voice Command");			
 
-				listValue += " Device Name: " + value.name;
-				listValue += " Device Type: " + value.type;
-				listValue += " Room Id: " + value.roomid;
+						var blob = new SimModel.JsonVoiceChange();
+						blob.lat  = value.lat;
+						blob.lon  = value.lon;
+						blob.altitude = value.altitude;
+						blob.action = value.action;
 
-				items.Add(listValue);
-				Debug.WriteLine("HAD: " + listValue);
-				Debug.WriteLine("HAD: Adding Device");			
 
-				passed++;
-				Debug.WriteLine("HAD: Success");
+						var retStatus = VoiceCommandController.SendBrighterAsync(blob.ToString(), User);
+						if(retStatus.Result == HttpStatusCode.OK)
+						{
+							passed++;
+							Debug.WriteLine("HAD: Success");
+						}
+						else
+						{
+							Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
+						}
 
-			}
-				
+
+					}
+					else
+						if(simEvent.key.ToLower() == "adddevice")
+						{
+
+							Debug.WriteLine("HAD: Add Device");
+
+							string listValue = "Event Time: " + simEvent.time;
+							var value = simEvent.value as SimModel.JsonAddDevice;
+
+							listValue += " Device Name: " + value.name;
+							listValue += " Device Type: " + value.type;
+							listValue += " Room Id: " + value.roomid;
+
+							items.Add(listValue);
+							Debug.WriteLine("HAD: " + listValue);
+							Debug.WriteLine("HAD: Adding Device");			
+
+							var blob = new SimModel.JsonAddDevice();
+							blob.type  = value.type;
+							blob.roomid  = value.roomid;
+							blob.name = value.name;
+							//Since the device APIs are stubbed versions we are not testing them in the simulated mode
+							//AddDeviceModel myDeviceModel1 = new AddDeviceModel1();
+							//Interfaces DeviceInterface1 = new Interfaces1(new Uri(ConfigModel.Url));
+							//houseID = 2; info = blob.ToString()
+							//DeviceInterface.registerDevice(blob.name, houseId, info);
+							var retStatus = AddDeviceController.SendDeviceAsync(blob.ToString(), User);
+							if(retStatus.Result == HttpStatusCode.OK)
+							{
+								passed++;
+								Debug.WriteLine("HAD: Success");
+							}
+							else
+							{
+								Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
+							}
+
+
+						}
+
 		}
 		Debug.WriteLine("HAD: Tests Passed " + passed + "/" + counter);
 	}
-		
+
 
 }
 }

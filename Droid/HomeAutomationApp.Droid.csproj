@@ -70,14 +70,14 @@
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\..\packages\Xamarin.Android.Support.v4.22.0.0.0\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
-    <Reference Include="GCM.Client">
-      <HintPath>..\..\Components\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
-    </Reference>
     <Reference Include="Geolocator.Plugin">
       <HintPath>..\..\packages\Xam.Plugin.Geolocator.1.0.1\lib\MonoAndroid10\Geolocator.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="Geolocator.Plugin.Abstractions">
       <HintPath>..\..\packages\Xam.Plugin.Geolocator.1.0.1\lib\MonoAndroid10\Geolocator.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="GCM.Client">
+      <HintPath>..\..\Components\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
