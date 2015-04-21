@@ -28,6 +28,7 @@ public class Room
 		foreach(Device d in deviceList){
 			if(d.ID.DeviceID.Equals(updatedDevice.ID.DeviceID))
 			{
+				deviceList.RemoveAt(deviceList.IndexOf(d));
 				deviceList.Insert(deviceList.IndexOf(d),updatedDevice);
 			}
 		}

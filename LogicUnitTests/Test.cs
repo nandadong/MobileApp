@@ -170,11 +170,7 @@ namespace LogicUnitTests
 		}
 
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
-
-		foreach(Room r in House.getRooms()) //add all the devices in the house to the rooms
-		{
-			House.getRoom(r.getID()).addAllDevices(inter.getDevices((ulong)House.getID()));
-		}
+		House.updateHouse(inter.getDevices((ulong)House.getID()));
 
 		foreach(Room r in House.getRooms())
 		{
