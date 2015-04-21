@@ -16,6 +16,7 @@ public partial class SimView : ContentPage
 	public SimView(Simulator sim)
 	{
 		simulator = sim;
+		Items = new ObservableCollection<string>();
 
 		InitializeComponent();
 

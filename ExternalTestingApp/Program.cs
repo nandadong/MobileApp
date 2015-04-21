@@ -32,15 +32,39 @@ class MainClass
 		{
 			pwd += proc.StandardOutput.ReadLine();
 		}
-
-		var logMonitor = new LogMonitor(args[2]);
-
+			
 		cleanup();
 		uploadApplication(args[0]);
 		uploadStartScript(args[1]);
 		installApplication(args[0]);
 		startApplication(args[1]);
+		monitorLog();
+	}
 
+	public static void monitorLog()
+	{
+		Process proc = new Process();
+		proc.StartInfo.FileName = "adb";
+		//			proc.StartInfo.Arguments = "push " + scriptFile + " /data/local/tmp/";
+		proc.StartInfo.Arguments = "logcat";
+		proc.StartInfo.UseShellExecute = false; 
+		proc.StartInfo.RedirectStandardOutput = true;
+		proc.Start();
+
+		string str = "";
+		while(!proc.StandardOutput.EndOfStream)
+		{
+			str = proc.StandardOutput.ReadLine();
+			if(str.StartsWith("HAD:")) {
+				Console.WriteLine(str);
+			}
+		}
+
+		if(proc.ExitCode != 0)
+		{
+			Console.WriteLine("Failed to Monitor Log");
+			Environment.Exit(-1);
+		}
 	}
 
 	public static void cleanup()

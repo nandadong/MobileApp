@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace HomeAutomationApp
 {
 public static class SimModel
 {
+	public abstract class JsonValue
+	{
+	}
+
 	// classes for timeline blob
 	public class JsonGps : JsonValue
 	{
@@ -53,10 +58,6 @@ public static class SimModel
 		public double alt  { get; set; }
 
 		public DateTime time { get; set; }
-	}
-
-	public class JsonValue
-	{
 	}
 
 	public class JsonEvents

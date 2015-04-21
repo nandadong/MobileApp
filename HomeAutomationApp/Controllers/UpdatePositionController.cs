@@ -32,8 +32,8 @@ public class UpdatePositionController
 		}
 		catch(Exception e)
 		{
-			Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.Message);
-			Debug.WriteLine("HomeAutomationDebugError - Position Update Error: " + e.InnerException.Message);
+			Debug.WriteLine("HAD - Position Update Error: " + e.Message);
+			Debug.WriteLine("HAD - Position Update Error: " + e.InnerException.Message);
 		}
 
 		return HttpStatusCode.InternalServerError;
