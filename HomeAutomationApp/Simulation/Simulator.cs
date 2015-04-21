@@ -198,7 +198,7 @@ public class Simulator
 							//Interfaces DeviceInterface1 = new Interfaces1(new Uri(ConfigModel.Url));
 							//houseID = 2; info = blob.ToString()
 							//DeviceInterface.registerDevice(blob.name, houseId, info);
-							string return_value = AddDeviceController.SendDeviceAsync(value.name.ToString(), blob.ToString());
+							string return_value = AddDeviceController.SendPhysicalChangeAsync(value.name.ToString(), blob.ToString());
 							Debug.WriteLine(return_value);
 
 				
