@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
 using System.Diagnostics;
+using api;
 
 
 namespace HomeAutomationApp
@@ -14,7 +15,26 @@ namespace HomeAutomationApp
 		{
 			Task<HttpStatusCode> code = getAllUpdatedDevices();
 			code.Wait(-1);
-		return code.Result.ToString();
+			//Assert.That(!code.Equals(null));
+			//Assert.That(!(code.GetType().Name.Equals(null)));
+
+			//int houseID = 0;
+			House.createHouse(0);
+			string serverAddr = "http://52.1.192.214/";
+			Interfaces inter = new Interfaces(new Uri(serverAddr));
+			for(int i = 0; i < 10; i++) //add some rooms to the house
+			{
+				House.addRoom(new Room(i));
+			}
+
+			//Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
+			House.updateHouse(inter.getDevices((ulong)House.getID()));
+
+			/*foreach(Room r in House.getRooms())
+			{
+				Assert.Greater(r.getDevices().Count, 0);
+			}*/
+			return code.Result.ToString();
 		}
 
 	public static async Task<HttpStatusCode> getAllUpdatedDevices()
