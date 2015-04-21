@@ -17,7 +17,6 @@ public class MainTabbedView : TabbedPage
 			Children.Add(new Login());
 		}
 
-		Children.Add(new LocationView());
 		Children.Add(new AddDeviceView());
 		Children.Add(new LocationView());
 		Children.Add(new HomeView());

@@ -45,7 +45,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 
 	const string jsonConfigString = 
 		"{" +
-		"serverLocation : \"http://52.1.192.214/\" " +
+		"serverLocation : \"http://serverapi1.azurewebsites.net/\" " +
 		"}";
 
 

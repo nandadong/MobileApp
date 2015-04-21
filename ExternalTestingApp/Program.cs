@@ -19,19 +19,20 @@ class MainClass
 			return;
 		}
 
-//			var device_id = getDeviceId ();
+		var device_id = getDeviceId();
 
 		Process proc = new Process();
-		proc.StartInfo.FileName = "pwd";
+		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.Arguments = "connect 10.71.34.101";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
 		proc.Start();
 
-		string pwd = "";
-		while(!proc.StandardOutput.EndOfStream)
-		{
-			pwd += proc.StandardOutput.ReadLine();
-		}
+//		string pwd = "";
+//		while(!proc.StandardOutput.EndOfStream)
+//		{
+//			pwd += proc.StandardOutput.ReadLine();
+//		}
 			
 		cleanup();
 		uploadApplication(args[0]);
@@ -52,10 +53,12 @@ class MainClass
 		proc.Start();
 
 		string str = "";
+
 		while(!proc.StandardOutput.EndOfStream)
 		{
 			str = proc.StandardOutput.ReadLine();
-			if(str.StartsWith("HAD:")) {
+			if(str.Contains("HAD:"))
+			{
 				Console.WriteLine(str);
 			}
 		}
@@ -139,7 +142,7 @@ class MainClass
 	{
 		Process proc = new Process();
 		proc.StartInfo.FileName = "adb";
-		proc.StartInfo.Arguments = "shell pm install /sdcard/homeautomation/" + app;
+		proc.StartInfo.Arguments = "shell pm install -r /sdcard/homeautomation/" + app;
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
 		proc.Start();

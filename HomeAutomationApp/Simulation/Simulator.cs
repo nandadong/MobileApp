@@ -10,6 +10,7 @@ using api;
 
 namespace HomeAutomationApp
 {
+
 public class Simulator
 {
 	private readonly SimModel.JsonTimeline TimelineBlob;
@@ -96,7 +97,7 @@ public class Simulator
 				}
 				else
 				{
-					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
+					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus.Result);
 				}
 
 			}

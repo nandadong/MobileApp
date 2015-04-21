@@ -18,7 +18,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
-    <Commandlineparameters>com.homeAutomationApp.apk adb.sh</Commandlineparameters>
+    <Commandlineparameters>com.homeAutomationApp.apk adb.sh result.txt</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>

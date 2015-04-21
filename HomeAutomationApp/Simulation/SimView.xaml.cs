@@ -12,6 +12,7 @@ public partial class SimView : ContentPage
 	private readonly Simulator simulator;
 	ObservableCollection<string> Items;
 
+	bool sim = false;
 
 	public SimView(Simulator sim)
 	{
@@ -22,12 +23,17 @@ public partial class SimView : ContentPage
 
 		SimList.ItemsSource = Items;
 
-		StartSimulation();
+		Device.StartTimer(TimeSpan.FromSeconds(5), StartSimulation);
 	}
 
-	void StartSimulation()
+	bool StartSimulation()
 	{
-		simulator.StartSimulation(Items);
+		if(!sim)
+		{
+			simulator.StartSimulation(Items);
+			sim = true;
+		}
+		return false;
 	}
 
 }

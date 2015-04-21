@@ -27,7 +27,7 @@ public class App : Application
 			var configObj = JsonConvert.DeserializeObject<JObject>(config);
 			ConfigModel.Url = configObj.GetValue("serverLocation").ToString();
 
-			MainPage = new NavigationPage(new SimView(new Simulator(config, timeline, user, password)));
+			MainPage = new SimView(new Simulator(config, timeline, user, password));
 		}
 		else
 		{
