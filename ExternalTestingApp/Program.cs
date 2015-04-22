@@ -6,23 +6,28 @@ namespace ExternalTestingApp
 {
 class MainClass
 {
+
+	private static string adb_path = "";
+
 	public static void Main(string[] args)
 	{
 		Console.WriteLine("Hello World!");
 		Console.WriteLine("This Application can be used to ensure if the Mobile app can" +
 		" be uploaded and opened on an Android device");
 
-		if(args.Length != 2)
+		if(args.Length != 3)
 		{
 			Console.WriteLine("Invalid Arguments.");
-			Console.WriteLine("Usage: ExternalTestingApp <APK_File> <SCRIPT_FILE>");
+			Console.WriteLine("Usage: ExternalTestingApp <ADB_PATH> <APK_File> <SCRIPT_FILE>");
 			return;
 		}
+
+		adb_path = args[0];
 
 //		var device_id = getDeviceId();
 
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "connect 10.71.34.101";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
@@ -35,17 +40,17 @@ class MainClass
 //		}
 			
 		cleanup();
-		uploadApplication(args[0]);
-		uploadStartScript(args[1]);
-		installApplication(args[0]);
-		startApplication(args[1]);
+		uploadApplication(args[1]);
+		uploadStartScript(args[2]);
+		installApplication(args[1]);
+		startApplication(args[2]);
 		monitorLog();
 	}
 
 	public static void monitorLog()
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		//			proc.StartInfo.Arguments = "push " + scriptFile + " /data/local/tmp/";
 		proc.StartInfo.Arguments = "logcat";
 		proc.StartInfo.UseShellExecute = false; 
@@ -73,7 +78,7 @@ class MainClass
 	public static void cleanup()
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "shell pm uninstall com.homeAutomation";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
@@ -83,7 +88,7 @@ class MainClass
 
 
 		proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "shell rm -r /sdcard/homeautomation";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
@@ -92,7 +97,7 @@ class MainClass
 		proc.WaitForExit();
 
 		proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "shell mkdir -p /sdcard/homeautomation";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
@@ -110,7 +115,7 @@ class MainClass
 	public static void startApplication(string script)
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 //			proc.StartInfo.Arguments = "shell sh /data/local/tmp/" + script;
 		proc.StartInfo.Arguments = "shell sh /sdcard/homeautomation/" + script;
 		proc.StartInfo.UseShellExecute = false; 
@@ -132,7 +137,7 @@ class MainClass
 	public static void uploadStartScript(string scriptFile)
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 //			proc.StartInfo.Arguments = "push " + scriptFile + " /data/local/tmp/";
 		proc.StartInfo.Arguments = "push " + scriptFile + " /sdcard/homeautomation/";
 		proc.StartInfo.UseShellExecute = false; 
@@ -151,7 +156,7 @@ class MainClass
 	public static void installApplication(string app)
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "shell pm install -r /sdcard/homeautomation/" + app;
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
@@ -172,7 +177,7 @@ class MainClass
 	public static void uploadApplication(string apkFile)
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "push " + apkFile + " /sdcard/homeautomation/";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;
@@ -190,7 +195,7 @@ class MainClass
 	public static string getDeviceId()
 	{
 		Process proc = new Process();
-		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.FileName = adb_path;
 		proc.StartInfo.Arguments = "devices";
 		proc.StartInfo.UseShellExecute = false; 
 		proc.StartInfo.RedirectStandardOutput = true;

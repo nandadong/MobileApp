@@ -14,7 +14,7 @@ public class UpdatePositionController
 	{
 	}
 
-	public async Task<HttpStatusCode> SendPositionAsync(string packet, string user)
+	public HttpStatusCode SendPositionAsync(string packet, string user)
 	{
 		try
 		{
@@ -25,8 +25,8 @@ public class UpdatePositionController
 			client.BaseAddress = new Uri(ConfigModel.Url);
 
 
-			var response = await client.PostAsync("api/app/user/updateposition/" + user, 
-				               new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
+			var response = client.PostAsync("api/app/user/updateposition/" + user, 
+				new StringContent(packet, Encoding.UTF8, "application/json")).Result;
 
 			return response.StatusCode;
 		}

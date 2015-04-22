@@ -90,14 +90,14 @@ public class Simulator
 
 				var str = JsonConvert.SerializeObject(blob);
 				var retStatus = positionController.SendPositionAsync(str, User);
-				if(retStatus.Result == HttpStatusCode.OK)
+				if(retStatus == HttpStatusCode.OK)
 				{
 					passed++;
 					Debug.WriteLine("HAD: Success");
 				}
 				else
 				{
-					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus.Result);
+					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
 				}
 
 			}
@@ -165,14 +165,14 @@ public class Simulator
 
 
 				var retStatus = VoiceCommandController.SendBrighterAsync(blob.ToString(), User);
-				if(retStatus.Result == HttpStatusCode.OK)
+				if(retStatus == HttpStatusCode.OK)
 				{
 					passed++;
 					Debug.WriteLine("HAD: Success");
 				}
 				else
 				{
-					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus.Result);
+					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
 				}
 
 

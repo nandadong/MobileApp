@@ -68,7 +68,7 @@ public partial class LocationView : ContentPage
 		packet.time = DateTime.Now;
 
 		var str = JsonConvert.SerializeObject(packet);
-		var result = new UpdatePositionController().SendPositionAsync(str, "user1").Result;
+		var result = new UpdatePositionController().SendPositionAsync(str, "user1");
 
 		var notificator = DependencyService.Get<IToastNotificator>();
 		bool tapped = await notificator.Notify(ToastNotificationType.Info, 

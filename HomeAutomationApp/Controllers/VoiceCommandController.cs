@@ -26,7 +26,7 @@ namespace HomeAutomationApp
 			blob["alt"] = 45.3454;
 			blob["time"] = timeStamp;
 
-		string result = SendBrighterAsync(blob.ToString(), user).Result.ToString();
+		string result = SendBrighterAsync(blob.ToString(), user) == HttpStatusCode.OK ? "OK" : "Not OK";
 			return result;
 		}
 
@@ -35,7 +35,7 @@ namespace HomeAutomationApp
 			return value.ToString("yyyyMMddHHmmssfff");
 		}
 
-		public static async Task<HttpStatusCode> SendBrighterAsync(string packet, string user)
+		public static HttpStatusCode SendBrighterAsync(string packet, string user)
 		{
 
 			var client = new HttpClient();
@@ -45,8 +45,8 @@ namespace HomeAutomationApp
 
 			try
 			{
-			var response = await client.PostAsync("http://serverapi1.azurewebsites.net/api/app/user/brighten/", 
-					new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
+			var response = client.PostAsync("http://serverapi1.azurewebsites.net/api/app/user/brighten/", 
+				new StringContent(packet, Encoding.UTF8, "application/json")).Result;
 
 				return response.StatusCode;
 
