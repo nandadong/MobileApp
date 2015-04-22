@@ -111,9 +111,9 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 						textInput = textInput.Substring(0, 500);
 					if(textInput.ToLower().Equals("make it brighter near me"))
 					{
-						textBox.Text = textInput;
-						string jsonBlob = null;
-						voiceController.makeItBrighterNearMe(jsonBlob);	
+						string jsonBlob = "";
+						string user = "user";
+						textBox.Text = voiceController.makeItBrighterNearMe(jsonBlob, user);	
 					}
 					else
 						textBox.Text = "No Command Recognized";
