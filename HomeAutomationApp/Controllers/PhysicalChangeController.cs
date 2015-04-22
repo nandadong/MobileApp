@@ -14,9 +14,9 @@ public class PhysicalChangeController
 	{
 	}
 
-	public static bool SendPhysicalChangeAsync(string packet, string dev)
+	public static bool SendPhysicalChangeAsync(string packet, api.Device dev)
 	{
-
+		
 		bool return_value =api.Interfaces.UpdateDevice(dev, packet);
 
 		return return_value;

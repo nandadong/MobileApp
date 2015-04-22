@@ -122,8 +122,8 @@ public class Simulator
 					blob.deviceid  = value.deviceid;
 					blob.type  = value.type;
 					blob.value = value.value;
-
-					string dev = "Unique dev";
+					api.Device dev = null;
+					//string dev = "Unique dev"; There has been a sudden requirement to use the 
 					bool return_value=PhysicalChangeController.SendPhysicalChangeAsync(blob.ToString(), dev);
 
 					if(return_value == true)
