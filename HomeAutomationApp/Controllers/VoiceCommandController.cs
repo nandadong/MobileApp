@@ -26,7 +26,7 @@ namespace HomeAutomationApp
 			blob["alt"] = 45.3454;
 			blob["time"] = timeStamp;
 
-			string result = SendBrighterAsync(blob.ToString(), "no user").ToString();
+			string result = SendBrighterAsync(blob.ToString()).Result.ToString();
 			return result;
 		}
 
@@ -45,7 +45,7 @@ namespace HomeAutomationApp
 
 			try
 			{
-			var response = await client.PostAsync("http://serverapi1.azurewebsites.net/api/app/user/brighten" + user, 
+			var response = await client.PostAsync("http://serverapi1.azurewebsites.net/api/app/user/brighten/", 
 					new StringContent(packet, Encoding.UTF8, "application/json")).ConfigureAwait(false);
 
 				return response.StatusCode;
