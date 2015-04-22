@@ -20,7 +20,7 @@ public class UpdatePositionController
 		var client = new HttpClient();
 		client.Timeout = TimeSpan.FromSeconds(2);
 
-		Debug.WriteLine("HAD - URL: " + ConfigModel.Url);
+		Debug.WriteLine("HAD: URL: " + ConfigModel.Url);
 		client.BaseAddress = new Uri(ConfigModel.Url);
 
 		try

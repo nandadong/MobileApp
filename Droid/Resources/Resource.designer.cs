@@ -26,7 +26,6 @@ namespace HomeAutomationApp.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Gcm.Client.Resource.String.library_name = global::HomeAutomationApp.Droid.Resource.String.library_name;
 			global::Toasts.Forms.Plugin.Droid.Resource.Drawable.error = global::HomeAutomationApp.Droid.Resource.Drawable.error;
 			global::Toasts.Forms.Plugin.Droid.Resource.Drawable.info = global::HomeAutomationApp.Droid.Resource.Drawable.info;
 			global::Toasts.Forms.Plugin.Droid.Resource.Drawable.success = global::HomeAutomationApp.Droid.Resource.Drawable.success;
@@ -37,6 +36,9 @@ namespace HomeAutomationApp.Droid
 			global::Toasts.Forms.Plugin.Droid.Resource.Layout.crouton = global::HomeAutomationApp.Droid.Resource.Layout.crouton;
 			global::Toasts.Forms.Plugin.Droid.Resource.String.ApplicationName = global::HomeAutomationApp.Droid.Resource.String.ApplicationName;
 			global::Toasts.Forms.Plugin.Droid.Resource.String.Hello = global::HomeAutomationApp.Droid.Resource.String.Hello;
+			global::Gcm.Client.Resource.String.library_name = global::HomeAutomationApp.Droid.Resource.String.library_name;
+			global::Xamarin.Forms.Platform.Resource.String.ApplicationName = global::HomeAutomationApp.Droid.Resource.String.ApplicationName;
+			global::Xamarin.Forms.Platform.Resource.String.Hello = global::HomeAutomationApp.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

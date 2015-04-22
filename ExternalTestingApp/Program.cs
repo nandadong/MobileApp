@@ -12,14 +12,14 @@ class MainClass
 		Console.WriteLine("This Application can be used to ensure if the Mobile app can" +
 		" be uploaded and opened on an Android device");
 
-		if(args.Length != 3)
+		if(args.Length != 2)
 		{
 			Console.WriteLine("Invalid Arguments.");
-			Console.WriteLine("Usage: ExternalTestingApp <APK_File> <SCRIPT_FILE> <RESULT_FILE>");
+			Console.WriteLine("Usage: ExternalTestingApp <APK_File> <SCRIPT_FILE>");
 			return;
 		}
 
-		var device_id = getDeviceId();
+//		var device_id = getDeviceId();
 
 		Process proc = new Process();
 		proc.StartInfo.FileName = "adb";
@@ -73,6 +73,16 @@ class MainClass
 	public static void cleanup()
 	{
 		Process proc = new Process();
+		proc.StartInfo.FileName = "adb";
+		proc.StartInfo.Arguments = "shell pm uninstall com.homeAutomation";
+		proc.StartInfo.UseShellExecute = false; 
+		proc.StartInfo.RedirectStandardOutput = true;
+		proc.Start();
+
+		proc.WaitForExit();
+
+
+		proc = new Process();
 		proc.StartInfo.FileName = "adb";
 		proc.StartInfo.Arguments = "shell rm -r /sdcard/homeautomation";
 		proc.StartInfo.UseShellExecute = false; 
