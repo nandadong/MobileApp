@@ -7,6 +7,7 @@ using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using api;
+using System.Net.Http;
 
 namespace HomeAutomationApp
 {
@@ -90,14 +91,19 @@ public class Simulator
 
 				var str = JsonConvert.SerializeObject(blob);
 				var retStatus = positionController.SendPositionAsync(str, User);
-				if(retStatus == HttpStatusCode.OK)
+				if(retStatus != null)
 				{
-					passed++;
-					Debug.WriteLine("HAD: Success");
-				}
-				else
-				{
-					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
+					if(retStatus.StatusCode == HttpStatusCode.OK)
+					{
+						passed++;
+						Debug.WriteLine("HAD: Success");
+						Debug.WriteLine("HAD: Content " + retStatus.Content.ToString());
+					}
+					else
+					{
+						Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus.StatusCode);
+						Debug.WriteLine("HAD: Content " + retStatus.Content.ToString());
+					}
 				}
 
 			}
@@ -157,24 +163,32 @@ public class Simulator
 				Debug.WriteLine("HAD: " + listValue);
 				Debug.WriteLine("HAD: Sending Voice Command");			
 
-				var blob = new SimModel.JsonVoiceChange();
-				blob.lat = value.lat;
-				blob.lon = value.lon;
-				blob.altitude = value.altitude;
-				blob.action = value.action;
+				var blob = new JObject();;
+				blob["lat"] = value.lat;
+				blob["lon"] = value.lon;
+				blob["alt"] = value.altitude;
+				blob["command-string"] = "brighten";
+				blob["time"] = simEvent.time;
+				blob["userID"] = User;
 
-
-				var retStatus = VoiceCommandController.SendBrighterAsync(blob.ToString(), User);
-				if(retStatus == HttpStatusCode.OK)
+				var str = JsonConvert.SerializeObject(blob);
+				var retStatus = VoiceCommandController.SendBrighterAsync(str, User);
+				if(retStatus != null)
 				{
-					passed++;
-					Debug.WriteLine("HAD: Success");
-				}
-				else
-				{
-					Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
-				}
+					if(retStatus.StatusCode == HttpStatusCode.OK)
+					{
+						passed++;
+						Debug.WriteLine("HAD: Success");
+						Debug.WriteLine("HAD: Content " + retStatus.Content.ToString());
 
+					}
+					else
+					{
+						Debug.WriteLine("HAD: Failed. Expected OK. Received " + retStatus);
+						Debug.WriteLine("HAD: Content " + retStatus.Content.ToString());
+
+					}
+				}
 
 			}
 			else
