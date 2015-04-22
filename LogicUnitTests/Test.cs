@@ -196,7 +196,7 @@ public class Test
 
 		string blob1 = "Physical change";
 		api.Device dev = null;
-		Assert.IsTrue(PhysicalChangeController.SendPhysicalChangeAsync(blob1, dev).Equals(true));
+		Assert.IsTrue(PhysicalChangeController.SendPhysicalChangeAsync(blob1, dev).Equals(false));
 	}
 	[Test()]
 	public void TestAddDevice() //Voice Command
