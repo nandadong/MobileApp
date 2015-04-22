@@ -24,12 +24,12 @@ public class Test
 		JObject blob = new JObject();
 		var time = new DateTime();
 		String timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-
+		string user = "user";
 		blob["lat"] = 98.543;
 		blob["long"] = 84.345;
 		blob["alt"] = 45.3454;
 		blob["time"] = timeStamp;
-		Assert.IsTrue(voiceController.makeItBrighterNearMe(blob.ToString()).Equals("OK"));
+		Assert.IsTrue(voiceController.makeItBrighterNearMe(blob.ToString(), user).Equals("OK"));
 	}
 
 
