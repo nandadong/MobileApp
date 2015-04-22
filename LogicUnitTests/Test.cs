@@ -178,7 +178,41 @@ namespace LogicUnitTests
 			Assert.Greater(r.getDevices().Count, 0);
 		}
 	}
+	[Test()]
+	public void TestVoiceChange() //this test simulates what would happen during a room invalidation
+	{
 
 
+		string blob = "Voice change";
+		string User = "User 1";
+		Assert.IsTrue(VoiceCommandController.SendBrighterAsync(blob, User).Equals(HttpStatusCode.OK));
 	}
+
+	[Test()]
+	public void TestPhysicalChange() //this test simulates a device change
+	{
+
+
+		string blob1 = "Physical change";
+		string dev = "Unique device";
+		Assert.IsTrue(VoiceCommandController.SendBrighterAsync(blob1, dev).Equals(true));
+	}
+	[Test()]
+	public void TestAddDevice() //Voice Command
+	{
+
+
+		string blob1 = "Voice command";
+		string name1 = "Unique device";
+		AddDeviceController.SendDeviceChangeAsync(blob1, name1);
+		//Assert.IsTrue(VoiceCommandController.SendBrighterAsync(blob1, dev).Equals(true));
+	}
+
+
+
 }
+}
+
+
+	
+
