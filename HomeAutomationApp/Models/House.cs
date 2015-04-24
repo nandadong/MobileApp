@@ -13,22 +13,47 @@ public static class House
 		roomList = new List<Room>();
 	}*/
 
+
 	public static void createHouse(int houseID)
 	{
 		id = houseID;
 		roomList = new List<Room>();
 	}
 
+	public static bool inHouse(Device dev){
+		foreach(Room r in roomList)
+		{
+			foreach(Device d in r.getDevices()){
+				if(d.ID.DeviceID == dev.ID.DeviceID)
+					return true;
+			}
+		}
+		return false;
+	}
+
+	public static bool inRoom(Device dev, Room r){
+		foreach(Device d in r.getDevices())
+		{
+			if(d.ID.DeviceID == dev.ID.DeviceID)
+				return true;
+		}
+
+		return false;
+	}
 	public static void updateHouse(List<Device> deviceList){
 		foreach(Device d in deviceList)
 		{
-			foreach(Room r in roomList)
+			if(inHouse(d))
 			{
-				if(!r.getDevices().Contains(d))
-					r.getDevices().Add(d);
-				else
-					r.updateDevice(d);
+				foreach(Room r in roomList)
+				{
+					if(inRoom(d, r))
+						r.updateDevice(d);
+						
+				}
 			}
+			else
+				addDevice(d, (int)d.ID.RoomID);
 		}
 			
 	}
@@ -36,9 +61,42 @@ public static class House
 	{
 		return id;
 	}
+	public static void addRoom(int roomID)
+	{
+		Room toAdd = new Room(roomID);
+		if(!roomExists(roomID))
+			roomList.Add(new Room(roomID));
+	}
+
 	public static void addRoom(Room r)
 	{
-		roomList.Add(r);
+		if(!roomExists(r.getID()))
+			roomList.Add(r);
+	}
+
+	public static bool roomExists(int roomId)
+	{
+		foreach(Room r in roomList)
+		{
+			if(r.getID() == roomId)
+				return true;
+		}
+
+		return false;
+	}
+
+	public static void addDevice(Device d, int roomId){
+		if(roomExists(roomId))
+		{
+			getRoom(roomId).addDevice(d);
+		}
+
+		else
+		{
+			addRoom(roomId);
+			getRoom(roomId).addDevice(d);
+		}
+			
 	}
 
 	public static void removeRoom(Room r)
@@ -61,7 +119,7 @@ public static class House
 	{
 		foreach(Room r in roomList)
 		{
-			if(r.getID().Equals(roomID))
+			if(r.getID() == roomID)
 				return r;
 		}
 

@@ -6,16 +6,27 @@ namespace HomeAutomationApp
 public class Room
 {
 	private int id;
-	private List<Device> deviceList;
+	private static List<Device> deviceList;
 	public Room(int roomID)
 	{
 		id = roomID;
 		deviceList = new List<Device>();
 	}
 
+	public static bool inRoom(Device dev){
+		foreach(Device d in deviceList)
+		{
+			if(d.ID.DeviceID == dev.ID.DeviceID)
+				return true;
+		}
+
+		return false;
+	}
+
 	public void addDevice(Device d)
 	{
-		deviceList.Add(d);
+		if(!inRoom(d))
+			deviceList.Add(d);
 	}
 
 	public void addAllDevices(List<Device> devices)
@@ -25,11 +36,10 @@ public class Room
 
 	public void updateDevice(Device updatedDevice)
 	{
-		foreach(Device d in deviceList){
-			if(d.ID.DeviceID.Equals(updatedDevice.ID.DeviceID))
+		for(int i = 0; i < deviceList.Count; i++){
+			if(deviceList[i].ID.DeviceID == updatedDevice.ID.DeviceID)
 			{
-				deviceList.RemoveAt(deviceList.IndexOf(d));
-				deviceList.Insert(deviceList.IndexOf(d),updatedDevice);
+				deviceList[i] = updatedDevice;
 			}
 		}
 	}
@@ -38,7 +48,7 @@ public class Room
 	{
 		foreach(Device k in deviceList)
 		{
-			if(k.Equals(d))
+			if(k.ID.DeviceID == d.ID.DeviceID)
 				deviceList.Remove(d);
 		}
 	}
@@ -55,7 +65,7 @@ public class Room
 	public Device getDevice(int id){
 		foreach(Device d in deviceList)
 		{
-			if(d.ID.DeviceID.Equals(id))
+			if(d.ID.DeviceID == (ulong)id)
 				return d;
 		}
 
