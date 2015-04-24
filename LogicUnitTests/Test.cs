@@ -162,10 +162,10 @@ public class Test
 		//Assert.That(!(code.GetType().Name.Equals(null)));
 		//Console.WriteLine(code);
 
-		int houseID = 0;
-		House.createHouse(houseID);
+		int houseID = 0; //set a house ID
+		House.createHouse(houseID); //create a house
 		string serverAddr = "http://serverapi1.azurewebsites.net/";
-		Interfaces inter = new Interfaces(new Uri(serverAddr));
+		Interfaces inter = new Interfaces(new Uri(serverAddr)); 
 		for(int i = 0; i < 10; i++) //add some rooms to the house
 		{
 			House.addRoom(new Room(i));
@@ -177,7 +177,8 @@ public class Test
 		IDeviceInput k = new HouseInput();
 		IDeviceOutput u = new HouseOutput();
 		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
-		for(int i = 0; i < 10; i++)
+
+		for(int i = 0; i < 10; i++) //populate a device list, simulating what we receive from the server
 		{
 			devices.Add(new GarageDoor(k, u,t));
 			FullID id = new FullID();
@@ -189,21 +190,19 @@ public class Test
 			devices[i].ID = id;
 		}
 			
-		House.updateHouse(devices);//inter.getDevices((ulong)House.getID()));
+		House.updateHouse(devices); //update the houses devices (add them if they dont exist) //inter.getDevices((ulong)House.getID()));
 		int counter = 0;
 		bool deviceInHouseAndEnabled = false;
-		int roomNum = 0;
-		int deviceNum = 5;
+		int roomNum = ran.Next(0, 9);
+		int deviceNum = ran.Next(0, 9);
 		GarageDoor garage;
-		foreach(Room r in House.getRooms())
+		foreach(Room r in House.getRooms()) //for every room in the house
 		{
-			//foreach(Device d in r.getDevices())
-				//Console.WriteLine("Room: " + d.ID.RoomID + " ID: " + d.ID.DeviceID + " Status: " + ((GarageDoor)d).Enabled);
-			garage = (GarageDoor)r.getDevice(deviceNum);
-			if(garage.ID.DeviceID == (ulong)deviceNum && garage.Enabled == true)
+			garage = (GarageDoor)r.getDevice(deviceNum); //select a device at random
+			if(garage.ID.DeviceID == (ulong)deviceNum && garage.Enabled == true) //if we got the device we expected
 			{
-				deviceInHouseAndEnabled = true;
-				roomNum = r.getID();
+				deviceInHouseAndEnabled = true; //change the test parameter to true
+				roomNum = r.getID(); //get the room id
 			}
 			if(r.getDevices().Count > 0)
 			{
@@ -217,21 +216,21 @@ public class Test
 		Assert.Greater(counter, 0);
 		Assert.True(deviceInHouseAndEnabled);
 
-		GarageDoor door = new GarageDoor(k, u,t);
-		FullID fid = new FullID();
+		Assert.True(((GarageDoor)House.getRoom(roomNum).getDevice(deviceNum)).Enabled.Equals(true)); //the garage door is currently enabled
+
+		GarageDoor door = new GarageDoor(k, u,t); //pretend that we just got this GarageDoor device from the server because its value changed
+		FullID fid = new FullID(); //fake a device
 		fid.DeviceID = (ulong)deviceNum;
 		fid.RoomID = (ulong)roomNum;
 		fid.HouseID = (ulong)houseID;
 		door.ID = fid;
-		door.Enabled = false;
-		List<Device> update = new List<Device>();
+		door.Enabled = false; //set the device to be disabled
+		List<Device> dList = new List<Device>();
 
-		Assert.True(((GarageDoor)House.getRoom(roomNum).getDevice(deviceNum)).Enabled.Equals(true));
+		dList.Add(door); //invalidate and update our local copy
+		House.updateHouse(dList); //update
 
-		update.Add(door);
-		House.updateHouse(update);
-
-		GarageDoor doorTest = (GarageDoor)House.getRoom(roomNum).getDevice(deviceNum);
+		//GarageDoor doorTest = (GarageDoor)House.getRoom(roomNum).getDevice(deviceNum); //get the garage door
 
 		Assert.True(((GarageDoor)House.getRoom(roomNum).getDevice(deviceNum)).Enabled.Equals(false));
 	}
