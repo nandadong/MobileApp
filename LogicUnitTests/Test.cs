@@ -157,10 +157,10 @@ public class Test
 	[Test()]
 	public void TestInvalidation() //this test simulates what would happen during a room invalidation
 	{
-		var code = InvalidationController.invalidate();
-		Assert.That(!code.Equals(null));
-		Assert.That(!(code.GetType().Name.Equals(null)));
-		Console.WriteLine(code);
+		//var code = InvalidationController.invalidate();
+		//Assert.That(!code.Equals(null));
+		//Assert.That(!(code.GetType().Name.Equals(null)));
+		//Console.WriteLine(code);
 
 		int houseID = 0;
 		House.createHouse(houseID);
@@ -172,12 +172,52 @@ public class Test
 		}
 
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
-		House.updateHouse(inter.getDevices((ulong)House.getID()));
-
+		List<Device> devices = new List<Device>();
+		Random ran = new Random();
+		for(int i = 0; i < 10; i++)
+		{
+			IDeviceInput k = new HouseInput();
+			IDeviceOutput u = new HouseOutput();
+			Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
+			devices.Add(new GarageDoor(k, u,t));
+			FullID id = new FullID();
+			int roomID = ran.Next(0, 9);
+			Console.WriteLine("Generated Random = " + roomID);
+			id.DeviceID = (ulong)i;
+			id.RoomID = (ulong)roomID;
+			id.HouseID = (ulong)houseID;
+			devices[i].ID = id;
+		}
+			
+		House.updateHouse(devices);//inter.getDevices((ulong)House.getID()));
+		int counter = 0;
+		bool deviceInHouseAndEnabled = false;
+		int roomNum = 0;
+		int deviceNum = 5;
+		GarageDoor garage;
 		foreach(Room r in House.getRooms())
 		{
-			Assert.Greater(r.getDevices().Count, 0);
+			//foreach(Device d in r.getDevices())
+				//Console.WriteLine("Room: " + d.ID.RoomID + " ID: " + d.ID.DeviceID + " Status: " + ((GarageDoor)d).Enabled);
+			garage = (GarageDoor)r.getDevice(deviceNum);
+			if(garage.ID.DeviceID == (ulong)deviceNum && garage.Enabled == true)
+			{
+				deviceInHouseAndEnabled = true;
+				garage.Enabled = false;
+				roomNum = r.getID();
+			}
+			if(r.getDevices().Count > 0)
+			{
+				counter++;
+			}
+
 		}
+			
+		Assert.Greater(counter, 0);
+		Assert.True(deviceInHouseAndEnabled);
+
+		Assert.True(((GarageDoor)House.getRoom(roomNum).getDevice(deviceNum)).Enabled == true);
+
 	}
 	[Test()]
 	public void TestVoiceChange() //this test simulates what would happen during a room invalidation
