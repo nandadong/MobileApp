@@ -101,16 +101,17 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.1.4.1.6349\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Geolocator.Plugin">
+      <HintPath>..\..\packages\Xam.Plugin.Geolocator.1.0.1\lib\Xamarin.iOS10\Geolocator.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Geolocator.Plugin.Abstractions">
+      <HintPath>..\..\packages\Xam.Plugin.Geolocator.1.0.1\lib\Xamarin.iOS10\Geolocator.Plugin.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HomeAutomationApp\HomeAutomationApp.csproj">
       <Project>{AC72CBBA-8794-44B3-9B9C-590824A63CA6}</Project>
       <Name>HomeAutomationApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\iOSTodayWidget\iOSTodayWidget.csproj">
-      <Project>{9D08E575-3D37-42E8-8DC2-5129763E8F8A}</Project>
-      <Name>iOSTodayWidget</Name>
-      <IsAppExtension>True</IsAppExtension>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="PluginsHelp\GeolocatorReadme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

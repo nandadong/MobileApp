@@ -39,7 +39,7 @@ public class VoiceCommandController
 	{
 
 		var client = new HttpClient();
-		client.Timeout = TimeSpan.FromSeconds(2);
+		client.Timeout = TimeSpan.FromSeconds(10);
 
 		client.BaseAddress = new Uri(ConfigModel.Url);
 
