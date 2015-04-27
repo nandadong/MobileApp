@@ -18,7 +18,8 @@ public class MainTabbedView : TabbedPage
 		}
 
 		Children.Add(new AddDeviceView());
-//		Children.Add(new LocationView());
+		Children.Add(new AddRoomView());
+		Children.Add(new LocationView());
 		Children.Add(new HomeView());
 		Children.Add(new ScenesRootView());
 		Children.Add(new RoomListView());

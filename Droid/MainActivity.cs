@@ -91,8 +91,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 		voiceController = new VoiceCommandController();
 
 	}
-
-
+		
 	protected override void OnActivityResult(int requestCode, Result resultVal, Intent data)
 	{
 		if(requestCode == 10)
