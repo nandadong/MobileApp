@@ -51,6 +51,10 @@ public class Test
 		blob.alt = 45.3454;
 		blob.time = new DateTime (2015, 11, 15, 9, 59, 44, 345);
 
+		/*jE.time = new DateTime (2015, 11, 15, 9, 59, 44, 345);
+		jE.key = "Event:";
+		jE.value = 8;*/
+
 		Assert.IsTrue(jGps.lat.Equals(98.543));
 		Assert.IsTrue(jGps.lon.Equals(84.346));
 		Assert.IsTrue(jGps.altitude.Equals(45.3454));
