@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -82,6 +82,10 @@
     <Compile Include="Controllers\VoiceCommandController.cs" />
     <Compile Include="Controllers\PhysicalChangeController.cs" />
     <Compile Include="Controllers\AddDeviceController.cs" />
+    <Compile Include="View\AddRoomView.xaml.cs">
+      <DependentUpon>AddRoomView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddRoomModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.4.1.6349\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.4.1.6349\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -157,6 +161,7 @@
   <ItemGroup>
     <None Include="View\RoomListView.xaml" />
     <None Include="View\RoomsAddView.xaml" />
+    <EmbeddedResource Include="View\ScenesRootView.xaml" />
     <None Include="View\RoomsEditView.xaml" />
     <None Include="packages.config" />
     <None Include="PluginsHelp\GeolocatorReadme.txt" />
@@ -176,7 +181,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login.xaml" />
-    <EmbeddedResource Include="View\ScenesRootView.xaml" />
     <EmbeddedResource Include="View\AlertsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -188,6 +192,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\SimView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\AddRoomView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
