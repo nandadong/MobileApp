@@ -26,14 +26,7 @@ namespace HomeAutomationApp
 			{
 				House.addRoom(new Room(i));
 			}
-
-			//Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
 			House.updateHouse(inter.getDevices((ulong)House.getID()));
-
-			/*foreach(Room r in House.getRooms())
-			{
-				Assert.Greater(r.getDevices().Count, 0);
-			}*/
 			return code.Result.ToString();
 		}
 

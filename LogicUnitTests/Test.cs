@@ -51,6 +51,10 @@ public class Test
 		blob.alt = 45.3454;
 		blob.time = new DateTime (2015, 11, 15, 9, 59, 44, 345);
 
+		/*jE.time = new DateTime (2015, 11, 15, 9, 59, 44, 345);
+		jE.key = "Event:";
+		jE.value = 8;*/
+
 		Assert.IsTrue(jGps.lat.Equals(98.543));
 		Assert.IsTrue(jGps.lon.Equals(84.346));
 		Assert.IsTrue(jGps.altitude.Equals(45.3454));
@@ -131,26 +135,57 @@ public class Test
 	[Test()]
 	public void TestHouseRoomsDevices() //this test simulates what would happen during a room invalidation
 	{
-		int houseID = 0;
-		House.createHouse(houseID);
+		int houseID = 0; //set a house ID
+		House.createHouse(houseID); //create a house
 		string serverAddr = "http://serverapi1.azurewebsites.net/";
-		Interfaces inter = new Interfaces(new Uri(serverAddr));
+		Interfaces inter = new Interfaces(new Uri(serverAddr)); 
 		for(int i = 0; i < 10; i++) //add some rooms to the house
 		{
 			House.addRoom(new Room(i));
 		}
 
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
+		List<Device> devices = new List<Device>();
+		Random ran = new Random();
+		IDeviceInput k = new HouseInput();
+		IDeviceOutput u = new HouseOutput();
+		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
 
-		foreach(Room r in House.getRooms()) //add all the devices in the house to the rooms
+		for(int i = 0; i < 10; i++) //populate a device list, simulating what we receive from the server
 		{
-			House.getRoom(r.getID()).addAllDevices(inter.getDevices((ulong)House.getID()));
+			devices.Add(new GarageDoor(k, u,t));
+			FullID id = new FullID();
+			int roomID = ran.Next(0, 9);
+			Console.WriteLine("Generated Random = " + roomID);
+			id.DeviceID = (ulong)i;
+			id.RoomID = (ulong)roomID;
+			id.HouseID = (ulong)houseID;
+			devices[i].ID = id;
 		}
 
-		foreach(Room r in House.getRooms())
+		House.updateHouse(devices); //update the houses devices (add them if they dont exist) //inter.getDevices((ulong)House.getID()));
+		int counter = 0;
+		bool deviceInHouseAndEnabled = false;
+		int roomNum = ran.Next(0, 9);
+		int deviceNum = ran.Next(0, 9);
+		GarageDoor garage;
+		foreach(Room r in House.getRooms()) //for every room in the house
 		{
-			Assert.Greater(r.getDevices().Count, 0);
+			garage = (GarageDoor)r.getDevice(deviceNum); //select a device at random
+			if(garage.ID.DeviceID == (ulong)deviceNum && garage.Enabled == true) //if we got the device we expected
+			{
+				deviceInHouseAndEnabled = true; //change the test parameter to true
+				roomNum = r.getID(); //get the room id
+			}
+			if(r.getDevices().Count > 0)
+			{
+				counter++;
+			}
+
 		}
+
+		Assert.Greater(counter, 0);
+		Assert.True(deviceInHouseAndEnabled);
 
 	}
 
@@ -210,8 +245,6 @@ public class Test
 			}
 
 		}
-
-
 			
 		Assert.Greater(counter, 0);
 		Assert.True(deviceInHouseAndEnabled);
