@@ -25,13 +25,23 @@ public class Test
 		JObject blob = new JObject();
 		var time = new DateTime();
 		String timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-		string user = "user";
+		const string user = "user";
 		blob["lat"] = 98.543;
 		blob["long"] = 84.345;
 		blob["alt"] = 45.3454;
 		blob["time"] = timeStamp;
 		Assert.IsTrue(voiceController.makeItBrighterNearMe(blob.ToString(), user).Equals("OK"));
 	}
+
+	[Test ()]
+	public void TestPasswordHash()
+	{
+		const string password = "monkey";
+		User.setPassword(password);
+		Assert.IsTrue(User.TestCrypt(password));
+	}
+
+
 
 
 	[Test()]
@@ -190,14 +200,14 @@ public class Test
 
 	}
 
-	[Test()]
-	public void testInvalidationHelper()
-	{
-		InvalidationHelper help = new InvalidationHelper();
-		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
-		Assert.IsTrue(!ad.Name.Equals(null));
-		Console.WriteLine(ad.Name);
-	}
+//	[Test()]
+//	public void testInvalidationHelper()
+//	{
+//		InvalidationHelper help = new InvalidationHelper();
+//		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
+//		Assert.IsTrue(!ad.Name.Equals(null));
+//		Console.WriteLine(ad.Name);
+//	}
 
 	[Test()]
 	public void TestInvalidation() //this test simulates what would happen during a room invalidation

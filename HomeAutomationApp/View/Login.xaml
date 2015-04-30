@@ -22,5 +22,11 @@
 		TextColor = "White"
 		BackgroundColor = "#77D065" />
 
+		<Label
+		x:Name="Text"
+		Text = "Login"
+		TextColor = "White"
+		BackgroundColor = "#77D065" />
+
 	</StackLayout>
 </ContentPage>

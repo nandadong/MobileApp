@@ -1,11 +1,12 @@
 ﻿using System;
+using CryptSharp;
 
 namespace HomeAutomationApp
 {
 public static class User
 {
 	private static string username;
-	private static byte[] password;
+	private static string password;
 
 
 	public static string getUsername()
@@ -23,14 +24,21 @@ public static class User
 		password = GetHash(p);
 	}
 
-	public static byte[] getPassword()
+	public static string getPassword()
 	{
 		return password;
 	}
 
-	public static byte[] GetHash(string inputString)
+	public static string GetHash(string inputString)
 	{
-		return null;
+		string cryptpass = Crypter.Sha256.Crypt(inputString);
+		return cryptpass;
+	}
+
+	public static bool TestCrypt(string input)
+	{
+		bool matches = Crypter.CheckPassword(input, getPassword());
+		return matches;
 	}
 }
 }

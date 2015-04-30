@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Xamarin.Forms;
 
 /*
@@ -18,9 +17,10 @@ namespace HomeAutomationApp
 			InitializeComponent ();
 
 			ClickButton.Clicked += (object sender, EventArgs e) => {
-				Navigation.PushAsync(new MainTabbedView());
 				User.setUsername(UserField.Text);
-				User.setPassword(PassField.Text);	
+				User.setPassword(PassField.Text);
+				Navigation.PushAsync(new MainTabbedView());
+
 			};
 		}
 	}
