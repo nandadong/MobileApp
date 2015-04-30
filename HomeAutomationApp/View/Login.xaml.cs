@@ -19,6 +19,8 @@ namespace HomeAutomationApp
 
 			ClickButton.Clicked += (object sender, EventArgs e) => {
 				Navigation.PushAsync(new MainTabbedView());
+				User.setUsername(UserField.Text);
+				User.setPassword(PassField.Text);	
 			};
 		}
 	}

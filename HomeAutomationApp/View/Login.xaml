@@ -8,9 +8,11 @@
 	Spacing = "20" Padding = "50">
 
 		<Entry 
+		x:Name="UserField"
 		Placeholder = "Username" />
 
 		<Entry
+		x:Name="PassField"
 		Placeholder = "Password" 
 		IsPassword = "true" />
 

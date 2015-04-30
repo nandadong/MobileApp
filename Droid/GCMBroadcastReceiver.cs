@@ -4,7 +4,6 @@ using Android.Content;
 using Android.Util;
 using Gcm.Client;
 
-
 namespace HomeAutomationApp.Droid
 {
 	[BroadcastReceiver(Permission=Constants.PERMISSION_GCM_INTENTS)]
@@ -14,7 +13,6 @@ namespace HomeAutomationApp.Droid
 	public class MyGCMBroadcastReceiver : GcmBroadcastReceiverBase<PushHandlerService>
 	{
 		public static string[] SENDER_IDS = new string[] {"359779574019"};
-		const string TAG = "PushHandlerBroadcastReceiver";
 	}
 
 	[Service] //Must use the service tag
@@ -32,6 +30,10 @@ namespace HomeAutomationApp.Droid
 			//		"{ 'registrationId' : '" + registrationId + "' }");
 
 			createNotification("GCM Registered...", "The device has been Registered");
+			
+			
+			GCMModel.setDeviceID(registrationId);
+			GCMModel.SendTokenAsync(registrationId, User.getUsername());
 		}
 
 		protected override void OnUnRegistered (Context context, string registrationId)

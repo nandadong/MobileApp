@@ -48,10 +48,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 		"serverLocation : \"http://serverapi1.azurewebsites.net/\" " +
 		"}";
 
-
-	private GCMModel gcmClient = null;
 	private VoiceCommandController voiceController = null;
-
 	protected override void OnCreate(Bundle savedState)
 	{
 		base.OnCreate(savedState);
@@ -78,7 +75,6 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 		}
 		else
 		{
-			
 			LoadApplication(new App(bundle.Get("MODE").ToString(), 
 				bundle.Get("CONFIG").ToString(),
 				bundle.Get("TIMELINE").ToString(),  
@@ -87,7 +83,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 		}
 			
 		//Handles setting up GCM Push Notification Service
-		gcmClient = new GCMModel(this);
+		GCMModel.Init(this);
 		voiceController = new VoiceCommandController();
 
 	}
@@ -121,12 +117,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 		}
 		base.OnActivityResult(requestCode, resultVal, data);
 	}
-
-	public GCMModel getGCMClient()
-	{
-		return gcmClient;
-	}
-
+		
 	public VoiceCommandController getVoiceController()
 	{
 		return voiceController;	

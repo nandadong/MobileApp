@@ -118,6 +118,9 @@ namespace HomeAutomationApp.Droid
 			// aapt resource value: 0x7f060005
 			public const int notifyBtn = 2131099653;
 			
+			// aapt resource value: 0x7f06000b
+			public const int refresh = 2131099659;
+			
 			// aapt resource value: 0x7f060006
 			public const int textView1 = 2131099654;
 			

@@ -44,30 +44,35 @@ namespace HomeAutomationApp.Droid
 			var button = view.FindViewById<Android.Widget.Button> (Resource.Id.notifyBtn);
 			var registerBtn = view.FindViewById<Android.Widget.Button> (Resource.Id.GCMRegister);
 			var unregisterBtn = view.FindViewById<Android.Widget.Button> (Resource.Id.GCMUnregister);
-
-			if(string.IsNullOrEmpty(activity.getGCMClient().getDeviceID()))
-				deviceID.Text = "Not Registered";
-			else
-				deviceID.Text = "Registered";
+			var refreshBtn = view.FindViewById<Android.Widget.Button>(Resource.Id.refresh);
 			
+			if(GCMModel.isRegistered())
+				deviceID.Text = GCMModel.getDeviceID();
+			else
+				deviceID.Text = "Not Registered";
 
 			button.Click += (object sender, EventArgs btnevent) => {
-				// Publish the notification:
-				const int notificationId = 0;
-				notificationManager.Notify (notificationId, notification);
+//				// Publish the notification:
+//				const int notificationId = 0;
+//				notificationManager.Notify (notificationId, notification);
+				GCMModel.SendNotifyAsync();
 			};
 
 
 			registerBtn.Click += (object sender, EventArgs btnevent) => {
-				GcmClient.Register (activity, MyGCMBroadcastReceiver.SENDER_IDS);
-				deviceID.Text = "Registered";
+				GCMModel.register();
+				deviceID.Text = GCMModel.getDeviceID();
 			};
 
 			unregisterBtn.Click += (object sender, EventArgs btnevent) => {
-				GcmClient.UnRegister(activity);
+				GCMModel.unregister();
 				deviceID.Text = "Not Registered";
-				activity.getGCMClient().setDeviceID("");
 			};
+
+			refreshBtn.Click += (object sender, EventArgs btnevent) => {
+				deviceID.Text = GCMModel.getDeviceID();
+			};
+
 
 			AddView(view);
 		}
