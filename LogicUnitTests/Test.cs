@@ -195,8 +195,8 @@ public class Test
 	{
 		InvalidationHelper help = new InvalidationHelper();
 		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
-		Assert.IsTrue(!ad.name.Equals(null));
-		Console.WriteLine(ad.name);
+		Assert.IsTrue(!ad.Name.Equals(null));
+		Console.WriteLine(ad.Name);
 	}
 
 	[Test()]
