@@ -4,6 +4,7 @@ using HomeAutomationApp;
 using System.Collections.Generic;
 using api;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace LogicUnitTests
@@ -147,8 +148,8 @@ public class Test
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
 		List<Device> devices = new List<Device>();
 		Random ran = new Random();
-		IDeviceInput k = new HouseInput();
-		IDeviceOutput u = new HouseOutput();
+		IDeviceInput k = new HouseInput("","");
+		IDeviceOutput u = new HouseOutput("","");
 		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
 
 		for(int i = 0; i < 10; i++) //populate a device list, simulating what we receive from the server
@@ -190,12 +191,21 @@ public class Test
 	}
 
 	[Test()]
+	public void testInvalidationHelper()
+	{
+		InvalidationHelper help = new InvalidationHelper();
+		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
+		Assert.IsTrue(!ad.name.Equals(null));
+		Console.WriteLine(ad.name);
+	}
+
+	[Test()]
 	public void TestInvalidation() //this test simulates what would happen during a room invalidation
 	{
-		//var code = InvalidationController.invalidate();
-		//Assert.That(!code.Equals(null));
-		//Assert.That(!(code.GetType().Name.Equals(null)));
-		//Console.WriteLine(code);
+		/*var code = InvalidationController.invalidate();
+		Assert.That(!code.Equals(null));
+		Assert.That(!(code.GetType().Name.Equals(null)));
+		Console.WriteLine(code);*/
 
 		int houseID = 0; //set a house ID
 		House.createHouse(houseID); //create a house
@@ -209,8 +219,8 @@ public class Test
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
 		List<Device> devices = new List<Device>();
 		Random ran = new Random();
-		IDeviceInput k = new HouseInput();
-		IDeviceOutput u = new HouseOutput();
+		IDeviceInput k = new HouseInput("","");
+		IDeviceOutput u = new HouseOutput("","");
 		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
 
 		for(int i = 0; i < 10; i++) //populate a device list, simulating what we receive from the server
@@ -218,7 +228,7 @@ public class Test
 			devices.Add(new GarageDoor(k, u,t));
 			FullID id = new FullID();
 			int roomID = ran.Next(0, 9);
-			Console.WriteLine("Generated Random = " + roomID);
+			//Console.WriteLine("Generated Random = " + roomID);
 			id.DeviceID = (ulong)i;
 			id.RoomID = (ulong)roomID;
 			id.HouseID = (ulong)houseID;
