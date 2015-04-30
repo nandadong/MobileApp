@@ -30,10 +30,10 @@ public class InvalidationHelper
 				},
 			'Type': 'GarageDoor',
 			'Name': 'Garage1',
-			'Enabled': True,
-			'State': 1,
-			'SetPoint': 70,
-			'Value': 20
+			'Enabled': 'True',
+			'State': '1',
+			'SetPoint': '70',
+			'Value': '20'
 			}";
 		affectedDevices.Add(json);
 		
