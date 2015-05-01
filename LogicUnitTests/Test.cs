@@ -200,14 +200,16 @@ public class Test
 
 	}
 
-//	[Test()]
-//	public void testInvalidationHelper()
-//	{
-//		InvalidationHelper help = new InvalidationHelper();
-//		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
-//		Assert.IsTrue(!ad.Name.Equals(null));
-//		Console.WriteLine(ad.Name);
-//	}
+	[Test()]
+	public void testInvalidationHelper()
+	{
+		InvalidationHelper help = new InvalidationHelper();
+		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
+		AffectedDevices ad2 = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[1]);
+		Assert.IsTrue(!ad.Name.Equals(null));
+		Assert.IsTrue(!ad2.Name.Equals(null));
+ 		Console.WriteLine(ad.Name);
+	}
 
 	[Test()]
 	public void TestInvalidation() //this test simulates what would happen during a room invalidation
