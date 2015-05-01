@@ -70,5 +70,9 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location Access</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location Access</string>
 </dict>
 </plist>

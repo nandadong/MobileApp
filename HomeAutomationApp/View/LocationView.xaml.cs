@@ -30,7 +30,7 @@ public partial class LocationView : ContentPage
 
 		}
 
-		locator.PositionChanged += onLocation;
+//		locator.PositionChanged += onLocation;
 
 		UpdateLocation.Clicked += async (sender, e) =>
 		{
