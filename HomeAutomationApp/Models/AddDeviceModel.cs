@@ -9,10 +9,9 @@ public class AddDeviceModel
 	// TODO: temporary flag to bypass device API while it's stubbed
 	bool bypassDeviceApi = true;
 
-
 	// TODO: this is a hack - replace houseId with actual value!
 	const UInt64 houseId = 2;
-	// Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
+	Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
 
 	// variables used in view
 	public string tabTitle;
@@ -59,7 +58,7 @@ public class AddDeviceModel
 		else
 		{
 			// call the device API to access functions for devices
-//			return DeviceInterface.enumerateDevices(houseId);
+			return DeviceInterface.enumerateDevices(houseId);
 		}
 		return null;
 	}
@@ -76,7 +75,7 @@ public class AddDeviceModel
 		}
 		else
 		{
-//			return DeviceInterface.registerDevice(name, houseId, info);
+			return DeviceInterface.registerDevice(name, houseId, info);
 		}
 		return null;
 	}
