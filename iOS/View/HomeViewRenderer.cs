@@ -4,24 +4,31 @@ using Xamarin.Forms.Platform.iOS;
 using UIKit;
 using CoreGraphics;
 
+[assembly: ExportRenderer(typeof(HomeAutomationApp.HomeView), typeof(HomeAutomationApp.iOS.HomeViewRenderer))]
+
 namespace HomeAutomationApp.iOS
 {
 
-[assembly:ExportRenderer(typeof(HomeAutomationApp.HomeView), typeof(HomeAutomationApp.Droid.HomeViewRenderer))]
 public class HomeViewRenderer : PageRenderer
 {
-	protected override void OnElementChanged (VisualElementChangedEventArgs e)
+	protected override void OnElementChanged(VisualElementChangedEventArgs e)
 	{
-		base.OnElementChanged (e);
+		base.OnElementChanged(e);
 
 		var page = e.NewElement as HomeView;
-		var view = NativeView;
 
-		var label = new UILabel (new CGRect (0, 40, 320, 40)) {
-			Text = "Hello There"
-		};
+		var hostViewController = ViewController;
 
-		view.Add (label);
+		var viewController = new UIViewController();
+
+		var label = new UILabel(new CGRect(0, 40, 320, 40));
+		label.Text = "Hello There!";
+		viewController.View.Add(label);
+
+		hostViewController.AddChildViewController(viewController);
+		hostViewController.View.Add(viewController.View);
+
+		viewController.DidMoveToParentViewController(hostViewController);
 	}
 }
 }
