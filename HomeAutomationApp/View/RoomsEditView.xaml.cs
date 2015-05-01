@@ -22,7 +22,7 @@ namespace HomeAutomationApp
 //			};
 			var listView = new ListView ();
 			listView.ItemTemplate = new DataTemplate (typeof(TweepleCell));
-			listView.ItemsSource = new[] { "Light #1", "Light #2", "Light #3" };
+			listView.ItemsSource = new[] { "Light #8", "Light #2", "Light #3" };
 
 
 

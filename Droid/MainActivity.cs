@@ -83,7 +83,7 @@ public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicat
 		}
 			
 		//Handles setting up GCM Push Notification Service
-		GCMModel.Init(this);
+		//GCMModel.Init(this);
 		voiceController = new VoiceCommandController();
 
 	}

@@ -20,6 +20,15 @@ public static class House
 		roomList = new List<Room>();
 	}
 
+	public static string[] roomListToString(){
+		List<string> temp = new List<string>();
+		foreach(Room room in roomList)
+		{	
+			temp.Add(room.getID().ToString());
+		}
+		return temp.ToArray();
+	}
+
 	public static bool inHouse(Device dev){
 		foreach(Room r in roomList)
 		{
