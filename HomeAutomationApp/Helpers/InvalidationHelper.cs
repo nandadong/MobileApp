@@ -30,7 +30,7 @@ public class InvalidationHelper
 				},
 			'Type': 'GarageDoor',
 			'Name': 'Garage1',
-			'Enabled': 'True',
+			'Enabled': 'true',
 			'State': '1',
 			'SetPoint': '70',
 			'Value': '20'
@@ -42,7 +42,7 @@ public class InvalidationHelper
 				},
 			'Type': 'Light',
 			'Name': 'Light1',
-			'Enabled': 'True',
+			'Enabled': 'true',
 			'State': '1',
 			'SetPoint': '70',
 				'Value': '20'
@@ -54,7 +54,7 @@ public class InvalidationHelper
 				},
 			'Type': 'Light',
 			'Name': 'Light1',
-			'Enabled': 'True',
+			'Enabled': 'false',
 			'State': '0',
 			'SetPoint': '70',
 				'Value': '20'
