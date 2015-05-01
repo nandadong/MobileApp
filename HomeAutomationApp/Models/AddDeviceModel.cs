@@ -12,7 +12,7 @@ public class AddDeviceModel
 
 	// TODO: this is a hack - replace houseId with actual value!
 	const UInt64 houseId = 2;
-	Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
+	// Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
 
 	// variables used in view
 	public string tabTitle;
@@ -62,13 +62,13 @@ public class AddDeviceModel
 		else
 		{
 			// call the device API to access functions for devices
-			return DeviceInterface.enumerateDevices(houseId);
+			// return DeviceInterface.enumerateDevices(houseId);
 		}
 		return null;
 	}
 
 	// calls device API to register a device
-	public api.Device registerDevice(string name, string info)
+	public api.Device registerDevice(string name, string room, string info)
 	{
 		if(bypassDeviceApi)
 		{
@@ -79,7 +79,7 @@ public class AddDeviceModel
 		}
 		else
 		{
-			return DeviceInterface.registerDevice(name, houseId, info);
+			// return DeviceInterface.registerDevice(name, houseId, info);
 		}
 		return null;
 	}

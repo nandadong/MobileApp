@@ -102,26 +102,27 @@ public partial class AddDeviceView : ContentPage
 			if((deviceEntry.Text) != "" && devicePicker.SelectedIndex >= 0)
 			{
 				// TODO: repair info field
-				myDeviceModel.registerDevice(deviceEntry.Text, "");						
+				myDeviceModel.registerDevice(deviceEntry.Text, roomEntry.Text, "");						
 
 				// Display a confirmation that the operation was successfu
-				await DisplayAlert ("Alert", "You have assigned the name: " + deviceEntry.Text + "\nTo the device: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex],  "OK");
+				await DisplayAlert ("Success!", "Name: " + deviceEntry.Text + "\nDevice: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex] + "\nRoom: " + roomEntry.Text,  "OK");
 
 				// Clear the forms after the alert has been displayed
 				devicePicker.SelectedIndex = -1;
 				deviceEntry.Text = "";
+				roomEntry.Text = "";
 			}
 			else if (deviceEntry.Text == "" && devicePicker.SelectedIndex == -1)
 			{
-				DisplayAlert ("Alert", "You must enter a value for the device name and select a device.", "OK");
+				DisplayAlert ("Error!", "You must enter a value for the device name and select a device.", "OK");
 			}
 			else if (deviceEntry.Text == "" && devicePicker.SelectedIndex != -1)
 			{
-				DisplayAlert ("Alert", "You must enter a value for device name.", "OK");
+				DisplayAlert ("Error!", "You must enter a value for device name.", "OK");
 			}
 			else if (deviceEntry.Text != "" && devicePicker.SelectedIndex == -1)
 			{
-				DisplayAlert ("Alert", "You must select a device.", "OK");
+				DisplayAlert ("Error!", "You must select a device.", "OK");
 			}
 
 		};
