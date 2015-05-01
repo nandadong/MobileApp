@@ -20,6 +20,8 @@ public partial class AddDeviceView : ContentPage
 		// tab title
 		Title = myDeviceModel.tabTitle;
 
+
+
 		// label for debugging
 		var debugLabel = new Label();
 		debugLabel.Text = myDeviceModel.debugLabel;
@@ -61,8 +63,7 @@ public partial class AddDeviceView : ContentPage
 		var confirmationLabel = new Label();
 		confirmationLabel.Text = "";
 		confirmationLabel.TextColor = Color.White;
-
-
+	
 		// disable forms if device list is empty
 		if(myDeviceModel.isDeviceListEmpty == true)
 		{
@@ -88,22 +89,32 @@ public partial class AddDeviceView : ContentPage
 		};
 
 		// handling of button press
-		deviceButton.Clicked += (object sender, EventArgs e) =>
+		deviceButton.Clicked += async (object sender, EventArgs e) =>
 		{
-			
-			if((deviceEntry.Text) != "")
+
+			if((deviceEntry.Text) != "" && devicePicker.SelectedIndex >= 0)
 			{
 				// TODO: repair info field
 				myDeviceModel.registerDevice(deviceEntry.Text, "");						
-				confirmationLabel.TextColor = Color.Green;
-				confirmationLabel.Text = "Success!\nYou have assigned the name: " + deviceEntry.Text + "\nTo the device: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex];
-			
 
+				// Display a confirmation that the operation was successfu
+				await DisplayAlert ("Alert", "You have assigned the name: " + deviceEntry.Text + "\nTo the device: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex],  "OK");
+
+				// Clear the forms after the alert has been displayed
+				devicePicker.SelectedIndex = -1;
+				deviceEntry.Text = "";
 			}
-			else
+			else if (deviceEntry.Text == "" && devicePicker.SelectedIndex == -1)
 			{
-				confirmationLabel.TextColor = Color.Red;
-				confirmationLabel.Text = "You must enter a value for device name and room ID.";
+				DisplayAlert ("Alert", "You must enter a value for the device name and select a device.", "OK");
+			}
+			else if (deviceEntry.Text == "" && devicePicker.SelectedIndex != -1)
+			{
+				DisplayAlert ("Alert", "You must enter a value for device name.", "OK");
+			}
+			else if (deviceEntry.Text != "" && devicePicker.SelectedIndex == -1)
+			{
+				DisplayAlert ("Alert", "You must select a device.", "OK");
 			}
 
 		};

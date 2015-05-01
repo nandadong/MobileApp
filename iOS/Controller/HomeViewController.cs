@@ -3,7 +3,7 @@ using System;
 
 using Foundation;
 using UIKit;
-using OpenEars;
+//using OpenEars;
 
 namespace HomeAutomationApp.iOS
 {
