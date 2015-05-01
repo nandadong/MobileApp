@@ -47,9 +47,22 @@ public class InvalidationHelper
 			'SetPoint': '70',
 				'Value': '20'
 			}";
+
+		string json3 = @"{
+			'ID': {
+				""houseID"": ""0"",""deviceID"": ""2"",""roomID"": ""2""
+				},
+			'Type': 'Light',
+			'Name': 'Light1',
+			'Enabled': 'True',
+			'State': '0',
+			'SetPoint': '70',
+				'Value': '20'
+			}";
 			
 		affectedDevices.Add(json);
 		affectedDevices.Add(json2);
+		affectedDevices.Add(json3);
 	
 		
 	}

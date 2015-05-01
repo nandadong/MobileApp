@@ -206,9 +206,60 @@ public class Test
 		InvalidationHelper help = new InvalidationHelper();
 		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
 		AffectedDevices ad2 = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[1]);
+		AffectedDevices ad3 = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[2]);
+
 		Assert.IsTrue(!ad.Name.Equals(null));
 		Assert.IsTrue(!ad2.Name.Equals(null));
- 		Console.WriteLine(ad.Name);
+		Assert.IsTrue(!ad3.Name.Equals(null));
+
+		Assert.IsTrue(ad.Name.Equals("Garage1"));
+		Assert.IsTrue(ad.Type.Equals("GarageDoor"));
+		Assert.IsTrue(ad.Enabled.Equals(true));
+		Assert.IsTrue(ad.State.Equals(1));
+		Assert.IsTrue(ad.SetPoint.Equals(70));
+		Assert.IsTrue(ad.Value.Equals(20));
+
+		Assert.IsTrue(ad.Name.Equals("Light1"));
+		Assert.IsTrue(ad.Type.Equals("Light"));
+		Assert.IsTrue(ad.Enabled.Equals(true));
+		Assert.IsTrue(ad.State.Equals(1));
+		Assert.IsTrue(ad.SetPoint.Equals(70));
+		Assert.IsTrue(ad.Value.Equals(20));
+
+		Assert.IsTrue(ad.Name.Equals("Light1"));
+		Assert.IsTrue(ad.Type.Equals("Light"));
+		Assert.IsTrue(ad.Enabled.Equals(true));
+		Assert.IsTrue(ad.State.Equals(0));
+		Assert.IsTrue(ad.SetPoint.Equals(70));
+		Assert.IsTrue(ad.Value.Equals(20));
+	}
+
+	[Test()]
+	public void invalidationProcess(){
+		InvalidationHelper help = new InvalidationHelper();
+		AffectedDevices ad = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[0]);
+		AffectedDevices ad2 = JsonConvert.DeserializeObject<AffectedDevices>(help.affectedDevices[1]);
+		Assert.IsTrue(!ad.Name.Equals(null));
+		Assert.IsTrue(!ad2.Name.Equals(null));
+
+		List<Device> devices = new List<Device>();
+
+		IDeviceInput k = new HouseInput("","");
+		IDeviceOutput u = new HouseOutput("","");
+		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
+
+		//devices.Add(new GarageDoor(k, u, t));
+		/*gd.Enabled = ad.Enabled;
+		gd.ID.RoomID = Convert.ToUInt64(ad.ID["roomID"]);
+		gd.ID.DeviceID = Convert.ToUInt64(ad.ID["deviceID"]);
+		gd.Enabled = ad.Enabled;*/
+
+
+		/*House.createHouse(Convert.ToInt32(ad.ID["houseID"]));*/
+		/*House.updateHouse(devices);*/
+
+
+		Console.WriteLine(ad.Name);
 	}
 
 	[Test()]
