@@ -12,7 +12,7 @@ public class AddDeviceModel
 
 	// TODO: this is a hack - replace houseId with actual value!
 	const UInt64 houseId = 2;
-	Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
+	// Interfaces DeviceInterface = new Interfaces(new Uri(ConfigModel.Url));
 
 	// variables used in view
 	public string tabTitle;
