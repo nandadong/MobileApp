@@ -248,16 +248,15 @@ public class Test
 		IDeviceOutput u = new HouseOutput("","");
 		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
 
-		/*GarageDoor gd = new GarageDoor(k, u, t);
+		GarageDoor gd = new GarageDoor(k, u, t);
 		gd.Enabled = ad.Enabled;
 		gd.ID.RoomID = Convert.ToUInt64(ad.ID["roomID"]);
 		gd.ID.DeviceID = Convert.ToUInt64(ad.ID["deviceID"]);
 		gd.Enabled = ad.Enabled;
-		devices.Add(gd);*/
+		devices.Add(gd);
 
-
-		/*House.createHouse(Convert.ToInt32(ad.ID["houseID"]));*/
-		/*House.updateHouse(devices);*/
+		House.createHouse(Convert.ToInt32(ad.ID["houseID"]));
+		House.updateHouse(devices);
 
 
 		Console.WriteLine(ad.Name);
