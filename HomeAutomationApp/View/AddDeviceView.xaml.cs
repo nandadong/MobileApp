@@ -52,6 +52,11 @@ public partial class AddDeviceView : ContentPage
 		var deviceEntry = new Entry();
 		deviceEntry.Placeholder = myDeviceModel.namePlaceholder;
 
+		// text entry for room
+		var roomEntry = new Entry();
+		roomEntry.Placeholder = myDeviceModel.roomPlaceholder;
+
+
 		// button for pushing device settings
 		var deviceButton = new Button();
 		deviceButton.Text = myDeviceModel.buttonText;
@@ -71,6 +76,7 @@ public partial class AddDeviceView : ContentPage
 			registerLabel.TextColor = Color.Green;
 			devicePicker.IsEnabled = false;
 			deviceEntry.IsEnabled = false;
+			roomEntry.IsEnabled = false;
 			deviceButton.IsEnabled = false;
 		}
 
@@ -83,6 +89,7 @@ public partial class AddDeviceView : ContentPage
 				registerLabel,
 				devicePicker,
 				deviceEntry,
+				roomEntry,
 				deviceButton,
 				confirmationLabel
 			}

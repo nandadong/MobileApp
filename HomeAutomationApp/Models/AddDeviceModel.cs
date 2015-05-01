@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using api;
 
 namespace HomeAutomationApp
@@ -20,6 +21,7 @@ public class AddDeviceModel
 	public bool isDeviceListEmpty;
 	public List<string> unregisteredDeviceList;
 	public string namePlaceholder;
+	public string roomPlaceholder;
 	public string buttonText;
 
 	// constructor 
@@ -28,6 +30,7 @@ public class AddDeviceModel
 		tabTitle = "Devices";
 		debugLabel = "";
 		registerLabel = "Choose a device, and enter desired values!";
+
 
 		if(getUnregisteredDevices() != null)
 		{
@@ -40,6 +43,7 @@ public class AddDeviceModel
 		}
 
 		namePlaceholder = "Device Name";
+		roomPlaceholder = "Room Number (Optional)";
 		buttonText = "Register Device";
 
 	}
