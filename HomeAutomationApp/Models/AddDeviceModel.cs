@@ -59,8 +59,9 @@ public class AddDeviceModel
 		else
 		{
 			// call the device API to access functions for devices
-			return DeviceInterface.enumerateDevices(houseId);
+//			return DeviceInterface.enumerateDevices(houseId);
 		}
+		return null;
 	}
 
 	// calls device API to register a device
@@ -75,8 +76,9 @@ public class AddDeviceModel
 		}
 		else
 		{
-			return DeviceInterface.registerDevice(name, houseId, info);
+//			return DeviceInterface.registerDevice(name, houseId, info);
 		}
+		return null;
 	}
 		
 }
