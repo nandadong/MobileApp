@@ -19,7 +19,7 @@ public class HomeViewRenderer : PageRenderer
 
 		var hostViewController = ViewController;
 
-		var viewController = new UIViewController();
+		var viewController = new HomeViewController();
 
 		var label = new UILabel(new CGRect(0, 40, 320, 40));
 		label.Text = "Hello There!";
