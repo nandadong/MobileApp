@@ -20,6 +20,8 @@ public partial class AddDeviceView : ContentPage
 		// tab title
 		Title = myDeviceModel.tabTitle;
 
+
+
 		// label for debugging
 		var debugLabel = new Label();
 		debugLabel.Text = myDeviceModel.debugLabel;
@@ -50,6 +52,11 @@ public partial class AddDeviceView : ContentPage
 		var deviceEntry = new Entry();
 		deviceEntry.Placeholder = myDeviceModel.namePlaceholder;
 
+		// text entry for room
+		var roomEntry = new Entry();
+		roomEntry.Placeholder = myDeviceModel.roomPlaceholder;
+
+
 		// button for pushing device settings
 		var deviceButton = new Button();
 		deviceButton.Text = myDeviceModel.buttonText;
@@ -61,8 +68,7 @@ public partial class AddDeviceView : ContentPage
 		var confirmationLabel = new Label();
 		confirmationLabel.Text = "";
 		confirmationLabel.TextColor = Color.White;
-
-
+	
 		// disable forms if device list is empty
 		if(myDeviceModel.isDeviceListEmpty == true)
 		{
@@ -70,6 +76,7 @@ public partial class AddDeviceView : ContentPage
 			registerLabel.TextColor = Color.Green;
 			devicePicker.IsEnabled = false;
 			deviceEntry.IsEnabled = false;
+			roomEntry.IsEnabled = false;
 			deviceButton.IsEnabled = false;
 		}
 
@@ -82,28 +89,40 @@ public partial class AddDeviceView : ContentPage
 				registerLabel,
 				devicePicker,
 				deviceEntry,
+				roomEntry,
 				deviceButton,
 				confirmationLabel
 			}
 		};
 
 		// handling of button press
-		deviceButton.Clicked += (object sender, EventArgs e) =>
+		deviceButton.Clicked += async (object sender, EventArgs e) =>
 		{
-			
-			if((deviceEntry.Text) != "")
+
+			if((deviceEntry.Text) != "" && devicePicker.SelectedIndex >= 0)
 			{
 				// TODO: repair info field
-				myDeviceModel.registerDevice(deviceEntry.Text, "");						
-				confirmationLabel.TextColor = Color.Green;
-				confirmationLabel.Text = "Success!\nYou have assigned the name: " + deviceEntry.Text + "\nTo the device: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex];
-			
+				myDeviceModel.registerDevice(deviceEntry.Text, Convert.ToUInt64(roomEntry.Text), "");						
 
+				// Display a confirmation that the operation was successfu
+				await DisplayAlert ("Success!", "Name: " + deviceEntry.Text + "\nDevice: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex] + "\nRoom: " + roomEntry.Text,  "OK");
+
+				// Clear the forms after the alert has been displayed
+				devicePicker.SelectedIndex = -1;
+				deviceEntry.Text = "";
+				roomEntry.Text = "";
 			}
-			else
+			else if (deviceEntry.Text == "" && devicePicker.SelectedIndex == -1)
 			{
-				confirmationLabel.TextColor = Color.Red;
-				confirmationLabel.Text = "You must enter a value for device name and room ID.";
+				DisplayAlert ("Error!", "You must enter a value for the device name and select a device.", "OK");
+			}
+			else if (deviceEntry.Text == "" && devicePicker.SelectedIndex != -1)
+			{
+				DisplayAlert ("Error!", "You must enter a value for device name.", "OK");
+			}
+			else if (deviceEntry.Text != "" && devicePicker.SelectedIndex == -1)
+			{
+				DisplayAlert ("Error!", "You must select a device.", "OK");
 			}
 
 		};

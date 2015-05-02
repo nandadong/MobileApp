@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using api;
 
 namespace HomeAutomationApp
@@ -8,7 +9,6 @@ public class AddDeviceModel
 {
 	// TODO: temporary flag to bypass device API while it's stubbed
 	bool bypassDeviceApi = true;
-
 
 	// TODO: this is a hack - replace houseId with actual value!
 	const UInt64 houseId = 2;
@@ -21,6 +21,7 @@ public class AddDeviceModel
 	public bool isDeviceListEmpty;
 	public List<string> unregisteredDeviceList;
 	public string namePlaceholder;
+	public string roomPlaceholder;
 	public string buttonText;
 
 	// constructor 
@@ -29,6 +30,7 @@ public class AddDeviceModel
 		tabTitle = "Devices";
 		debugLabel = "";
 		registerLabel = "Choose a device, and enter desired values!";
+
 
 		if(getUnregisteredDevices() != null)
 		{
@@ -41,6 +43,7 @@ public class AddDeviceModel
 		}
 
 		namePlaceholder = "Device Name";
+		roomPlaceholder = "Room Number (Optional)";
 		buttonText = "Register Device";
 
 	}
@@ -59,13 +62,13 @@ public class AddDeviceModel
 		else
 		{
 			// call the device API to access functions for devices
-//			return DeviceInterface.enumerateDevices(houseId);
+			// return DeviceInterface.enumerateDevices(houseId);
 		}
 		return null;
 	}
 
 	// calls device API to register a device
-	public api.Device registerDevice(string name, string info)
+	public api.Device registerDevice(string name, UInt64 room, string info)
 	{
 		if(bypassDeviceApi)
 		{
@@ -76,7 +79,7 @@ public class AddDeviceModel
 		}
 		else
 		{
-//			return DeviceInterface.registerDevice(name, houseId, info);
+			// return DeviceInterface.registerDevice(name, houseId, info);
 		}
 		return null;
 	}
