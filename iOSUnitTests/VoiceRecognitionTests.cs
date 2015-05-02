@@ -3,6 +3,7 @@ using HomeAutomationApp.iOS;
 using System.IO;
 using Foundation;
 using OpenEars;
+using System;
 
 namespace iOSUnitTests
 {

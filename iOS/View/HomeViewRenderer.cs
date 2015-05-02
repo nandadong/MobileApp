@@ -61,7 +61,6 @@ public class HomeViewRenderer : PageRenderer
 			pathToDictionary = generator.PathToSuccessfullyGeneratedDictionaryWithRequestedName("HomeAutomationLanguageModel");
 		}
 
-
 	}
 	#endregion
 
@@ -134,12 +133,14 @@ public class HomeViewRenderer : PageRenderer
 	#region Update
 	public void UpdateStatus (String text)
 	{
-		statusTextView.Text = text;
+		if(statusTextView != null)
+			statusTextView.Text = text;
 	}
 
 	public void UpdateText (String text)
 	{
-		heardTextView.Text = text;
+		if(heardTextView != null)
+			heardTextView.Text = text;
 	}
 
 	public void UpdateButtonStates (bool hidden1, bool hidden2, bool hidden3, bool hidden4)
