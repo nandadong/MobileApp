@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using api;
 using Geolocator.Plugin;
 using XLabs.Forms.Mvvm;
-using Geolocator.Plugin;
 using System.Diagnostics;
 using Geolocator.Plugin.Abstractions;
 using Toasts.Forms.Plugin.Abstractions;
-using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace HomeAutomationApp
 {
@@ -19,25 +18,21 @@ public partial class AddRoomView : ContentPage
 	{
 		InitializeComponent();
 
-		// instantiate device model to access values
-		AddRoomModel myRoomModel = new AddRoomModel();
 
-		// tab title
-		Title = myRoomModel.tabTitle;
+		Title = "Room";
 
 		// label for debugging
 		var debugLabel = new Label();
-		debugLabel.Text = myRoomModel.debugLabel;
 
 		// main label
 		var registerLabel = new Label();
-		registerLabel.Text = myRoomModel.registerLabel;
 		registerLabel.TextColor = Color.White;
-				
-	
+
+
 		// text entry for device name
 		var nameEntry = new Entry();
-		nameEntry.Placeholder = myRoomModel.namePlaceholder;
+
+		bool locationSet = false;
 
 		var latLabel = new Label();
 		latLabel.Text = "Latitude";
@@ -50,7 +45,7 @@ public partial class AddRoomView : ContentPage
 
 		// button for pushing device settings
 		var addButton = new Button();
-		addButton.Text = myRoomModel.buttonText;
+		addButton.Text = "Register Room";
 		addButton.TextColor = Color.White;
 		addButton.BackgroundColor = Color.FromHex("77D065");
 
@@ -58,8 +53,6 @@ public partial class AddRoomView : ContentPage
 		getButton.Text = "Get Coordinates";
 		getButton.TextColor = Color.White;
 		getButton.BackgroundColor = Color.FromHex("77D065");
-
-
 
 
 		// label to display successful push
@@ -98,43 +91,43 @@ public partial class AddRoomView : ContentPage
 
 		getButton.Clicked += async (sender, e) =>
 		{
-			try
-			{
-				var position = await locator.GetPositionAsync(timeout: 10000);
+			var position = await locator.GetPositionAsync(timeout: 10000);
 
-				latLabel.Text = position.Latitude.ToString();
-				longLabel.Text = position.Longitude.ToString();
-				altLabel.Text = position.Altitude.ToString();
-			}
-			catch(Exception ex)
-			{
-
-			}
+			latLabel.Text = position.Latitude.ToString();
+			longLabel.Text = position.Longitude.ToString();
+			altLabel.Text = position.Altitude.ToString();
+			locationSet = true;
 		};
 
 		// handling of button press
 		addButton.Clicked += (object sender, EventArgs e) =>
 		{
-			
-//			if((nameEntry.Text) != "")
-//			{
-//				// TODO: repair info field
-//				myRoomModel.registerDevice(nameEntry.Text, "");						
-//				confirmationLabel.TextColor = Color.Green;
-//				confirmationLabel.Text = "Success!\nYou have assigned the name: " + nameEntry.Text + "\nTo the device: " + myRoomModel.unregisteredDeviceList[devicePicker.SelectedIndex];
-//			
-//
-//			}
-//			else
-//			{
-//				confirmationLabel.TextColor = Color.Red;
-//				confirmationLabel.Text = "You must enter a value for device name and room ID.";
-//			}
+
+			if((nameEntry.Text) != "" && locationSet == true)
+			{
+				// TODO: repair info field
+
+				JObject blob = new JObject();
+				blob["HouseID"] = 2;
+				blob["name"] = nameEntry.Text;
+				blob["lat"] = latLabel.Text;
+				blob["long"] = longLabel.Text;
+				blob["alt"] = altLabel.Text;
+
+				HttpResponseMessage response = AddRoomController.SendRoomAsync(blob.ToString());						
+				confirmationLabel.TextColor = Color.Green;
+				confirmationLabel.Text = "Success!\nYou have registered a room with the name: " + nameEntry.Text + "\nServer Response: " + response.ToString();
+			}
+			else
+			{
+				confirmationLabel.TextColor = Color.Red;
+				confirmationLabel.Text = "You must enter a value for room name and location.";
+			}
 
 		};
 
 
-				
+
 	}
 }
 }

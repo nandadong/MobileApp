@@ -41,7 +41,40 @@ public class Test
 		Assert.IsTrue(User.TestCrypt(password));
 	}
 
+	[Test ()]
+	public void TestLogin()
+	{
+		const string username = "test";
+		const string password = "test_password";
 
+		User.setUsername(username);
+		User.setPassword(password);
+
+		Assert.IsFalse(LoginController.RequestLogin());
+	}
+
+	[Test ()]
+	public void TestRegister()
+	{
+		const string username = "test";
+		const string password = "test_password";
+
+		User.setUsername(username);
+		User.setPassword(password);
+		Assert.IsTrue(LoginController.RegisterUser());
+	}
+
+	[Test ()]
+	public void TestRegisterRoom()
+	{
+		JObject room = new JObject();
+		room["name"] = "test";	
+		room["lat"] = 98.543;
+		room["long"] = 84.345;
+		room["alt"] = 45.3454;
+
+		Assert.IsTrue(AddRoomController.SendRoomAsync(room.ToString()).IsSuccessStatusCode);
+	}
 
 
 	[Test()]
