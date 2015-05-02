@@ -102,7 +102,7 @@ public partial class AddDeviceView : ContentPage
 			if((deviceEntry.Text) != "" && devicePicker.SelectedIndex >= 0)
 			{
 				// TODO: repair info field
-				myDeviceModel.registerDevice(deviceEntry.Text, roomEntry.Text, "");						
+				myDeviceModel.registerDevice(deviceEntry.Text, Convert.ToUInt64(roomEntry.Text), "");						
 
 				// Display a confirmation that the operation was successfu
 				await DisplayAlert ("Success!", "Name: " + deviceEntry.Text + "\nDevice: " + myDeviceModel.unregisteredDeviceList[devicePicker.SelectedIndex] + "\nRoom: " + roomEntry.Text,  "OK");

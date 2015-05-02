@@ -68,7 +68,7 @@ public class AddDeviceModel
 	}
 
 	// calls device API to register a device
-	public api.Device registerDevice(string name, string room, string info)
+	public api.Device registerDevice(string name, UInt64 room, string info)
 	{
 		if(bypassDeviceApi)
 		{

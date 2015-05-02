@@ -149,8 +149,14 @@ public class Test
 		// get the list of devices and check that it is not null
 		AddDeviceModel testDeviceModel = new AddDeviceModel();
 		List<string> deviceList = testDeviceModel.getUnregisteredDevices();
-		api.Device registeredDevice = testDeviceModel.registerDevice("test name", deviceList[0]);
+		api.Device registeredDevice = testDeviceModel.registerDevice("test name", 12, deviceList[0]);
 		Assert.IsTrue(!registeredDevice.Equals(null));
+	}
+
+	[Test()]
+	public void GetLocationCoords()
+	{
+
 	}
 
 
