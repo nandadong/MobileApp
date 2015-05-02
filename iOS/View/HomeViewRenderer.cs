@@ -23,9 +23,9 @@ public class HomeViewRenderer : PageRenderer
 
 	Slt slt;
 
-	string pathToLanguageModel;
-	string pathToDictionary;
-	string pathToAcousticModel;
+	public readonly string pathToLanguageModel;
+	public readonly string pathToDictionary;
+	public readonly string pathToAcousticModel;
 
 	UILabel heardTextView;
 	UILabel statusTextView;
