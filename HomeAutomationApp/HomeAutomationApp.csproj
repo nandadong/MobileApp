@@ -131,9 +131,11 @@
     </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="CryptSharp">
@@ -208,6 +210,10 @@
     <ProjectReference Include="..\..\Devices\api\api.csproj">
       <Project>{DCE2FD21-5B48-4413-A2A2-B55D1B70C7D4}</Project>
       <Name>api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sim_harness\time_frame\time_frame\time_frame.csproj">
+      <Project>{E9C8A0A8-16D9-4FEF-AB45-04E9EE9A579E}</Project>
+      <Name>time_frame</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

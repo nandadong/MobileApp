@@ -158,8 +158,8 @@ public class Test
 		Assert.IsTrue(House.getRooms().Count.Equals(10)); //make sure they were all added
 		List<Device> devices = new List<Device>();
 		Random ran = new Random();
-		IDeviceInput k = new HouseInput("","");
-		IDeviceOutput u = new HouseOutput("","");
+		IDeviceInput k = new HouseInput("", "");
+		IDeviceOutput u = new HouseOutput("", "");
 		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
 
 		for(int i = 0; i < 10; i++) //populate a device list, simulating what we receive from the server
@@ -245,7 +245,7 @@ public class Test
 		List<Device> devices = new List<Device>();
 
 		IDeviceInput k = new HouseInput("","");
-		IDeviceOutput u = new HouseOutput("","");
+		IDeviceOutput u = new HouseOutput("", "");
 		Hats.Time.TimeFrame t = new Hats.Time.TimeFrame();
 
 		/*GarageDoor gd = new GarageDoor(k, u, t);
