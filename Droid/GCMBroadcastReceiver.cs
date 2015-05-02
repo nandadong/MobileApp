@@ -33,6 +33,7 @@ namespace HomeAutomationApp.Droid
 			
 			
 			GCMModel.setDeviceID(registrationId);
+			User.setDeviceID(registrationId);
 			GCMModel.SendTokenAsync(registrationId, User.getUsername());
 		}
 
