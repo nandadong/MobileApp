@@ -1,0 +1,251 @@
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Text;
+using System.Diagnostics;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using api;
+
+namespace HomeAutomationApp
+{
+	public class Controller
+	{
+		public Controller ()
+		{
+		}
+//AddDevice Controller:
+		public static string SendDeviceChangeAsync(string name, string info)
+		{
+			//The hardcoded value is there to accomodate the shortcomings of the Simulation harness blob
+			const UInt64 houseId = 2;
+			// calls device API to register a device
+			Interfaces DeviceInterface1 = new Interfaces(new Uri(ConfigModel.Url));
+			DeviceInterface1.registerDevice(name, houseId, info);
+			string return_value = "Device registered. As of now the implemented function will not return null";
+			return return_value;
+		}
+		public static HttpResponseMessage SendDeviceAsync(string packet, api.Device dev)
+		{
+			try
+			{
+				var client = new HttpClient();
+				client.Timeout = TimeSpan.FromSeconds(10);
+				string houseID = dev.ID.HouseID.ToString();
+				string roomID = dev.ID.RoomID.ToString();
+				string deviceID = dev.ID.DeviceID.ToString();
+
+				var response = client.PostAsync("http://serverapi1.azurewebsites.net/api/storage/device/" +houseID+ "/"+roomID+"/"+deviceID, 
+					new StringContent(packet, Encoding.UTF8, "application/json")).Result;
+
+				return response;
+			}
+
+			catch(Exception e)
+			{
+				Debug.WriteLine("HAD - Device Sending Error: " + e.Message);
+				Debug.WriteLine("HAD - Device Sending Error: " + e.InnerException.Message);
+			}
+
+			return null;
+		}
+//AddRoom Controller:
+		public static HttpResponseMessage SendRoomAsync(string packet)
+		{
+			try
+			{
+				var client = new HttpClient();
+				client.Timeout = TimeSpan.FromSeconds(10);
+
+
+				var response = client.PostAsync("http://serverapi1.azurewebsites.net/api/storage/space/", 
+					new StringContent(packet, Encoding.UTF8, "application/json")).Result;
+
+				return response;
+			}
+
+			catch(Exception e)
+			{
+				Debug.WriteLine("HAD - Room Sending Error: " + e.Message);
+				Debug.WriteLine("HAD - Room Sending Error: " + e.InnerException.Message);
+			}
+
+			return null;
+		}
+	}
+//Invalidation Controller:
+	public static string invalidate()
+	{
+		Task<HttpStatusCode> code = getAllUpdatedDevices();
+		code.Wait();
+		//Assert.That(!code.Equals(null));
+		//Assert.That(!(code.GetType().Name.Equals(null)));
+
+		//int houseID = 0;
+		House.createHouse(0);
+		string serverAddr = "http://serverapi1.azurewebsites.net/";
+		Interfaces inter = new Interfaces(new Uri(serverAddr));
+		for(int i = 0; i < 10; i++) //add some rooms to the house
+		{
+			House.addRoom(new Room(i));
+		}
+		House.updateHouse(inter.getDevices((ulong)House.getID()));
+		return code.Result.ToString();
+	}
+	public static async Task<HttpStatusCode> getAllUpdatedDevices()
+	{
+
+		var client = new HttpClient();
+		client.Timeout = TimeSpan.FromSeconds(2);
+
+		client.BaseAddress = new Uri(ConfigModel.Url);
+
+		try
+		{
+			var response = await client.GetAsync("http://serverapi1.azurewebsites.net/api/app/device/");
+
+			return response.StatusCode;
+
+		}
+		catch(Exception e)
+		{
+			Debug.WriteLine("HomeAutomationDebugError - Devices Update Error: " + e.Message);
+			Debug.WriteLine("HomeAutomationDebugError - Devices Update Error: " + e.InnerException.Message);
+		}
+
+		return HttpStatusCode.InternalServerError;
+	}
+
+	public static bool RequestLogin()
+	{
+		if(getUser(User.getUsername()).Result.IsSuccessStatusCode)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool RegisterUser()
+	{
+		JObject blob = new JObject();
+		blob["username"] = User.getUsername();
+		blob["password"] = User.getPassword();
+		blob["deviceID"] = User.getDeviceID();
+		if(SendUserAsync(blob.ToString()).IsSuccessStatusCode)
+			return true;
+		else
+			return false;
+	}
+//Login Controller:
+	public static HttpResponseMessage SendUserAsync(string packet)
+	{
+		try
+		{
+			var client = new HttpClient();
+			client.Timeout = TimeSpan.FromSeconds(10);
+
+
+			var response = client.PostAsync("http://serverapi1.azurewebsites.net/api/storage/user/", 
+				new StringContent(packet, Encoding.UTF8, "application/json")).Result;
+
+			return response;
+		}
+
+		catch(Exception e)
+		{
+			Debug.WriteLine("HAD - User Sending Error: " + e.Message);
+			Debug.WriteLine("HAD - User Sending Error: " + e.InnerException.Message);
+		}
+
+		return null;
+	}
+
+	public static  Task<HttpResponseMessage> getUser(string user)
+	{
+		var client = new HttpClient();
+		client.Timeout = TimeSpan.FromSeconds(10);
+		var response = client.GetAsync("http://serverapi1.azurewebsites.net/api/app/device/" + user);
+		return response;
+	}
+//Physical Change Controller:
+	public static bool SendPhysicalChangeAsync(string packet, api.Device dev)
+	{
+
+		bool return_value =api.Interfaces.UpdateDevice(dev, packet);
+
+		return return_value;
+	}
+//Update Position Controller:
+	public HttpResponseMessage SendPositionAsync(string packet, string user)
+	{
+		try
+		{
+			var client = new HttpClient();
+			client.Timeout = TimeSpan.FromSeconds(10);
+
+			Debug.WriteLine("HAD: URL: " + ConfigModel.Url);
+			client.BaseAddress = new Uri(ConfigModel.Url);
+
+
+			var response = client.PostAsync("api/app/user/updateposition/" + user, 
+				new StringContent(packet, Encoding.UTF8, "application/json")).Result;
+
+			return response;
+		}
+
+		catch(Exception e)
+		{
+			Debug.WriteLine("HAD - Position Update Error: " + e.Message);
+			Debug.WriteLine("HAD - Position Update Error: " + e.InnerException.Message);
+		}
+
+		return null;
+	}
+//Voice Command Controller:
+	//handles sending a user coordinate json blob to the decision system.
+	public string makeItBrighterNearMe(string json, string user)
+	{
+
+		JObject blob = new JObject();
+		String timeStamp = GetTimestamp(DateTime.Now);
+
+		blob["lat"] = 98.543;
+		blob["long"] = 84.345;
+		blob["alt"] = 45.3454;
+		blob["time"] = timeStamp;
+
+		string result = SendBrighterAsync(blob.ToString(), user).StatusCode == HttpStatusCode.OK ? "OK" : "Not OK";
+		return result;
+	}
+
+	public static String GetTimestamp(DateTime value)
+	{
+		return value.ToString("yyyyMMddHHmmssfff");
+	}
+
+	public static HttpResponseMessage SendBrighterAsync(string packet, string user)
+	{
+
+		var client = new HttpClient();
+		client.Timeout = TimeSpan.FromSeconds(10);
+
+		client.BaseAddress = new Uri(ConfigModel.Url);
+
+		try
+		{
+			var response = client.PostAsync("http://serverapi1.azurewebsites.net/api/app/user/brighten/", 
+				new StringContent(packet, Encoding.UTF8, "application/json")).Result;
+
+			return response;
+
+		}
+		catch(Exception e)
+		{
+			Debug.WriteLine("HomeAutomationDebugError - Brighter Sending Error: " + e.Message);
+			Debug.WriteLine("HomeAutomationDebugError - Brighter Sending Error: " + e.InnerException.Message);
+		}
+
+		return null;
+	}
+}
+
