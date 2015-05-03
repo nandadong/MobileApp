@@ -48,6 +48,14 @@ public static class SimModel
 
 		public string name  { get; set; }
 	}
+	
+	public class JsonAddRoom : JsonValue
+	{
+	    public int houseid { get; set; }
+		
+		public string name { get; set; }
+		
+	}
 
 	public class UpdatePositonBlob
 	{

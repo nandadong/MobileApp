@@ -45,6 +45,8 @@ public class Simulator
 			case "adddevice":
 				eJson.value = JsonConvert.DeserializeObject<SimModel.JsonAddDevice>(eBlob.GetValue("value").ToString());
 				break;
+			case "addhome":
+			    eJson.value = JsonConvert.DeserializeObject<SimModel.JsonAddHome>(eBlob.GetValue("value").ToString());
 			}
 
 			TimelineBlob.events.Add(eJson);
@@ -218,6 +220,36 @@ public class Simulator
 				//houseID = 2; info = blob.ToString()
 				//DeviceInterface.registerDevice(blob.name, houseId, info);
 				string return_value = AddDeviceController.SendDeviceChangeAsync(value.name.ToString(), blob.ToString());
+				passed++;
+				Debug.WriteLine("HAD: " + return_value);
+
+
+			}
+			else
+			if(simEvent.key.ToLower() == "addroom")
+			{
+
+				Debug.WriteLine("HAD: Add Room");
+
+				string listValue = "Event Time: " + simEvent.time;
+				var value = simEvent.value as SimModel.JsonAddRoom;
+
+				listValue += " Room Name: " + value.name;
+				listValue += " House ID: " + value.houseid;
+
+				items.Add(listValue);
+				Debug.WriteLine("HAD: " + listValue);
+				Debug.WriteLine("HAD: Adding Room");			
+
+				var blob = new SimModel.JsonAddRoom();
+				blob.houseid = value.houseid;
+				blob.name = value.name;
+				//Since the device APIs are stubbed versions we are not testing them in the simulated mode
+				//AddDeviceModel myDeviceModel1 = new AddDeviceModel1();
+				//Interfaces DeviceInterface1 = new Interfaces1(new Uri(ConfigModel.Url));
+				//houseID = 2; info = blob.ToString()
+				//DeviceInterface.registerDevice(blob.name, houseId, info);
+				string return_value = AddRoomController.SendRoomAsync(blob.toString());
 				passed++;
 				Debug.WriteLine("HAD: " + return_value);
 
